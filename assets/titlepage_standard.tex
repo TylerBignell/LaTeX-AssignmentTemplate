@@ -56,13 +56,15 @@
             \vspace{2cm}
         }{}
         % LOGO (BOTTOM RIGHT, REMOVE FILE FOR BLANK) ------
-        \IfFileExists{\metaLogoPath}{
-            \begin{flushright}
-                \begin{minipage}{0.45\textwidth}
-                    \raggedleft
-                    \includegraphics[width=\linewidth]{\metaLogoPath}
-                \end{minipage}
-            \end{flushright}
-        }{}
-    }
+        \ifthenelse{\equal{\metaLogoPath}{}}{}{
+			\IfFileExists{\metaLogoPath}{
+				\begin{flushright}
+					\begin{minipage}{0.45\textwidth}
+						\raggedleft
+						\includegraphics[width=\linewidth]{\metaLogoPath}
+					\end{minipage}
+				\end{flushright}
+			}{}
+		}
+	}
 \end{titlepage}
