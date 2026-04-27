@@ -98,7 +98,7 @@ On Overleaf the compile sequence is handled automatically.
 
 ## Acknowledgements
 
-This template was developed with the assistance of generative AI
+This template was developed with the assistance of generative AI.
 
 ---
 
