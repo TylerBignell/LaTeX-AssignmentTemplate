@@ -1,0 +1,68 @@
+% !TeX root = ../main.tex
+% Copyright (c) 2026 Tyler Bignell
+% Licensed under the MIT License - see LICENSE file for details
+
+\pagenumbering{roman} % Titlepage is numbered in roman
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    % SCHOOL ---------------------------------------------
+    \LARGE \seriftext{\metaUniversity}\par\vspace{0.1cm}
+    \Large \seriftext{\metaFaculty}\par\vspace{0.1cm}
+    \ifthenelse{\equal{\metaDepartment}{}}{}{\large \seriftext{\metaDepartment}\par\vspace{0.1cm}}
+    % TITLE -----------------------------------------------
+    \textcolor{facultycolour}{\rule{\linewidth}{0.5mm}}
+    \vspace{0.2cm}
+    \par{\huge \seriftext{\textbf{\metaAssignmentTitle}}}\par
+    \vspace{0.2cm}
+    \textcolor{facultycolour}{\rule{\linewidth}{0.5mm}}\par\vspace{0.2cm}
+    % COURSE CODE -----------------------------------------
+    \large \metaCourseCode : \metaCourseName\par\vspace{0.2cm}
+    % STUDENT / INSTRUCTOR BLOCK --------------------------
+    \begin{minipage}[t]{0.4\textwidth}
+        \begin{flushleft}\large
+            \ifthenelse{\equal{\metaPartners}{}}{%
+                \emph{Student:}\\
+                \metaStudentName\\
+                \metaStudentNumber\\
+                \metaStudentEmail
+            }{%
+                \emph{Students:}\\\vspace{0.2cm}
+                \begin{tabular}{@{}l@{\quad}l@{}}
+                    \metaStudentName & \metaStudentNumber\\
+                    \metaPartners
+                \end{tabular}
+            }
+        \end{flushleft}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.4\textwidth}
+        \begin{flushright}\large
+            \emph{Instructor:}\\
+            \metaInstructor
+            \ifthenelse{\equal{\metaPartners}{}}{}{%
+                \\\vspace{0.2cm}
+                \emph{Date:}\\
+                \metaDate
+            }
+        \end{flushright}
+    \end{minipage}
+    % DATE (PARTNERS IS EMPTY) ----------------------------
+    \vfill
+    \vbox{
+        \ifthenelse{\equal{\metaPartners}{}}{%
+            \vspace{0.8cm}
+            {\large \metaDate}
+            \vspace{2cm}
+        }{}
+        % LOGO (BOTTOM RIGHT, REMOVE FILE FOR BLANK) ------
+        \IfFileExists{\metaLogoPath}{
+            \begin{flushright}
+                \begin{minipage}{0.45\textwidth}
+                    \raggedleft
+                    \includegraphics[width=\linewidth]{\metaLogoPath}
+                \end{minipage}
+            \end{flushright}
+        }{}
+    }
+\end{titlepage}

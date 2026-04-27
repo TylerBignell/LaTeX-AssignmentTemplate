@@ -1,0 +1,452 @@
+% !TeX root = ../main.tex
+% Copyright (c) 2026 Tyler Bignell
+% Licensed under the MIT License - see LICENSE file for details
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{assets/yorku}[2026/04/27 YorkU LaTeX Template]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CONDITIONALS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{xifthen} % Extended \ifthenelse with \isempty and other conditionals
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% COLORS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{xcolor}   % Extended color support including \definecolor
+% DEFINE BRAND COLOR --------------------------------------
+\definecolor{yorkuRed}{HTML}{810001}
+\definecolor{plainBlue}{HTML}{002147}
+\definecolor{scienceBlue}{HTML}{065C87}
+\definecolor{lassondeNavy}{HTML}{003366}
+% SELECT BRAND COLOR --------------------------------------
+\ifthenelse{\equal{\metaFacultyColor}{true}}{%
+	\ifthenelse{\equal{\metaFaculty}{Lassonde School of Engineering}}{%
+		\colorlet{facultycolour}{lassondeNavy}%
+	}{%
+		\ifthenelse{\equal{\metaFaculty}{Faculty of Science}}{%
+			\colorlet{facultycolour}{scienceBlue}%
+		}{%
+			\colorlet{facultycolour}{yorkuRed}%
+	}}%
+}{%
+	\colorlet{facultycolour}{plainBlue}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PAGE GEOMETRY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[margin=2.54cm, headheight=14.9pt]{geometry} % minimum to silence fancyhdr warning
+\usepackage{setspace} % Line spacing control
+\ifthenelse{\equal{\metaLineSpacing}{single}}{\singlespacing}{}
+\ifthenelse{\equal{\metaLineSpacing}{onehalf}}{\onehalfspacing}{}
+\ifthenelse{\equal{\metaLineSpacing}{double}}{\doublespacing}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ENCODING & LANGUAGE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[utf8]{inputenc} % UTF-8 source file encoding
+\usepackage[T1]{fontenc}    % 8-bit font encoding for proper glyph rendering
+\usepackage[english]{babel} % English hyphenation and language rules
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FONT SELECTION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% YORK SERIF FONT -----------------------------------------
+% Use \seriftext{} to use serif font on specific text
+\usepackage{plex-serif}
+\IfFileExists{OT1IBMPlexSerif-TLF.fd}{%
+	% Overleaf
+	\newcommand{\seriftext}[1]{{\usefont{T1}{IBMPlexSerif-TLF}{m}{n} ##1}}%
+}{%
+	% TeXstudio (local)
+	\newcommand{\seriftext}[1]{{\usefont{T1}{plxSerif-TLF}{m}{n} ##1}}%
+}
+% YORK SANS-SERIF FONT ------------------------------------
+% Use \sansseriftext{} to use sans-serif font on specific text
+\usepackage{plex-sans}
+\IfFileExists{OT1IBMPlexSans-TLF.fd}{%
+	% Overleaf
+	\newcommand{\sansseriftext}[1]{{\usefont{T1}{IBMPlexSans-TLF}{m}{n} ##1}}%
+}{%
+	% TeXstudio (local)
+	\newcommand{\sansseriftext}[1]{{\usefont{T1}{plxSans-TLF}{m}{n} ##1}}%
+}
+% SET DEFAULT FONT FROM METADATA --------------------------
+\ifthenelse{\equal{\metaDefaultFont}{sans}}{%
+	\renewcommand{\familydefault}{\sfdefault}%
+}{%
+	\renewcommand{\familydefault}{\rmdefault}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SPACING AROUND HEADINGS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{titlesec} % Customise heading fonts, sizes, spacing, and colors
+\titlespacing*{\section}{0pt}{1em}{0.5em}
+\titlespacing*{\subsection}{0pt}{0.75em}{0.25em}
+\titlespacing*{\subsubsection}{0pt}{0.5em}{0.25em}
+\titleformat{\section}{\Large\bfseries\color{facultycolour}}{\color{facultycolour}\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries\color{facultycolour}}{\color{facultycolour}\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{facultycolour}}{\color{facultycolour}\thesubsubsection}{1em}{}
+% ABSTRACT ENVIRONMENT ------------------------------------
+\renewenvironment{abstract}{%
+	\section*{Abstract}%
+	\noindent\ignorespaces
+}{%
+	\par\vspace{1em}%
+} % This changes the abstract environment
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MATH
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath, amssymb, amsfonts} % AMS math environments and symbols
+\usepackage{mathtools}          % Extensions to amsmath (e.g. \coloneqq, matrices)
+\usepackage{bm}                 % Bold math symbols via \bm{}
+\usepackage{siunitx} % Units and scientific notation (e.g. \SI{9.8}{\metre\per\second})
+\sisetup{detect-all, per-mode=symbol} % Inherit surrounding font in SI units
+\usepackage[version=4]{mhchem}  % Chemical equations and formulas via \ce{}
+% EQUATIONS NUMBERED BY SECTION ---------------------------
+\ifthenelse{\equal{\metaNumberEquations}{true}}{\numberwithin{equation}{section}}{} % Change in metadata
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THEOREM ENVIRONMENTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsthm} % AMS theorem boxes
+% PLAIN (Theorem, Lemma, Proposition, Corollary, Conjecture, Axiom) ---
+\newtheoremstyle{plain} % name
+{0.75em}   % Space above
+{0.75em}   % Space below
+{\itshape} % Body font
+{}         % Indent
+{\bfseries\color{facultycolour}} % Head font
+{:}        % Punctuation after theorem head
+{0.5em}    % Space after theorem head
+{}         % Head spec
+% DEFINITION (Definition, Example, Criterion) -------------
+\newtheoremstyle{definition}
+{0.75em}
+{0.75em}
+{}
+{}
+{\bfseries\color{facultycolour}}
+{:}
+{0.5em}
+{}
+% REMARK (Remark, Note) -----------------------------------
+\newtheoremstyle{remark}
+{0.75em}
+{0.75em}
+{}
+{}
+{\bfseries\color{facultycolour!70}}
+{:}
+{0.5em}
+{}
+% APPLY STYLES AND DEFINE ENVIRONMENTS --------------------
+% Plain
+\theoremstyle{plain}
+\ifthenelse{\equal{\metaNumberTheorems}{true}}{%
+	\newtheorem{theorem}{Theorem}[section]%
+	\newtheorem{lemma}{Lemma}[section]%
+	\newtheorem{proposition}{Proposition}[section]%
+	\newtheorem{corollary}{Corollary}[section]%
+	\newtheorem{conjecture}{Conjecture}[section]%
+	\newtheorem{axiom}{Axiom}[section]%
+}{%
+	\newtheorem{theorem}{Theorem}%
+	\newtheorem{lemma}{Lemma}%
+	\newtheorem{proposition}{Proposition}%
+	\newtheorem{corollary}{Corollary}%
+	\newtheorem{conjecture}{Conjecture}%
+	\newtheorem{axiom}{Axiom}%
+}
+% Definition
+\theoremstyle{definition}
+\ifthenelse{\equal{\metaNumberTheorems}{true}}{%
+	\newtheorem{definition}{Definition}[section]%
+	\newtheorem{example}{Example}[section]%
+	\newtheorem{criterion}{Criterion}[section]%
+}{%
+	\newtheorem{definition}{Definition}%
+	\newtheorem{example}{Example}%
+	\newtheorem{criterion}{Criterion}%
+}
+% Remark
+\theoremstyle{remark}
+\ifthenelse{\equal{\metaNumberTheorems}{true}}{%
+	\newtheorem{remark}{Remark}[section]%
+	\newtheorem{note}{Note}[section]%
+}{%
+	\newtheorem{remark}{Remark}%
+	\newtheorem{note}{Note}%
+}
+% PROOF ENVIRONMENT ---------------------------------------
+\renewcommand{\qedsymbol}{$\color{facultycolour}\blacksquare$} % QED symbol
+\makeatletter
+\renewenvironment{proof}[1][\proofname]{%
+	\par\pushQED{\qed}%
+	\normalfont\topsep0.75em\relax
+	\trivlist\item[\hskip\labelsep\bfseries\color{facultycolour}#1\@addpunct{:}]\ignorespaces
+}{%
+	\popQED\endtrivlist\@endpefalse
+}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% GRAPHICS, FIGURES & TABLES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}   % Include external images (\includegraphics)
+\graphicspath{{figures/}{assets/}} % Look for images in these subfolders
+\usepackage{booktabs}   % Horizontal rules in tables (\toprule, \midrule, \bottomrule)
+\usepackage{array}      % Extended column formatting options for tabular
+\usepackage{tabularx}   % Tables with auto-width columns (X column type)
+\usepackage{multirow}   % Multi-row cells in tables
+\usepackage{longtable}  % Tables that continue across page breaks
+\usepackage{float}      % Precise float placement with [H] specifier
+\usepackage{subcaption} % Sub-figures and sub-captions (subfigure environment)
+\usepackage{caption} 	% Better captions
+\captionsetup{
+	font={small},
+	labelfont={bf,color=facultycolour},
+	textfont={color=black},
+	labelsep=colon,
+	justification=raggedright,
+	singlelinecheck=false,
+	skip=8pt}
+\captionsetup[table]{
+	position=above,
+	skip=4pt}
+\captionsetup[figure]{
+	position=below,
+	skip=8pt}
+\captionsetup[subfigure]{
+	justification=centering}
+\usepackage{pdfpages}   % Insert external PDF pages (\includepdf)
+% FIGURES AND TABLES NUMBERED BY SECTION ------------------
+\ifthenelse{\equal{\metaNumberFigures}{true}}{\numberwithin{figure}{section}}{} % Change in metadata
+\ifthenelse{\equal{\metaNumberTables}{true}}{\numberwithin{table}{section}}{} % Change in metadata
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DIAGRAMS & PLOTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{tikz}         % Programmatic vector graphics (flowcharts, block diagrams)
+\usepackage{pgfplots}     % Data plots and function graphs built on TikZ
+\pgfplotsset{compat=1.18} % Locks pgfplots behaviour to v1.18 for reproducibility
+\usepackage{circuitikz}   % Circuit schematics using TikZ nodes
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ALGORITHMS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{algorithm}  % Float wrapper for algorithms
+\usepackage{algpseudocode} % Pseudocode layout from algorithmicx
+% STYLE ---------------------------------------------------
+\captionsetup[algorithm]{
+	font={small},
+	labelfont={bf,color=facultycolour},
+	textfont={color=black},
+	labelsep=colon,
+	justification=raggedright,
+	singlelinecheck=false,
+	skip=4pt}
+\algrenewcommand\algorithmicindent{1.5em}
+\algrenewcommand{\algorithmiccomment}[1]{\hfill\textcolor{facultycolour!60}{$\triangleright$ #1}}
+\renewcommand{\algorithmicrequire}{\textbf{\textcolor{facultycolour}{Input:}}}
+\renewcommand{\algorithmicensure}{\textbf{\textcolor{facultycolour}{Output:}}}
+\makeatletter
+\renewcommand{\ALG@beginalgorithmic}{\small}
+\makeatother
+% ALGORITHMS NUMBERED BY SECTION --------------------------
+\ifthenelse{\equal{\metaNumberAlgorithms}{true}}{\numberwithin{algorithm}{section}}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LINKS & REFERENCES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{hyperref} % Clickable cross-references, citations, and URLs
+\hypersetup{
+	pdftitle={\metaAssignmentTitle},
+	pdfauthor={\metaStudentName\ (\metaStudentNumber)},
+	pdfsubject={\metaCourseCode : \metaCourseName},
+	pdfkeywords={\metaUniversity, \metaFaculty, \metaDepartment, \metaCourseCode, \metaCourseName, \metaAssignmentTitle, \metaStudentName, \metaStudentNumber},
+	pdfcreator={LaTeX with hyperref},
+	pdfproducer={pdfTeX},
+	colorlinks=true,
+	linkcolor=facultycolour,
+	citecolor=facultycolour,
+	urlcolor=facultycolour}
+\usepackage{cleveref} % Smart cross-references that auto-insert type name (\cref)
+\crefname{equation}{Eq.}{Eqs.}
+\crefname{figure}{Fig.}{Figs.}
+\crefname{table}{Table}{Tables}
+\crefname{section}{Section}{Sections}
+\crefname{algorithm}{Algorithm}{Algorithms}
+\crefname{theorem}{Theorem}{Theorems}
+\crefname{lemma}{Lemma}{Lemmas}
+\crefname{proposition}{Proposition}{Propositions}
+\crefname{corollary}{Corollary}{Corollaries}
+\crefname{conjecture}{Conjecture}{Conjectures}
+\crefname{axiom}{Axiom}{Axioms}
+\crefname{definition}{Definition}{Definitions}
+\crefname{example}{Example}{Examples}
+\crefname{criterion}{Criterion}{Criteria}
+\crefname{remark}{Remark}{Remarks}
+\crefname{note}{Note}{Notes}
+\crefname{problem}{Problem}{Problems}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TYPOGRAPHY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{microtype}      	   % Font improvements, causes warnings
+\usepackage{xurl}                  % Allow URLs to break at more points
+\setlength{\emergencystretch}{3em} % Prevent overfull hboxes in paragraphs
+\usepackage{indentfirst}    	   % Indents first paragraph
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LISTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{enumitem} % Fine-grained control over list spacing, labels, and alignment
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PROBLEM / SOLUTION ENVIRONMENTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{tcolorbox} % Colored and framed boxes, used for problem/solution environments
+\tcbuselibrary{most}   % Loads most tcolorbox libraries (skins, breakable, etc.)
+% COUNTER (RESETS EACH SECTION OR SIMPLE) -----------------
+\ifthenelse{\equal{\metaNumberProblems}{true}}{%
+	\newcounter{problem}[section]%
+	\renewcommand{\theproblem}{\thesection.\arabic{problem}}%
+}{%
+	\newcounter{problem}%
+	\renewcommand{\theproblem}{\arabic{problem}}%
+}
+% PROBLEM BOX ---------------------------------------------
+\newenvironment{problem}[1][]{%
+	\refstepcounter{problem}%
+	\begin{tcolorbox}[
+		enhanced,
+		breakable,
+		colback=white,
+		colframe=facultycolour,
+		colbacktitle=facultycolour,
+		coltitle=white,
+		fonttitle=\bfseries,
+		title={Problem~\theproblem\ifthenelse{\equal{#1}{}}{}{:~#1}},
+		sharp corners,
+		toptitle=6pt,
+		bottomtitle=6pt,
+		lefttitle=10pt,
+		leftrule=3pt,
+		rightrule=1pt,
+		toprule=1pt,
+		bottomrule=1pt,]}{%
+\end{tcolorbox}}
+% SOLUTION BOX --------------------------------------------
+\newenvironment{solution}{%
+	\begin{tcolorbox}[
+		enhanced,
+		breakable,
+		colback=white,
+		colframe=facultycolour,
+		fonttitle=\bfseries,
+		title={Solution},
+		coltitle=facultycolour,
+		attach title to upper={\par\vspace{2pt}},
+		sharp corners,
+		leftrule=3pt,
+		rightrule=1pt,
+		toprule=1pt,
+		bottomrule=1pt,]}{%
+\end{tcolorbox}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CODE LISTINGS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{listings} % Syntax-highlighted source code listings
+% BASE STYLE ----------------------------------------------
+\lstset{
+	basicstyle=\ttfamily\small,
+	breaklines=true,
+	columns=fullflexible,
+	tabsize=4,
+	numbers=left,
+	numberstyle=\tiny\color{facultycolour!60},
+	numbersep=8pt,
+	backgroundcolor=\color{black!5},
+	frame=none,
+	xleftmargin=14pt,
+	xrightmargin=4pt}
+% MATLAB --------------------------------------------------
+\lstdefinestyle{matlab}{
+	language=Matlab,
+	keywordstyle=\color{blue},
+	commentstyle=\color{green!60!black},
+	stringstyle=\color{red!70!black},
+	morekeywords={classdef, properties, methods, events, enumeration, arguments, parfor, spmd}}
+% JAVA ----------------------------------------------------
+\lstdefinestyle{java}{
+	language=Java,
+	keywordstyle=\color{blue},
+	commentstyle=\color{green!60!black},
+	stringstyle=\color{red!70!black},
+	morekeywords={var, record, sealed, permits, yield}}
+% PYTHON --------------------------------------------------
+\lstdefinestyle{python}{
+	language=Python,
+	keywordstyle=\color{blue},
+	commentstyle=\color{green!60!black},
+	stringstyle=\color{red!70!black},
+	morekeywords={match, case, type, Self, Never, async, await}}
+% C / C++ -------------------------------------------------
+\lstdefinestyle{cpp}{
+	language=C++,
+	keywordstyle=\color{blue},
+	commentstyle=\color{green!60!black},
+	stringstyle=\color{red!70!black},
+	morekeywords={constexpr, consteval, constinit, concept, requires, co_await, co_return, co_yield, nullptr, override, final, export, import, module}}
+% LATEX ---------------------------------------------------
+\lstdefinestyle{latex}{
+	language=[LaTeX]TeX,
+	keywordstyle=\color{blue},
+	commentstyle=\color{green!60!black},
+	stringstyle=\color{red!70!black},
+	morekeywords={usepackage, documentclass, begin, end, newcommand, renewcommand, newenvironment, renewenvironment, setlength, addtolength, includegraphics, caption, label, ref, cref, cite, bibliography, textbf, textit, texttt, emph, frac, sqrt, sum, int, prod}}
+
+% Usage: \begin{lstlisting}[style=matlab] ... \end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DRAFT TOOLS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TO DO NOTES ---------------------------------------------
+\setlength{\marginparwidth}{2cm} % Required minimum width for todonotes margin notes
+\ifthenelse{\equal{\metaShowTodo}{true}}{%
+	\usepackage[colorinlistoftodos, prependcaption, textsize=small]{todonotes}%
+}{%
+	\usepackage[disable]{todonotes}%
+} % Usage: \todo{To do margin}  or  \todo[inline]{To do inline}
+% WATERMARK -----------------------------------------------
+\ifthenelse{\equal{\metaWatermarkText}{}}{}{%
+	\usepackage{draftwatermark} % Overlays a large diagonal watermark
+	\SetWatermarkText{\metaWatermarkText} 	 % Change in metadata
+	\SetWatermarkText{%
+		\sffamily\mdseries\upshape\fontsize{150pt}{40pt}\selectfont\metaWatermarkText} % Watermark uses consistent font
+	\SetWatermarkScale{\metaWatermarkScale}} % Change in metadata
+% DUMMY TEXT GENERATOR ------------------------------------
+\usepackage{lipsum}              % \lipsum to generate text
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% HEADER & FOOTER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{fancyhdr} % Custom headers and footers (\lhead, \rhead, \cfoot, etc.)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BIBLIOGRAPHY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{csquotes} % Context-sensitive quotation marks; required by biblatex
+\usepackage[
+backend=biber,            % Use Biber as the bibliography processor
+style=\metaBibStyle,      % Change bib style in metadata
+sorting=none,
+backref=true]{biblatex}
+\addbibresource{\metaBibFile} % Change bib file in metadata
+\ifthenelse{\equal{\metaShowUnusedCitations}{true}}{%
+	\nocite{*}}{} % Include all .bib entries only if metadata is set to 'true'
