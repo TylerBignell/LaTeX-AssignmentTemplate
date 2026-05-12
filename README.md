@@ -36,15 +36,15 @@ Both templates use identical metadata fields, environments, and commands so your
 ## File Structure
  
 ```
-├── main.tex                        ← Edit metadata here, compile this file
 ├── assets/
-│   ├── stemtemplate.sty            ← Full template (local)
-│   ├── stemtemplate-overleaf.sty   ← Lean template (Overleaf)
+│   ├── stemtemplate.sty            ← Full template (don't edit)
 │   ├── titlepage_standard.tex      ← Title page layouts (don't edit)
 │   ├── titlepage_abstract.tex
 │   ├── titlepage_compact.tex
-│   └── example.tex                 ← Example file showing all features
+│   ├── example.tex                 ← Example file showing all features
+│   └── example.pdf                 ← Compiled example
 ├── figures/                        ← Place your images here
+├── main.tex                        ← Edit metadata here, compile this file
 └── references.bib                  ← Your bibliography entries
 ```
  
