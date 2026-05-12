@@ -1,6 +1,6 @@
 # LaTeX Assignment Template
  
-A LaTeX assignment template originally created for York University STEM students but is usable by anyone looking for an assignment template. All configuration is done through a single metadata block at the top of `main.tex` — no need to edit any other file for standard use.
+A LaTeX assignment template originally created for York University STEM students but is usable by anyone looking for an assignment template. All configuration is done through a single metadata block at the top of `main.tex`, no need to edit any other file for standard use.
  
 ---
  
