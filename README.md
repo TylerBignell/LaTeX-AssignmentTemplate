@@ -87,7 +87,6 @@ All settings are controlled from the top of `main.tex`. The full metadata block 
 \newcommand{\metaDefaultFont}{sans}   % sans or serif (selects which font family is used for body text)
  
 % MISC
-\newcommand{\metaDefaultFont}{sans}            % sans or serif
 \newcommand{\metaLineSpacing}{onehalf}         % single, onehalf, or double
 \newcommand{\metaShowTodo}{true}               % true or false
 \newcommand{\metaWatermarkText}{}              % Leave empty for no watermark
