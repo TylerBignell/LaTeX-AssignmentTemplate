@@ -3,47 +3,88 @@
 % Licensed under the MIT License - see LICENSE file for details
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{assets/yorku}[2026/04/27 YorkU LaTeX Template]
+\ProvidesPackage{assets/stemtemplate}[2026/05/10 LaTeX University Assignment STEM Template]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CONDITIONALS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{xifthen} % Extended \ifthenelse with \isempty and other conditionals
+\usepackage{xstring} % String manipulation (\StrLen, \StrLeft, \IfSubStr)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% COLORS
+% COLOURS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{xcolor}   % Extended color support including \definecolor
-% DEFINE BRAND COLOR --------------------------------------
-\definecolor{yorkuRed}{HTML}{810001}
-\definecolor{plainBlue}{HTML}{002147}
-\definecolor{scienceBlue}{HTML}{065C87}
-\definecolor{lassondeNavy}{HTML}{003366}
-% SELECT BRAND COLOR --------------------------------------
-\ifthenelse{\equal{\metaFacultyColor}{true}}{%
-	\ifthenelse{\equal{\metaFaculty}{Lassonde School of Engineering}}{%
-		\colorlet{facultycolour}{lassondeNavy}%
-	}{%
-		\ifthenelse{\equal{\metaFaculty}{Faculty of Science}}{%
-			\colorlet{facultycolour}{scienceBlue}%
-		}{%
-			\colorlet{facultycolour}{yorkuRed}%
-	}}%
-}{%
-	\colorlet{facultycolour}{plainBlue}%
-}
+\usepackage[dvipsnames,svgnames,x11names]{xcolor} % Extended color support including \definecolor
+% DEFINE BRAND COLOUR --------------------------------------
+\definecolor{DefaultBlue}{HTML}{1B4F8A}
+\definecolor{YorkRedDark}{HTML}{810001}
+\definecolor{ScienceSkyBlueDark}{HTML}{065C87}
+\definecolor{LassondeNavy}{HTML}{003366}
+% PROVIDE FALLBACKS ---------------------------------------
+\providecommand{\metaThemeColour}{}
+\providecommand{\metaLinkColour}{}
+\providecommand{\metaCiteColour}{}
+\providecommand{\metaUrlColour}{}
+% SET THEME COLOUR ----------------------------------------
+\ifx\metaThemeColour\empty
+\colorlet{themecolour}{DefaultBlue}%
+\else
+\StrLeft{\metaThemeColour}{1}[\@firstchar]% Get the first character
+\if#\@firstchar
+% If it starts with #, treat as HTML hex (removing the # for xcolor)
+\StrGobbleLeft{\metaThemeColour}{1}[\@hexpure]%
+\definecolor{themecolour}{HTML}{\@hexpure}%
+\else
+% If no #, treat as a named color
+\colorlet{themecolour}{\metaThemeColour}%
+\fi
+\fi
+% SET LINK COLOUR -----------------------------------------
+\ifx\metaLinkColour\empty
+\colorlet{linkcolour}{themecolour}%
+\else
+\StrLen{\metaLinkColour}[\@linklen]%
+\ifnum\@linklen=6
+\definecolor{linkcolour}{HTML}{\metaLinkColour}%
+\else
+\colorlet{linkcolour}{\metaLinkColour}%
+\fi
+\fi
+% SET CITE COLOUR -----------------------------------------
+\ifx\metaCiteColour\empty
+\colorlet{citecolour}{themecolour}%
+\else
+\StrLen{\metaCiteColour}[\@citelen]%
+\ifnum\@citelen=6
+\definecolor{citecolour}{HTML}{\metaCiteColour}%
+\else
+\colorlet{citecolour}{\metaCiteColour}%
+\fi
+\fi
+% SET URL COLOUR ------------------------------------------
+\ifx\metaUrlColour\empty
+\colorlet{urlcolour}{themecolour}%
+\else
+\StrLen{\metaUrlColour}[\@urllen]%
+\ifnum\@urllen=6
+\definecolor{urlcolour}{HTML}{\metaUrlColour}%
+\else
+\colorlet{urlcolour}{\metaUrlColour}%
+\fi
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % PAGE GEOMETRY
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[margin=2.54cm, headheight=14.9pt]{geometry} % minimum to silence fancyhdr warning
-\usepackage{setspace} % Line spacing control
+\usepackage{setspace}  % Line spacing control
 \ifthenelse{\equal{\metaLineSpacing}{single}}{\singlespacing}{}
 \ifthenelse{\equal{\metaLineSpacing}{onehalf}}{\onehalfspacing}{}
 \ifthenelse{\equal{\metaLineSpacing}{double}}{\doublespacing}{}
+\usepackage{pdflscape} % Landscape pages: \begin{landscape} ... \end{landscape}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ENCODING & LANGUAGE
+% LANGUAGE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[utf8]{inputenc} % UTF-8 source file encoding
 \usepackage[T1]{fontenc}    % 8-bit font encoding for proper glyph rendering
@@ -86,9 +127,9 @@
 \titlespacing*{\section}{0pt}{1em}{0.5em}
 \titlespacing*{\subsection}{0pt}{0.75em}{0.25em}
 \titlespacing*{\subsubsection}{0pt}{0.5em}{0.25em}
-\titleformat{\section}{\Large\bfseries\color{facultycolour}}{\color{facultycolour}\thesection}{1em}{}
-\titleformat{\subsection}{\large\bfseries\color{facultycolour}}{\color{facultycolour}\thesubsection}{1em}{}
-\titleformat{\subsubsection}{\normalsize\bfseries\color{facultycolour}}{\color{facultycolour}\thesubsubsection}{1em}{}
+\titleformat{\section}{\Large\bfseries\color{themecolour}}{\color{themecolour}\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries\color{themecolour}}{\color{themecolour}\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{themecolour}}{\color{themecolour}\thesubsubsection}{1em}{}
 % ABSTRACT ENVIRONMENT ------------------------------------
 \renewenvironment{abstract}{%
 	\section*{Abstract}%
@@ -119,7 +160,7 @@
 {0.75em}   % Space below
 {\itshape} % Body font
 {}         % Indent
-{\bfseries\color{facultycolour}} % Head font
+{\bfseries\color{themecolour}} % Head font
 {:}        % Punctuation after theorem head
 {0.5em}    % Space after theorem head
 {}         % Head spec
@@ -129,7 +170,7 @@
 {0.75em}
 {}
 {}
-{\bfseries\color{facultycolour}}
+{\bfseries\color{themecolour}}
 {:}
 {0.5em}
 {}
@@ -139,7 +180,7 @@
 {0.75em}
 {}
 {}
-{\bfseries\color{facultycolour!70}}
+{\bfseries\color{themecolour!70}}
 {:}
 {0.5em}
 {}
@@ -182,16 +223,14 @@
 	\newtheorem{note}{Note}%
 }
 % PROOF ENVIRONMENT ---------------------------------------
-\renewcommand{\qedsymbol}{$\color{facultycolour}\blacksquare$} % QED symbol
-\makeatletter
+\renewcommand{\qedsymbol}{$\color{themecolour}\blacksquare$} % QED symbol
 \renewenvironment{proof}[1][\proofname]{%
 	\par\pushQED{\qed}%
 	\normalfont\topsep0.75em\relax
-	\trivlist\item[\hskip\labelsep\bfseries\color{facultycolour}#1\@addpunct{:}]\ignorespaces
+	\trivlist\item[\hskip\labelsep\bfseries\color{themecolour}#1\@addpunct{:}]\ignorespaces
 }{%
 	\popQED\endtrivlist\@endpefalse
 }
-\makeatother
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % GRAPHICS, FIGURES & TABLES
@@ -208,7 +247,7 @@
 \usepackage{caption} 	% Better captions
 \captionsetup{
 	font={small},
-	labelfont={bf,color=facultycolour},
+	labelfont={bf,color=themecolour},
 	textfont={color=black},
 	labelsep=colon,
 	justification=raggedright,
@@ -243,19 +282,17 @@
 % STYLE ---------------------------------------------------
 \captionsetup[algorithm]{
 	font={small},
-	labelfont={bf,color=facultycolour},
+	labelfont={bf,color=themecolour},
 	textfont={color=black},
 	labelsep=colon,
 	justification=raggedright,
 	singlelinecheck=false,
 	skip=4pt}
 \algrenewcommand\algorithmicindent{1.5em}
-\algrenewcommand{\algorithmiccomment}[1]{\hfill\textcolor{facultycolour!60}{$\triangleright$ #1}}
-\renewcommand{\algorithmicrequire}{\textbf{\textcolor{facultycolour}{Input:}}}
-\renewcommand{\algorithmicensure}{\textbf{\textcolor{facultycolour}{Output:}}}
-\makeatletter
+\algrenewcommand{\algorithmiccomment}[1]{\hfill\textcolor{themecolour!60}{$\triangleright$ #1}}
+\renewcommand{\algorithmicrequire}{\textbf{\textcolor{themecolour}{Input:}}}
+\renewcommand{\algorithmicensure}{\textbf{\textcolor{themecolour}{Output:}}}
 \renewcommand{\ALG@beginalgorithmic}{\small}
-\makeatother
 % ALGORITHMS NUMBERED BY SECTION --------------------------
 \ifthenelse{\equal{\metaNumberAlgorithms}{true}}{\numberwithin{algorithm}{section}}{}
 
@@ -271,9 +308,10 @@
 	pdfcreator={LaTeX with hyperref},
 	pdfproducer={pdfTeX},
 	colorlinks=true,
-	linkcolor=facultycolour,
-	citecolor=facultycolour,
-	urlcolor=facultycolour}
+	linkcolor=linkcolour,
+	citecolor=citecolour,
+	urlcolor=urlcolour,
+	pageanchor=true}
 \usepackage{cleveref} % Smart cross-references that auto-insert type name (\cref)
 \crefname{equation}{Eq.}{Eqs.}
 \crefname{figure}{Fig.}{Figs.}
@@ -292,6 +330,13 @@
 \crefname{remark}{Remark}{Remarks}
 \crefname{note}{Note}{Notes}
 \crefname{problem}{Problem}{Problems}
+\crefname{lstlisting}{Listing}{Listings}
+% TOC/LOF/LOT links are always black
+\AtBeginDocument{%
+	\addtocontents{toc}{\protect\hypersetup{linkcolor=black}}%
+	\addtocontents{lof}{\protect\hypersetup{linkcolor=black}}%
+	\addtocontents{lot}{\protect\hypersetup{linkcolor=black}}%
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TYPOGRAPHY
@@ -326,8 +371,8 @@
 		enhanced,
 		breakable,
 		colback=white,
-		colframe=facultycolour,
-		colbacktitle=facultycolour,
+		colframe=themecolour,
+		colbacktitle=themecolour,
 		coltitle=white,
 		fonttitle=\bfseries,
 		title={Problem~\theproblem\ifthenelse{\equal{#1}{}}{}{:~#1}},
@@ -346,10 +391,10 @@
 		enhanced,
 		breakable,
 		colback=white,
-		colframe=facultycolour,
+		colframe=themecolour,
 		fonttitle=\bfseries,
 		title={Solution},
-		coltitle=facultycolour,
+		coltitle=themecolour,
 		attach title to upper={\par\vspace{2pt}},
 		sharp corners,
 		leftrule=3pt,
@@ -369,12 +414,16 @@
 	columns=fullflexible,
 	tabsize=4,
 	numbers=left,
-	numberstyle=\tiny\color{facultycolour!60},
+	numberstyle=\tiny\color{themecolour!60},
 	numbersep=8pt,
 	backgroundcolor=\color{black!5},
 	frame=none,
 	xleftmargin=14pt,
 	xrightmargin=4pt}
+% LISTINGS NUMBERED BY SECTION ---------------------------
+\ifthenelse{\equal{\metaNumberListings}{true}}{%
+	\AfterEndPreamble{\numberwithin{lstlisting}{section}}%
+}{}
 % MATLAB --------------------------------------------------
 \lstdefinestyle{matlab}{
 	language=Matlab,
@@ -420,6 +469,8 @@
 \setlength{\marginparwidth}{2cm} % Required minimum width for todonotes margin notes
 \ifthenelse{\equal{\metaShowTodo}{true}}{%
 	\usepackage[colorinlistoftodos, prependcaption, textsize=small]{todonotes}%
+	\pretocmd{\listoftodos}{\begingroup\hypersetup{linkcolor=black}}{}{}%
+	\apptocmd{\listoftodos}{\endgroup}{}{}%
 }{%
 	\usepackage[disable]{todonotes}%
 } % Usage: \todo{To do margin}  or  \todo[inline]{To do inline}
@@ -437,16 +488,64 @@
 % HEADER & FOOTER
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{fancyhdr} % Custom headers and footers (\lhead, \rhead, \cfoot, etc.)
+% Robust Acronym Generator
+\newcommand{\makeAcronym}[1]{%
+	\gdef\tempAcro{}%
+	% Substitute spaces with commas
+	\StrSubstitute{#1}{ }{,}[\tempStepOne]%
+	% Substitute hyphens with commas so "Object-Oriented" becomes two words
+	\StrSubstitute{\tempStepOne}{-}{,}[\commaName]%
+	\foreach \word in \commaName {%
+		\IfSubStr{:a:an:the:and:or:for:of:to:in:at:on:by:with:is:as:via:per:A:An:The:And:Or:For:Of:To:In:At:On:By:With:Is:As:Via:Per:}{:\word:}{}{%
+			\StrLeft{\word}{1}[\firstL]%
+			\xdef\tempAcro{\tempAcro\MakeUppercase{\firstL}}%
+		}%
+	}%
+	\tempAcro%
+}
+% SMART LEFT HEADER (Collision Detection)
+\newcommand{\smartleftheader}{%
+	% Measure the Right Side (Student info)
+	\sbox2{\ifx\metaPartners\empty\metaStudentName\ifx\metaStudentNumber\empty\else\ (\metaStudentNumber)\fi\fi}%
+	% Measure Left Side Variants
+	\sbox0{\metaCourseCode: \metaCourseName}% Full
+	\sbox1{\metaCourseCode: \makeAcronym{\metaCourseName}}% Acronym
+	\sbox3{\metaCourseCode}% Code Only
+	% Compare widths against total header width (allowing 5% margin)
+	\ifdim \dimexpr\wd0 + \wd2\relax < 0.95\headwidth
+		\metaCourseCode: \metaCourseName
+	\else
+		\ifdim \dimexpr\wd1 + \wd2\relax < 0.95\headwidth
+			\metaCourseCode: \makeAcronym{\metaCourseName}
+		\else
+			\ifdim \dimexpr\wd3 + \wd2\relax < 0.95\headwidth
+				\metaCourseCode
+			\else
+				\relax % If right side is so long it hits even the code, hide left side
+			\fi
+		\fi
+	\fi
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % BIBLIOGRAPHY
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{csquotes} % Context-sensitive quotation marks; required by biblatex
 \usepackage[
-backend=biber,            % Use Biber as the bibliography processor
-style=\metaBibStyle,      % Change bib style in metadata
-sorting=none,
-backref=true]{biblatex}
-\addbibresource{\metaBibFile} % Change bib file in metadata
+backend=biber,            			% Use Biber as the bibliography processor
+style=\metaBibStyle,      			% Change bib style in metadata
+sorting=none, 						% Sorts by order of ciations
+backref=\metaShowBackref]{biblatex} % Change back reference in metadata
+\addbibresource{\metaBibFile} 		% Change bib file in metadata
 \ifthenelse{\equal{\metaShowUnusedCitations}{true}}{%
 	\nocite{*}}{} % Include all .bib entries only if metadata is set to 'true'
+% Back-references colour matches URL colour (only when backref is enabled)
+\ifthenelse{\equal{\metaShowBackref}{true}}{%
+	\renewbibmacro*{pageref}{%
+		\iflistundef{pageref}{}{\setunit{\addspace}%
+			\printtext{\hypersetup{linkcolor=urlcolour}%
+				\ifnumgreater{\value{pageref}}{1}%
+				{\bibstring{backrefpages}\ppspace}%
+				{\bibstring{backrefpage}\ppspace}%
+				\printlist[pageref][-\value{listtotal}]{pageref}}}}%
+}{}

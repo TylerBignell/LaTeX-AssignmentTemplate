@@ -14,45 +14,52 @@
 \newcommand{\metaStudentNumber}{123456789}
 \newcommand{\metaStudentEmail}{email@my.yorku.ca}
 \newcommand{\metaPartners}{} % "Jane Doe & 123456789\\John Doe & 123456789..."
-\newcommand{\metaUniversity}{York University}
-\newcommand{\metaFaculty}{Lassonde School of Engineering}
-\newcommand{\metaDepartment}{Department Name} % Empty to remove
-\newcommand{\metaCourseCode}{Code}
-\newcommand{\metaCourseName}{Class}
+\newcommand{\metaUniversity}{e.g., York University}
+\newcommand{\metaFaculty}{e.g., Lassonde School of Engineering}
+\newcommand{\metaDepartment}{e.g., Earth \& Space Science \& Engineering} % Empty to remove
+\newcommand{\metaCourseCode}{Course Code}
+\newcommand{\metaCourseName}{Course Name}
 \newcommand{\metaInstructor}{Dr. Professor}
 \newcommand{\metaDate}{Due date}
-\newcommand{\metaLogoPath}{} % Empty to remove
+\newcommand{\metaLogoPath}{assets/LASS_yu_PRIMARY_hor_RGB.png} % Empty to remove
 % TITLE PAGE ----------------------------------------------
 \newcommand{\metaTitlePage}{standard} % standard, abstract, or compact
 \providecommand{\maketitle}{} % Disables default maketitle (don't change)
 % BIBLIOGRAPHY --------------------------------------------
 \newcommand{\metaBibFile}{references.bib}    % Change to reference file name
 \newcommand{\metaBibStyle}{ieee}             % ieee or apa (bib style)
+\newcommand{\metaShowBackref}{true} % true or false (shows page back-references in bibliography)
 \newcommand{\metaShowUnusedCitations}{false} % Set to 'true' to show all entries in bib file, 'false' for only cited ones
-% MISC (FONT, WATERMARK, SPACING, TODO, COLOR) ------------
+% MISC (FONT, WATERMARK, SPACING, TODO) -------------------
 \newcommand{\metaDefaultFont}{sans}    % sans or serif (changes font)
 \newcommand{\metaWatermarkText}{}      % Leave blank for no watermark
 \newcommand{\metaWatermarkScale}{1}    % Size of watermark
 \newcommand{\metaLineSpacing}{onehalf} % single, onehalf, or double (changes line spacing)
 \newcommand{\metaShowTodo}{true}       % true or false (shows todos)
-\newcommand{\metaFacultyColor}{true}   % true or false, set to true to have the accent color match the faculty brand color
+% COLOURS -------------------------------------------------
+% Input custom colour, built-in colour, or hex-code (e.g., #003366)
+\newcommand{\metaThemeColour}{} % Theme colour, controls: headings, rules, boxes
+\newcommand{\metaLinkColour}{} % Internal links colour, leave empty to use theme colour
+\newcommand{\metaCiteColour}{} % Citations colour, leave empty to use theme colour
+\newcommand{\metaUrlColour}{} % URL colour, leave empty to use theme colour
 % EQUATIONS, FIGURES, TABLES NUMBERED BY SECTION ----------
-\newcommand{\metaNumberEquations}{false} % true or false
-\newcommand{\metaNumberFigures}{false} % true or false
-\newcommand{\metaNumberTables}{false} % true or false
-\newcommand{\metaNumberTheorems}{false} % true or false
-\newcommand{\metaNumberProblems}{false} % true or false
-\newcommand{\metaNumberAlgorithms}{false} % true or false
+\newcommand{\metaNumberEquations}{true} % true or false
+\newcommand{\metaNumberFigures}{true} % true or false
+\newcommand{\metaNumberTables}{true} % true or false
+\newcommand{\metaNumberTheorems}{true} % true or false
+\newcommand{\metaNumberProblems}{true} % true or false
+\newcommand{\metaNumberAlgorithms}{true} % true or false
+\newcommand{\metaNumberListings}{true} % true or false
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ABSTRACT (EDIT FOR EACH SUBMISSION)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\metaAbstract}{Type abstract here.} % Could \input{} an abstract file
+\newcommand{\metaAbstract}{Type abstract here.} % For titlepage_abstract
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % PACKAGES (DON'T EDIT)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{assets/yorku}
+\usepackage{assets/stemtemplate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TITLE PAGE (DON'T EDIT)
@@ -68,11 +75,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagestyle{fancy}
 \fancyhf{}
-\lhead{\textcolor{black}{\metaCourseCode : \metaCourseName}}
-\rhead{\textcolor{black}{\metaStudentName}}
+\lhead{\textcolor{black}{\smartleftheader}}
+\rhead{\textcolor{black}{\ifx\metaPartners\empty\metaStudentName\ifx\metaStudentNumber\empty\else\ (\metaStudentNumber)\fi\fi}}
 \cfoot{\textcolor{black}{\thepage}}
 \renewcommand{\headrulewidth}{0.4pt}
-\renewcommand{\headrule}{\color{facultycolour}\hrule width\headwidth height\headrulewidth}
+\renewcommand{\headrule}{\color{themecolour}\hrule width\headwidth height\headrulewidth}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % BEGIN HERE
