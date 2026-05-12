@@ -3,7 +3,7 @@
 % Licensed under the MIT License - see LICENSE file for details
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{assets/stemtemplate}[2026/05/10 LaTeX University Assignment STEM Template]
+\ProvidesPackage{assets/stemtemplate}[2026/05/12 LaTeX University Assignment STEM Template]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CONDITIONALS
@@ -84,36 +84,36 @@
 \usepackage{pdflscape} % Landscape pages: \begin{landscape} ... \end{landscape}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% LANGUAGE
+% LANGUAGE & FONT
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage[utf8]{inputenc} % UTF-8 source file encoding
-\usepackage[T1]{fontenc}    % 8-bit font encoding for proper glyph rendering
 \usepackage[english]{babel} % English hyphenation and language rules
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% FONT SELECTION
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% YORK SERIF FONT -----------------------------------------
-% Use \seriftext{} to use serif font on specific text
-\usepackage{plex-serif}
-\IfFileExists{OT1IBMPlexSerif-TLF.fd}{%
-	% Overleaf
-	\newcommand{\seriftext}[1]{{\usefont{T1}{IBMPlexSerif-TLF}{m}{n} ##1}}%
-}{%
-	% TeXstudio (local)
-	\newcommand{\seriftext}[1]{{\usefont{T1}{plxSerif-TLF}{m}{n} ##1}}%
-}
-% YORK SANS-SERIF FONT ------------------------------------
-% Use \sansseriftext{} to use sans-serif font on specific text
-\usepackage{plex-sans}
-\IfFileExists{OT1IBMPlexSans-TLF.fd}{%
-	% Overleaf
-	\newcommand{\sansseriftext}[1]{{\usefont{T1}{IBMPlexSans-TLF}{m}{n} ##1}}%
-}{%
-	% TeXstudio (local)
-	\newcommand{\sansseriftext}[1]{{\usefont{T1}{plxSans-TLF}{m}{n} ##1}}%
-}
+\usepackage{fontspec}		% XeLaTeX font seletion
+% SERIF FONT ----------------------------------------------
+% \metaSerifFont: empty = IBM Plex Serif, otherwise any system font name
+\ifx\metaSerifFont\empty
+\edef\resolvedSerifFont{IBM Plex Serif}%
+\else
+\edef\resolvedSerifFont{\metaSerifFont}%
+\fi
+% SANS FONT -----------------------------------------------
+% \metaSansFont: empty = IBM Plex Sans, otherwise any system font name
+\ifx\metaSansFont\empty
+\edef\resolvedSansFont{IBM Plex Sans}%
+\else
+\edef\resolvedSansFont{\metaSansFont}%
+\fi
+% LOAD FONTS ----------------------------------------------
+\setmainfont{\resolvedSerifFont}
+\setsansfont{\resolvedSansFont}
+% HELPERS -------------------------------------------------
+% \seriftext{}: apply the serif font to a span of text
+% \sansseriftext{}: apply the sans-serif font to a span of text
+\newfontfamily\seriffont{\resolvedSerifFont}
+\newfontfamily\sansfont{\resolvedSansFont}
+\newcommand{\seriftext}[1]{{\seriffont #1}}
+\newcommand{\sansseriftext}[1]{{\sansfont #1}}
 % SET DEFAULT FONT FROM METADATA --------------------------
+% \metaDefaultFont must be set to: sans or serif
 \ifthenelse{\equal{\metaDefaultFont}{sans}}{%
 	\renewcommand{\familydefault}{\sfdefault}%
 }{%
@@ -306,7 +306,7 @@
 	pdfsubject={\metaCourseCode : \metaCourseName},
 	pdfkeywords={\metaUniversity, \metaFaculty, \metaDepartment, \metaCourseCode, \metaCourseName, \metaAssignmentTitle, \metaStudentName, \metaStudentNumber},
 	pdfcreator={LaTeX with hyperref},
-	pdfproducer={pdfTeX},
+	pdfproducer={XeLaTeX with hyperref},
 	colorlinks=true,
 	linkcolor=linkcolour,
 	citecolor=citecolour,
@@ -341,7 +341,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TYPOGRAPHY
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{microtype}      	   % Font improvements, causes warnings
+\usepackage{microtype}             % Font improvements; XeLaTeX supports protrusion only (expansion is silently ignored)
 \usepackage{xurl}                  % Allow URLs to break at more points
 \setlength{\emergencystretch}{3em} % Prevent overfull hboxes in paragraphs
 \usepackage{indentfirst}    	   % Indents first paragraph
@@ -513,17 +513,17 @@
 	\sbox3{\metaCourseCode}% Code Only
 	% Compare widths against total header width (allowing 5% margin)
 	\ifdim \dimexpr\wd0 + \wd2\relax < 0.95\headwidth
-		\metaCourseCode: \metaCourseName
+	\metaCourseCode: \metaCourseName
 	\else
-		\ifdim \dimexpr\wd1 + \wd2\relax < 0.95\headwidth
-			\metaCourseCode: \makeAcronym{\metaCourseName}
-		\else
-			\ifdim \dimexpr\wd3 + \wd2\relax < 0.95\headwidth
-				\metaCourseCode
-			\else
-				\relax % If right side is so long it hits even the code, hide left side
-			\fi
-		\fi
+	\ifdim \dimexpr\wd1 + \wd2\relax < 0.95\headwidth
+	\metaCourseCode: \makeAcronym{\metaCourseName}
+	\else
+	\ifdim \dimexpr\wd3 + \wd2\relax < 0.95\headwidth
+	\metaCourseCode
+	\else
+	\relax % If right side is so long it hits even the code, hide left side
+	\fi
+	\fi
 	\fi
 }
 

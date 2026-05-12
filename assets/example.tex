@@ -205,52 +205,44 @@ Use \texttt{$\backslash$thispagestyle\{plain\}} on the line after \texttt{$\back
 \end{landscape} % Ends landscape
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% LANGUAGE
+% LANGUAGE & FONT
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Language}
-
-\subsection{\texttt{inputenc}}
-\noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small This package ensures that UTF-8 characters are interpreted correctly. It is loaded automatically by the template and normally does not require user modification.}}\vspace{0.5\baselineskip}
-
-The \texttt{inputenc} package lets you type accented and special characters such as \texttt{é}, \texttt{ö}, \texttt{ñ}, and \texttt{ç} directly in your source file without any extra commands. The template loads it automatically so you never need to think about it.
-
-\subsection{\texttt{fontenc}}
-\noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small This package controls the output font encoding used when generating the PDF. It is loaded automatically by the template and normally does not require user modification.}}\vspace{0.5\baselineskip}
-
-The \texttt{fontenc} package controls how characters are stored in the PDF. The template uses the \texttt{T1} encoding so that accented characters display correctly, words hyphenate properly, and text can be copied out of the PDF cleanly. It is applied automatically with no action needed from you.
+\section{Language \& Font}
 
 \subsection{\texttt{babel}}
 \noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small This package manages language-specific typographic rules. The template loads it automatically with English as the active language.}}\vspace{0.5\baselineskip}
 
 The \texttt{babel} package tells \LaTeX{} which language the document is written in. The template loads it with English so that words are hyphenated correctly and punctuation follows English conventions. No changes are needed on your end.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% FONT SELECTION
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Font Selection}
+\subsection{\texttt{fontspec}}
+\noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small This package provides system font access under XeLaTeX. It is loaded automatically by the template.}}\vspace{0.5\baselineskip}
 
-\subsection{\texttt{plex-serif} and \texttt{\textbackslash seriftext}}
-\noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small Loaded automatically to control the serif font. Users typically only use the \texttt{\textbackslash seriftext\{\}} command, not the package itself.}}\vspace{0.5\baselineskip}
+The \texttt{fontspec} package is the foundation of font loading under Xe\LaTeX{}. It allows the template to load any font installed on your system by name, and handles all character encoding internally. You do not need to configure it; the template applies it automatically based on your metadata.
 
-The \texttt{plex-serif} package loads IBM Plex Serif, a readable serif font. You can apply it to any word or phrase using \texttt{\textbackslash seriftext\{\}}:
+\subsubsection{\texttt{\textbackslash metaSerifFont} and \texttt{\textbackslash seriftext}}
+\noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small The serif font is configured through metadata. Users typically only use the \texttt{\textbackslash seriftext\{\}} command directly.}}\vspace{0.5\baselineskip}
 
-\seriftext{This text is rendered in IBM Plex Serif (serif font).}
+The \texttt{\textbackslash metaSerifFont} metadata key sets the serif font for the document. Leave it empty to use the default, IBM Plex Serif. To override it, set it to any font installed on your system by exact name, for example \texttt{Georgia} or \texttt{Times New Roman}.
 
-This is handy when your document is set to sans-serif by default but you want a specific word or phrase to appear in serif instead.
+Use \texttt{\textbackslash seriftext\{\}} to apply the serif font to a specific word or phrase regardless of which font the document body is using:
 
-\subsection{\texttt{plex-sans} and \texttt{\textbackslash sansseriftext}}
-\noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small Loaded automatically to control the sans-serif font. Users normally interact with it only through \texttt{\textbackslash sansseriftext\{\}}.}}\vspace{0.5\baselineskip}
+\seriftext{This text is rendered in the serif font.}
 
-The \texttt{plex-sans} package loads IBM Plex Sans, a readable sans-serif font. You can apply it to any word or phrase using \texttt{\textbackslash sansseriftext\{\}}:
+\subsubsection{\texttt{\textbackslash metaSansFont} and \texttt{\textbackslash sansseriftext}}
+\noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small The sans-serif font is configured through metadata. Users normally interact with it only through \texttt{\textbackslash sansseriftext\{\}}.}}\vspace{0.5\baselineskip}
 
-\sansseriftext{This text is rendered in IBM Plex Sans (sans-serif font).}
+The \texttt{\textbackslash metaSansFont} metadata key sets the sans-serif font for the document. Leave it empty to use the default, IBM Plex Sans. To override it, set it to any font installed on your system by exact name, for example \texttt{Arial} or \texttt{Helvetica Neue}.
 
-This is handy when your document is set to serif by default but you want a specific word or phrase to appear in sans-serif instead.
+Use \texttt{\textbackslash sansseriftext\{\}} to apply the sans-serif font to a specific word or phrase:
 
-\subsection{Default Font}
-\noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small The template selects the global font through the metadata in \texttt{main.tex}; users typically do not modify font packages directly.}}\vspace{0.5\baselineskip}
+\sansseriftext{This text is rendered in the sans-serif font.}
 
-You control the font for the whole document by setting \texttt{\textbackslash metaDefaultFont} in \texttt{main.tex}. The current setting is \texttt{\metaDefaultFont}. Set it to \texttt{serif} for IBM Plex Serif or \texttt{sans} for IBM Plex Sans. The local commands \texttt{\textbackslash seriftext\{\}} and \texttt{\textbackslash sansseriftext\{\}} still work regardless of which global font you choose.
+\subsubsection{Default Font}
+\noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small The template selects the global font through the metadata in \texttt{main.tex}; users do not modify font packages directly.}}\vspace{0.5\baselineskip}
+
+You control which font family the document body uses by setting \texttt{\textbackslash metaDefaultFont} in \texttt{main.tex}. The current setting is \texttt{\metaDefaultFont}. Set it to \texttt{sans} for the sans-serif font or \texttt{serif} for the serif font. The local commands \texttt{\textbackslash seriftext\{\}} and \texttt{\textbackslash sansseriftext\{\}} always work regardless of which global font is active.
+
+To use a required font such as Arial for an assignment, set \texttt{\textbackslash metaSansFont\{Arial\}} and \texttt{\textbackslash metaDefaultFont\{sans\}}. The serif font remains available via \texttt{\textbackslash seriftext\{\}} as a companion.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SPACING AROUND HEADINGS
@@ -1275,17 +1267,33 @@ These fields populate the title page and page header. Update them for every new 
 	\end{tabularx}
 \end{table}
 
-\subsection{Appearance}
+\subsection{Font}
 
 \begin{table}[H]
 	\centering
-	\caption{Appearance metadata fields.}
+	\caption{Font metadata fields.}
+	\label{tab:meta-font}
+	\begin{tabularx}{\linewidth}{@{}lX@{}}
+		\toprule
+		Field & Description \\
+		\midrule
+		\texttt{\textbackslash metaSerifFont}      & Serif font loaded by the template. Leave empty for IBM Plex Serif, or set to any system font name (e.g.\ \texttt{Georgia}). Used by \texttt{\textbackslash seriftext\{\}}. \\
+		\texttt{\textbackslash metaSansFont}       & Sans-serif font loaded by the template. Leave empty for IBM Plex Sans, or set to any system font name (e.g.\ \texttt{Arial}). Used by \texttt{\textbackslash sansseriftext\{\}}. \\
+		\texttt{\textbackslash metaDefaultFont}    & Document body font family. Accepted values: \texttt{sans} (uses \texttt{\textbackslash metaSansFont}), \texttt{serif} (uses \texttt{\textbackslash metaSerifFont}). \\
+		\bottomrule
+	\end{tabularx}
+\end{table}
+
+\subsection{MISC.}
+
+\begin{table}[H]
+	\centering
+	\caption{MISC. metadata fields.}
 	\label{tab:meta-appearance}
 	\begin{tabularx}{\linewidth}{@{}lX@{}}
 		\toprule
 		Field & Description \\
 		\midrule
-		\texttt{\textbackslash metaDefaultFont}    & Document font style. Accepted values: \texttt{sans} (sans-serif), \texttt{serif}. \\
 		\texttt{\textbackslash metaWatermarkText}  & Text overlaid as a diagonal watermark on every page. Leave empty to disable. Common values: \texttt{DRAFT}, \texttt{CONFIDENTIAL}. \\
 		\texttt{\textbackslash metaWatermarkScale} & Scale factor for the watermark text. Default is \texttt{1}. Increase for a larger watermark. Has no effect when \texttt{\textbackslash metaWatermarkText} is empty. \\
 		\texttt{\textbackslash metaLineSpacing}    & Line spacing throughout the document. Accepted values: \texttt{single}, \texttt{onehalf}, \texttt{double}. \\

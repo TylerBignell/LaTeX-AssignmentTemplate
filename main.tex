@@ -1,5 +1,6 @@
 % Copyright (c) 2026 Tyler Bignell
 % Licensed under the MIT License - see LICENSE file for details
+% !TeX program = xelatex
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DOCUMENT CLASS
@@ -24,14 +25,17 @@
 \newcommand{\metaLogoPath}{} % Empty to remove
 % TITLE PAGE ----------------------------------------------
 \newcommand{\metaTitlePage}{standard} % standard, abstract, or compact
-\providecommand{\maketitle}{} % Disables default maketitle (don't change)
+	\renewcommand{\maketitle}{} % Disables default maketitle (don't edit)
 % BIBLIOGRAPHY --------------------------------------------
 \newcommand{\metaBibFile}{references.bib}    % Change to reference file name
 \newcommand{\metaBibStyle}{ieee}             % ieee or apa (bib style)
 \newcommand{\metaShowBackref}{true} % true or false (shows page back-references in bibliography)
 \newcommand{\metaShowUnusedCitations}{false} % Set to 'true' to show all entries in bib file, 'false' for only cited ones
-% MISC (FONT, WATERMARK, SPACING, TODO) -------------------
-\newcommand{\metaDefaultFont}{sans}    % sans or serif (changes font)
+% FONT ----------------------------------------------------
+\newcommand{\metaSerifFont}{}       % Empty = IBM Plex Serif, or any system font name (e.g., Georgia)
+\newcommand{\metaSansFont}{}        % Empty = IBM Plex Sans, or any system font name (e.g., Arial)
+\newcommand{\metaDefaultFont}{sans} % sans or serif (selects which font family is used for body text)
+% MISC (WATERMARK, SPACING, TODO) -------------------------
 \newcommand{\metaWatermarkText}{}      % Leave blank for no watermark
 \newcommand{\metaWatermarkScale}{1}    % Size of watermark
 \newcommand{\metaLineSpacing}{onehalf} % single, onehalf, or double (changes line spacing)
@@ -69,7 +73,7 @@
 	\input{assets/titlepage_\metaTitlePage}
 }{} % Change titlepage in metadata
 \pagenumbering{arabic} % After titlepage is numbered in arabic
-
+	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % HEADER & FOOTER (DON'T EDIT)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -80,10 +84,10 @@
 \cfoot{\textcolor{black}{\thepage}}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\headrule}{\color{themecolour}\hrule width\headwidth height\headrulewidth}
-
+	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % BEGIN HERE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{assets/example}
-
+	
 \end{document}
