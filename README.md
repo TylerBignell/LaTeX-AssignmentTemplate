@@ -80,6 +80,11 @@ All settings are controlled from the top of `main.tex`. The full metadata block 
 \newcommand{\metaBibStyle}{ieee}               % ieee or apa
 \newcommand{\metaShowBackref}{true}            % true or false
 \newcommand{\metaShowUnusedCitations}{false}   % true or false
+
+% FONT
+\newcommand{\metaSerifFont}{}         % Empty = IBM Plex Serif, or any system font name (e.g., Georgia)
+\newcommand{\metaSansFont}{}          % Empty = IBM Plex Sans, or any system font name (e.g., Arial)
+\newcommand{\metaDefaultFont}{sans}   % sans or serif (selects which font family is used for body text)
  
 % MISC
 \newcommand{\metaDefaultFont}{sans}            % sans or serif
@@ -148,12 +153,19 @@ All settings are controlled from the top of `main.tex`. The full metadata block 
 | `\metaBibStyle` | `ieee`, `apa` | Citation and bibliography style |
 | `\metaShowBackref` | `true`, `false` | Show page numbers where each entry was cited |
 | `\metaShowUnusedCitations` | `true`, `false` | Show all bib entries regardless of whether they were cited |
- 
-### Appearance
+
+### Font
  
 | Field | Options | Description |
 |---|---|---|
-| `\metaDefaultFont` | `sans`, `serif` | Document body font |
+| `\metaSerifFont` | empty (default serif font), `Georgia`, etc. | Serif font selection |
+| `\metaSansFont` | empty (default sans-serif font), `Arial`, etc. | Sans-serif font selection |
+| `\metaDefaultFont` | `sans`, `serif` | Document body font based on `\metaSerifFont` or `\metaSansFont` |
+ 
+### MISC.
+ 
+| Field | Options | Description |
+|---|---|---|
 | `\metaLineSpacing` | `single`, `onehalf`, `double` | Line spacing throughout the document |
 | `\metaShowTodo` | `true`, `false` | Show or hide all `\todo{}` notes globally |
 | `\metaWatermarkText` | any text or empty | Diagonal watermark on every page. Leave empty to disable |
