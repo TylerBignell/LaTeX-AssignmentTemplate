@@ -21,7 +21,7 @@ The Overleaf version is a leaner variant of the full template. It loads fewer pa
  
 1. Start a new project using the Overleaf template
 2. Collaborate and write your content on Overleaf
-3. When the document is ready for final submission, transfer your content files to this full template and compile locally for the polished final output
+3. When the document is ready for final submission, transfer your content files to this full template and compile locally for the polished final output.
 Both templates use identical metadata fields, environments, and commands so your content files transfer without any changes.
  
 ---
