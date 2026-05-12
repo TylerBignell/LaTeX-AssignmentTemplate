@@ -81,7 +81,7 @@ All settings are controlled from the top of `main.tex`. The full metadata block 
 \newcommand{\metaShowBackref}{true}            % true or false
 \newcommand{\metaShowUnusedCitations}{false}   % true or false
  
-% APPEARANCE
+% MISC
 \newcommand{\metaDefaultFont}{sans}            % sans or serif
 \newcommand{\metaLineSpacing}{onehalf}         % single, onehalf, or double
 \newcommand{\metaShowTodo}{true}               % true or false
