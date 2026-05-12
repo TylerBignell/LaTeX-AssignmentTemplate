@@ -52,35 +52,139 @@ Both templates use identical metadata fields, environments, and commands so your
  
 ## Metadata
  
-All settings are controlled from the top of `main.tex`:
+All settings are controlled from the top of `main.tex`. The full metadata block is shown below with every available field:
  
 ```latex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% METADATA (EDIT FOR EACH SUBMISSION)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\metaAssignmentTitle}{Assignment Title}
 \newcommand{\metaStudentName}{Your Name}
 \newcommand{\metaStudentNumber}{123456789}
 \newcommand{\metaStudentEmail}{email@my.yorku.ca}
-\newcommand{\metaPartners}{}              % "Jane Doe & 123456789\\John Doe & 123456789"
+\newcommand{\metaPartners}{}   % "Jane Doe & 123456789\\John Doe & 123456789"
 \newcommand{\metaUniversity}{York University}
 \newcommand{\metaFaculty}{Lassonde School of Engineering}
-\newcommand{\metaDepartment}{Department Name}
-\newcommand{\metaCourseCode}{Code}
-\newcommand{\metaCourseName}{Class}
+\newcommand{\metaDepartment}{Department Name}  % Leave empty to omit
+\newcommand{\metaCourseCode}{Course Code}
+\newcommand{\metaCourseName}{Course Name}
 \newcommand{\metaInstructor}{Dr. Professor}
 \newcommand{\metaDate}{Due date}
-\newcommand{\metaLogoPath}{}              % Path to logo file, or leave empty
+\newcommand{\metaLogoPath}{assets/logo.png}    % Leave empty to omit
+ 
+% TITLE PAGE
+\newcommand{\metaTitlePage}{standard}          % standard, abstract, or compact
+ 
+% BIBLIOGRAPHY
+\newcommand{\metaBibFile}{references.bib}
+\newcommand{\metaBibStyle}{ieee}               % ieee or apa
+\newcommand{\metaShowBackref}{true}            % true or false
+\newcommand{\metaShowUnusedCitations}{false}   % true or false
+ 
+% APPEARANCE
+\newcommand{\metaDefaultFont}{sans}            % sans or serif
+\newcommand{\metaLineSpacing}{onehalf}         % single, onehalf, or double
+\newcommand{\metaShowTodo}{true}               % true or false
+\newcommand{\metaWatermarkText}{}              % Leave empty for no watermark
+\newcommand{\metaWatermarkScale}{1}            % Scale of watermark text
+ 
+% COLOURS (hex code e.g. #003366, colour name e.g. red, or leave empty for default)
+\newcommand{\metaThemeColour}{}   % Headings, rules, boxes — defaults to DefaultBlue
+\newcommand{\metaLinkColour}{}    % Internal links — leave empty to use theme colour
+\newcommand{\metaCiteColour}{}    % Citations — leave empty to use theme colour
+\newcommand{\metaUrlColour}{}     % URLs — leave empty to use theme colour
+ 
+% NUMBERING BY SECTION
+\newcommand{\metaNumberEquations}{true}    % true or false
+\newcommand{\metaNumberFigures}{true}      % true or false
+\newcommand{\metaNumberTables}{true}       % true or false
+\newcommand{\metaNumberTheorems}{true}     % true or false
+\newcommand{\metaNumberProblems}{true}     % true or false
+\newcommand{\metaNumberAlgorithms}{true}   % true or false
+\newcommand{\metaNumberListings}{true}     % true or false
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ABSTRACT (EDIT FOR EACH SUBMISSION)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\metaAbstract}{Type abstract here.}  % Used when metaTitlePage is abstract
 ```
  
 ---
  
-## Title Page
+## Metadata Reference
  
-Set `\metaTitlePage` to one of three options:
+### Submission Information
  
-| Option | Description |
+| Field | Description |
 |---|---|
-| `standard` | Full title page with student and instructor info |
-| `abstract` | Same as standard but includes the abstract |
-| `compact` | Inline title block, no separate page |
+| `\metaAssignmentTitle` | Assignment or document title shown on the title page |
+| `\metaStudentName` | Your full name |
+| `\metaStudentNumber` | Your student number |
+| `\metaStudentEmail` | Your university email address |
+| `\metaPartners` | Group partners as `Name & Number\\Name & Number`. Leave empty for solo submissions |
+| `\metaUniversity` | University name |
+| `\metaFaculty` | Faculty name |
+| `\metaDepartment` | Department name. Leave empty to omit |
+| `\metaCourseCode` | Course code, always shown in the page header |
+| `\metaCourseName` | Full course name, used by the smart header collision logic |
+| `\metaInstructor` | Instructor name |
+| `\metaDate` | Submission or due date |
+| `\metaLogoPath` | Path to logo image. Leave empty to omit |
+ 
+### Title Page
+ 
+| Field | Options | Description |
+|---|---|---|
+| `\metaTitlePage` | `standard` | Full title page with all fields |
+| | `abstract` | Same as standard but includes `\metaAbstract` below the title block |
+| | `compact` | Condensed single-page layout |
+| `\metaAbstract` | any text | Abstract text used when `\metaTitlePage` is set to `abstract` |
+ 
+### Bibliography
+ 
+| Field | Options | Description |
+|---|---|---|
+| `\metaBibFile` | filename | Name of your `.bib` reference file |
+| `\metaBibStyle` | `ieee`, `apa` | Citation and bibliography style |
+| `\metaShowBackref` | `true`, `false` | Show page numbers where each entry was cited |
+| `\metaShowUnusedCitations` | `true`, `false` | Show all bib entries regardless of whether they were cited |
+ 
+### Appearance
+ 
+| Field | Options | Description |
+|---|---|---|
+| `\metaDefaultFont` | `sans`, `serif` | Document body font |
+| `\metaLineSpacing` | `single`, `onehalf`, `double` | Line spacing throughout the document |
+| `\metaShowTodo` | `true`, `false` | Show or hide all `\todo{}` notes globally |
+| `\metaWatermarkText` | any text or empty | Diagonal watermark on every page. Leave empty to disable |
+| `\metaWatermarkScale` | number | Scale factor for the watermark. Default is `1` |
+ 
+### Colours
+ 
+Each colour field accepts a hex code with `#` prefix (e.g. `#810001`), any built-in LaTeX colour name (e.g. `red`), or any custom colour defined in the template (e.g. `LassondeNavy`). Leave any field empty to fall back to the default.
+ 
+| Field | Default | Description |
+|---|---|---|
+| `\metaThemeColour` | `DefaultBlue` | Primary accent colour for headings, rules, and boxes |
+| `\metaLinkColour` | theme colour | Colour for internal cross-references and hyperlinks |
+| `\metaCiteColour` | theme colour | Colour for citation references |
+| `\metaUrlColour` | theme colour | Colour for URLs and bibliography back-references |
+ 
+Built-in custom colours: `DefaultBlue` (`#1B4F8A`), `LassondeNavy` (`#003366`), `YorkRedDark` (`#810001`), `ScienceSkyBlueDark` (`#065C87`).
+ 
+### Numbering by Section
+ 
+When set to `true`, floats and environments are numbered relative to their section (e.g. Figure 2.1). When set to `false`, they are numbered continuously through the whole document (e.g. Figure 3).
+ 
+| Field | Affects |
+|---|---|
+| `\metaNumberEquations` | `equation` environments |
+| `\metaNumberFigures` | `figure` environments |
+| `\metaNumberTables` | `table` environments |
+| `\metaNumberTheorems` | All theorem environments |
+| `\metaNumberProblems` | `problem` environments |
+| `\metaNumberAlgorithms` | `algorithm` environments |
+| `\metaNumberListings` | Code listings |
  
 ---
  
@@ -93,26 +197,6 @@ The faculty logo is not included in this repository. Download the official logo 
 ```
  
 Leave it empty to display no logo.
- 
----
- 
-## Other Settings
- 
-| Metadata | Options | Description |
-|---|---|---|
-| `\metaBibStyle` | `ieee`, `apa` | Bibliography style |
-| `\metaDefaultFont` | `sans`, `serif` | Document font |
-| `\metaLineSpacing` | `single`, `onehalf`, `double` | Line spacing |
-| `\metaShowTodo` | `true`, `false` | Show or hide todo notes |
-| `\metaWatermarkText` | any text or empty | Watermark text, leave empty for none |
-| `\metaThemeColour` | hex code, colour name, or empty | Primary accent colour, defaults to navy |
-| `\metaNumberEquations` | `true`, `false` | Number equations by section |
-| `\metaNumberFigures` | `true`, `false` | Number figures by section |
-| `\metaNumberTables` | `true`, `false` | Number tables by section |
-| `\metaNumberTheorems` | `true`, `false` | Number theorem environments by section |
-| `\metaNumberProblems` | `true`, `false` | Number problem environments by section |
-| `\metaNumberAlgorithms` | `true`, `false` | Number algorithms by section |
-| `\metaNumberListings` | `true`, `false` | Number code listings by section |
  
 ---
  
