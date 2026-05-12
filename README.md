@@ -1,6 +1,6 @@
-# York University Assignment Template
+# LaTeX Assignment Template
  
-A LaTeX assignment template for York University STEM students. All configuration is done through a single metadata block at the top of `main.tex` — no need to edit any other file for standard use.
+A LaTeX assignment template originally created for York University STEM students but is usable by anyone looking for an assignment template. All configuration is done through a single metadata block at the top of `main.tex` — no need to edit any other file for standard use.
  
 ---
  
@@ -15,7 +15,7 @@ This template comes in two versions:
  
 The Overleaf version is a leaner variant of the full template. It loads fewer packages by default and strips non-essential formatting to keep Overleaf compile times short. Heavy packages like `tikz`, `pgfplots`, and `circuitikz` are commented out and can be uncommented when needed for a specific project.
  
-> **Overleaf template:** [add link here]
+> **Overleaf template:** https://github.com/TylerBignell/LaTeX-AssignmentTemplate-Overleaf
  
 ### Recommended Workflow
  
