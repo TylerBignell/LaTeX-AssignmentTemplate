@@ -43,9 +43,9 @@ Both templates use identical metadata fields, environments, and commands so your
 │   ├── titlepage_compact.tex
 │   ├── example.tex                 ← Example file showing all features
 │   └── example.pdf                 ← Compiled example
-├── figures/                        ← Place your images here
+├── figures/                        ← Place your images here (create this folder)
 ├── main.tex                        ← Edit metadata here, compile this file
-└── references.bib                  ← Your bibliography entries
+└── references.bib                  ← Your bibliography entries (create this file)
 ```
  
 ---
