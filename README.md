@@ -189,7 +189,7 @@ When set to `true`, floats and environments are numbered relative to their secti
  
 | Field | Affects |
 |---|---|
-| `\metaNumberEquations` | `equation` environments |
+| `\metaNumberEquations` | `equation` and `reaction` environments |
 | `\metaNumberFigures` | `figure` environments |
 | `\metaNumberTables` | `table` environments |
 | `\metaNumberTheorems` | All theorem environments |
