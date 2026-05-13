@@ -161,7 +161,7 @@ All settings are controlled from the top of `main.tex`. The full metadata block 
 | `\metaSansFont` | empty (default sans-serif font), `Arial`, etc. | Sans-serif font selection |
 | `\metaDefaultFont` | `sans`, `serif` | Document body font based on `\metaSerifFont` or `\metaSansFont` |
  
-### MISC.
+### Misc.
  
 | Field | Options | Description |
 |---|---|---|
@@ -189,13 +189,13 @@ When set to `true`, floats and environments are numbered relative to their secti
  
 | Field | Affects |
 |---|---|
-| `\metaNumberEquations` | `equation` environments |
+| `\metaNumberEquations` | `equation` and `reaction` environments |
 | `\metaNumberFigures` | `figure` environments |
 | `\metaNumberTables` | `table` environments |
 | `\metaNumberTheorems` | All theorem environments |
 | `\metaNumberProblems` | `problem` environments |
 | `\metaNumberAlgorithms` | `algorithm` environments |
-| `\metaNumberListings` | Code listings |
+| `\metaNumberListings` | `listing` environments (Code) |
  
 ---
  
