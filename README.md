@@ -161,7 +161,7 @@ All settings are controlled from the top of `main.tex`. The full metadata block 
 | `\metaSansFont` | empty (default sans-serif font), `Arial`, etc. | Sans-serif font selection |
 | `\metaDefaultFont` | `sans`, `serif` | Document body font based on `\metaSerifFont` or `\metaSansFont` |
  
-### MISC.
+### Misc.
  
 | Field | Options | Description |
 |---|---|---|
