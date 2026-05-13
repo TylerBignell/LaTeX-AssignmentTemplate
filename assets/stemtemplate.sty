@@ -3,7 +3,7 @@
 % Licensed under the MIT License - see LICENSE file for details
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{assets/stemtemplate}[2026/05/12 LaTeX University Assignment STEM Template]
+\ProvidesPackage{assets/stemtemplate}[2026/05/13 LaTeX University Assignment STEM Template]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CONDITIONALS
@@ -146,9 +146,46 @@
 \usepackage{bm}                 % Bold math symbols via \bm{}
 \usepackage{siunitx} % Units and scientific notation (e.g. \SI{9.8}{\metre\per\second})
 \sisetup{detect-all, per-mode=symbol} % Inherit surrounding font in SI units
-\usepackage[version=4]{mhchem}  % Chemical equations and formulas via \ce{}
 % EQUATIONS NUMBERED BY SECTION ---------------------------
 \ifthenelse{\equal{\metaNumberEquations}{true}}{\numberwithin{equation}{section}}{} % Change in metadata
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CHEMISTRY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[version=4]{mhchem} % Chemical equations via \ce{}
+% REACTION COUNTER ----------------------------------------
+\newcounter{reaction}
+\ifthenelse{\equal{\metaNumberEquations}{true}}{%
+	\counterwithin{reaction}{section}%
+	\renewcommand{\thereaction}{\arabic{section}.R\arabic{reaction}}%
+}{%
+	\renewcommand{\thereaction}{R\arabic{reaction}}%
+}
+% REACTION ENVIRONMENTS -----------------------------------
+% Equation
+\newenvironment{requation}{%
+	\refstepcounter{reaction}\equation%
+}{\tag{\thereaction}\endequation}
+% Align
+\newenvironment{ralign}{%
+	\refstepcounter{reaction}\align%
+}{\tag{\thereaction}\endalign}
+% Gather
+\newenvironment{rgather}{%
+	\refstepcounter{reaction}\gather%
+}{\tag{\thereaction}\endgather}
+% Multline
+\newenvironment{rmultline}{%
+	\refstepcounter{reaction}\multline\tag{\thereaction}%
+}{\endmultline}
+% Flalign
+\newenvironment{rflalign}{%
+	\refstepcounter{reaction}\flalign%
+}{\tag{\thereaction}\endflalign}
+% Alignat
+\newenvironment{ralignat}[1]{%
+	\refstepcounter{reaction}\alignat{#1}%
+}{\tag{\thereaction}\endalignat}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % THEOREM ENVIRONMENTS
@@ -314,6 +351,7 @@
 	pageanchor=true}
 \usepackage{cleveref} % Smart cross-references that auto-insert type name (\cref)
 \crefname{equation}{Eq.}{Eqs.}
+\crefname{reaction}{Rxn.}{Rxns.}
 \crefname{figure}{Fig.}{Figs.}
 \crefname{table}{Table}{Tables}
 \crefname{section}{Section}{Sections}
@@ -549,3 +587,52 @@ backref=\metaShowBackref]{biblatex} % Change back reference in metadata
 				{\bibstring{backrefpage}\ppspace}%
 				\printlist[pageref][-\value{listtotal}]{pageref}}}}%
 }{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% APPENDICES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\let\orig@appendix\appendix % Recreates \appendix, changes numbering counter
+\renewcommand{\appendix}{%
+	\orig@appendix%
+	\titleformat{\section}%
+	{\Large\bfseries\color{themecolour}}%
+	{Appendix~\Alph{section}}%
+	{1em}{}%
+	\renewcommand{\thesection}{\Alph{section}}%
+	\renewcommand{\thefigure}{\Alph{section}.\arabic{figure}}%
+	\renewcommand{\thetable}{\Alph{section}.\arabic{table}}%
+	\renewcommand{\theequation}{\Alph{section}.\arabic{equation}}%
+	\renewcommand{\thereaction}{\Alph{section}.R\arabic{reaction}}%
+	\renewcommand{\theproblem}{\Alph{section}.\arabic{problem}}%
+	\renewcommand{\thetheorem}{\Alph{section}.\arabic{theorem}}%
+	\renewcommand{\thelemma}{\Alph{section}.\arabic{lemma}}%
+	\renewcommand{\theproposition}{\Alph{section}.\arabic{proposition}}%
+	\renewcommand{\thecorollary}{\Alph{section}.\arabic{corollary}}%
+	\renewcommand{\theconjecture}{\Alph{section}.\arabic{conjecture}}%
+	\renewcommand{\theaxiom}{\Alph{section}.\arabic{axiom}}%
+	\renewcommand{\thedefinition}{\Alph{section}.\arabic{definition}}%
+	\renewcommand{\theexample}{\Alph{section}.\arabic{example}}%
+	\renewcommand{\thecriterion}{\Alph{section}.\arabic{criterion}}%
+	\renewcommand{\theremark}{\Alph{section}.\arabic{remark}}%
+	\renewcommand{\thenote}{\Alph{section}.\arabic{note}}%
+	\renewcommand{\thealgorithm}{\Alph{section}.\arabic{algorithm}}%
+	\renewcommand{\thelstlisting}{\Alph{section}.\arabic{lstlisting}}%
+	\counterwithin{figure}{section}%
+	\counterwithin{table}{section}%
+	\counterwithin{equation}{section}%
+	\counterwithin{reaction}{section}%
+	\counterwithin{problem}{section}%
+	\counterwithin{theorem}{section}%
+	\counterwithin{lemma}{section}%
+	\counterwithin{proposition}{section}%
+	\counterwithin{corollary}{section}%
+	\counterwithin{conjecture}{section}%
+	\counterwithin{axiom}{section}%
+	\counterwithin{definition}{section}%
+	\counterwithin{example}{section}%
+	\counterwithin{criterion}{section}%
+	\counterwithin{remark}{section}%
+	\counterwithin{note}{section}%
+	\counterwithin{algorithm}{section}%
+	\counterwithin{lstlisting}{section}%
+}

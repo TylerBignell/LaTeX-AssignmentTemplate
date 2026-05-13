@@ -269,6 +269,7 @@ The title page uses a separate version of the abstract that keeps the original c
 \subsection{\texttt{amsmath}, \texttt{amssymb}, \texttt{amsfonts}}
 These three packages are the standard tools for writing math in \LaTeX. Together they give you display math environments, a large collection of math symbols, and blackboard bold letters for number sets like $\mathbb{R}$, $\mathbb{Z}$, and $\mathbb{N}$.
 
+\subsubsection{\texttt{equation}}
 The \texttt{equation} environment puts a single equation on its own line with a number on the right. Use \texttt{equation*} if you do not want the number:
 
 \begin{equation}
@@ -281,6 +282,7 @@ The \texttt{equation} environment puts a single equation on its own line with a 
 	\label{eq:pythagoras}
 \end{equation}
 
+\subsubsection{\texttt{align}}
 The \texttt{align} environment lets you write multiple equations that line up at the \texttt{\&} character. Each line gets its own number unless you add \texttt{\textbackslash nonumber} to that line:
 
 \begin{align}
@@ -288,6 +290,7 @@ The \texttt{align} environment lets you write multiple equations that line up at
 	&= 2(3) + 1 \nonumber
 \end{align}
 
+\subsubsection{\texttt{gather}}
 The \texttt{gather} environment puts each equation on its own centred line with no alignment between them. Use it when you have a group of separate equations to display together:
 
 \begin{gather}
@@ -295,6 +298,31 @@ The \texttt{gather} environment puts each equation on its own centred line with 
 	x - y = 1
 \end{gather}
 
+\subsubsection{\texttt{multline}}
+The \texttt{multline} environment is for a single equation that is too long to fit on one line. The first line is left-aligned, the last line is right-aligned, and any lines in between are centred:
+
+\begin{multline}
+	(a_1 + a_2 + a_3) \times (b_1 + b_2 + b_3) = \\
+	a_1 b_1 + a_1 b_2 + a_1 b_3 + a_2 b_1 + a_2 b_2 + \\
+	a_2 b_3 + a_3 b_1 + a_3 b_2 + a_3 b_3
+\end{multline}
+
+\subsubsection{\texttt{flalign}}
+The \texttt{flalign} environment works like \texttt{align} but pushes the columns to the far left and far right of the page. It is useful when you want one equation flush left and another flush right on the same line:
+
+\begin{flalign}
+	F &= ma & E &= mc^2
+\end{flalign}
+
+\subsubsection{\texttt{alignat}}
+The \texttt{alignat} environment is similar to \texttt{align} but lets you control the spacing between columns manually. The required argument is the number of column pairs. Use it when \texttt{align} produces too much or too little space between groups:
+
+\begin{alignat}{2}
+	x &= 3  &\quad y &= 7 \\
+	x &= -1 &\quad y &= 2
+\end{alignat}
+
+\subsubsection{\texttt{split}}
 The \texttt{split} environment breaks one long equation across multiple lines while keeping a single equation number. It must be placed inside \texttt{equation}:
 
 \begin{equation}
@@ -304,6 +332,7 @@ The \texttt{split} environment breaks one long equation across multiple lines wh
 	\end{split}
 \end{equation}
 
+\subsubsection{\texttt{cases}}
 The \texttt{cases} environment is used for piecewise functions. It draws an opening brace and lets you write a different expression for each condition:
 
 \begin{equation}
@@ -312,14 +341,6 @@ The \texttt{cases} environment is used for piecewise functions. It draws an open
 		-x & \text{if } x < 0
 	\end{cases}
 \end{equation}
-
-The \texttt{multline} environment is for a single equation that is too long to fit on one line. The first line is left-aligned, the last line is right-aligned, and any lines in between are centred:
-
-\begin{multline}
-	(a_1 + a_2 + a_3) \times (b_1 + b_2 + b_3) = \\
-	a_1 b_1 + a_1 b_2 + a_1 b_3 + a_2 b_1 + a_2 b_2 + \\
-	a_2 b_3 + a_3 b_1 + a_3 b_2 + a_3 b_3
-\end{multline}
 
 \subsection{\texttt{mathtools}}
 The \texttt{mathtools} package adds a few extra tools on top of \texttt{amsmath}. The most useful for everyday writing is \texttt{\textbackslash coloneqq}, which produces the ``defined as equal to'' symbol:
@@ -342,7 +363,7 @@ It also provides matrix environments with different bracket styles. Each one wor
 \end{equation}
 
 \subsection{\texttt{bm}}
-The \texttt{bm} package gives you the \texttt{\textbackslash bm\{\}} command, which makes a math symbol bold while keeping it italic. This is the standard way to write vectors and matrices in science and engineering, since \texttt{\textbackslash mathbf} would make the letter upright:
+The \texttt{bm} package gives you the \texttt{\textbackslash bm\{\}} command, which makes a math symbol bold while keeping it italic. This is a common way to write vectors and matrices in science and engineering, since \texttt{\textbackslash mathbf} would make the letter upright:
 
 \begin{equation}
 	\bm{F} = m\bm{a} \qquad \bm{v} = \bm{u} + \bm{a}t
@@ -371,36 +392,100 @@ The \texttt{siunitx} package formats numbers and units correctly. Use \texttt{\t
 
 Units can also be used inline inside a sentence. For example, gravitational acceleration is \SI{9.81}{\metre\per\second\squared}, and standard atmospheric pressure is \SI{101.325}{\kilo\pascal}.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CHEMISTRY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Chemistry}
+
 \subsection{\texttt{mhchem}}
 The \texttt{mhchem} package lets you write chemical formulas and reactions using the \texttt{\textbackslash ce\{\}} command. You just type the formula naturally and it handles all the subscripts, superscripts, and charges for you.
 
 You can use it inline inside a sentence: water is \ce{H2O}, table salt is \ce{NaCl}, and the sulfate ion is \ce{SO4^2-}.
 
-To show a reaction on its own line, place \texttt{\textbackslash ce} inside an \texttt{equation} environment:
+\subsection{Reaction Environments}
+This template provides six numbered reaction environments, one for each math display environment. All of them use a separate reaction counter that is independent of equation numbering, so reactions are labelled R1, R2, R3 and equations are labelled separately. When section numbering is enabled via \texttt{\textbackslash metaNumberEquations}, reactions are also numbered by section in the same way.
 
-\begin{equation}
+If you prefer reactions to be numbered sequentially as 1, 2, 3… rather than R1, R2, R3…, simply use the standard math display environments instead of the dedicated reaction environments; in that case, reactions will share the same counter as regular equations.
+
+Use \texttt{\textbackslash label\{\}} and \texttt{\textbackslash cref\{\}} to cross-reference reactions exactly as you would an equation.
+
+\subsubsection{\texttt{requation}}
+The \texttt{requation} environment is the reaction equivalent of \texttt{equation}. Use it for a single reaction on its own line:
+
+\begin{requation}
 	\ce{2H2 + O2 -> 2H2O}
-\end{equation}
+	\label{rxn:combustion}
+\end{requation}
 
-\begin{equation}
+\begin{requation}
 	\ce{A + B <=> C + D}
-\end{equation}
+	\label{rxn:equilibrium}
+\end{requation}
 
-Adding \texttt{->[\textbackslash Delta][Heat]} puts a delta above the arrow, and text below it which is commonly used to show that heat or a catalyst is applied:
+Adding \texttt{->[\textbackslash Delta]} puts a delta above the arrow, commonly used to show that heat or a catalyst is applied:
 
-\begin{equation}
+\begin{requation}
 	\ce{A ->[\Delta] B}
-\end{equation}
+\end{requation}
 
-\begin{equation}
+\begin{requation}
 	\ce{A ->[\Delta][Heat] B}
-\end{equation}
+	\label{rxn:heat}
+\end{requation}
 
-You can also write isotopes by putting the mass number and atomic number before the element symbol:
+\subsubsection{\texttt{ralign}}
+The \texttt{ralign} environment is the reaction equivalent of \texttt{align}. Use it to show a multi-step mechanism where each step lines up at the \texttt{\&} character:
 
-\begin{equation}
-	\ce{^{235}_{92}U + ^{1}_{0}n -> ^{141}_{56}Ba + ^{92}_{36}Kr + 3^{1}_{0}n}
-\end{equation}
+\begin{ralign}
+	\ce{A + B &-> C} \notag \\
+	\ce{D &-> E + F}
+	\label{rxn:mechanism}
+\end{ralign}
+
+\subsubsection{\texttt{rgather}}
+The \texttt{rgather} environment is the reaction equivalent of \texttt{gather}. Use it for a group of related reactions displayed together with no column alignment:
+
+\begin{rgather}
+	\ce{Na + Cl -> NaCl} \notag \\
+	\ce{2Na + O2 -> Na2O2}
+	\label{rxn:gather}
+\end{rgather}
+
+\subsubsection{\texttt{rmultline}}
+The \texttt{rmultline} environment is the reaction equivalent of \texttt{multline}. Use it when a single reaction is too long to fit on one line. The first line is left-aligned, the last line is right-aligned, and any lines in between are centred:
+
+\begin{rmultline}
+	\ce{^{235}_{92}U + ^{1}_{0}n} \\
+	\ce{->} \\
+	\ce{^{141}_{56}Ba + ^{92}_{36}Kr + 3^{1}_{0}n}
+	\label{rxn:fission}
+\end{rmultline}
+
+\subsubsection{\texttt{rflalign}}
+The \texttt{rflalign} environment is the reaction equivalent of \texttt{flalign}. It pushes columns to the far left and far right of the page, useful when you want to display two reactions side by side at opposite ends of the line:
+
+\begin{rflalign}
+	\ce{A + B &-> C} & \ce{D + E &-> F} \quad % \quad at the end is a buffer before number
+	\label{rxn:flalign}
+\end{rflalign}
+
+\subsubsection{\texttt{ralignat}}
+The \texttt{ralignat} environment is the reaction equivalent of \texttt{alignat}. The required argument is the number of column pairs. Use it when you need precise manual control over the spacing between columns:
+
+\begin{ralignat}{2}
+	\ce{A + B &-> C} &\qquad \ce{D &-> E + F}
+	\label{rxn:alignat}
+\end{ralignat}
+
+\subsubsection{\texttt{split}}
+The \texttt{split} environment works exactly the same here as it does in standard math: it breaks a long reaction across multiple lines while keeping a single number. The \texttt{split} environment itself does not produce an “R” label, so it must be placed inside \texttt{requation} if you want the reaction to receive an R‑style number:
+
+\begin{requation}
+	\begin{split}
+		\ce{A + B &-> C + D \\
+			&-> E}
+	\end{split}
+\end{requation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % THEOREM ENVIRONMENTS
@@ -824,6 +909,7 @@ The \texttt{cleveref} package replaces the standard \texttt{\textbackslash ref} 
 		Sub-figure  & \cref{fig:sub_a} \\
 		Table       & \cref{tab:booktabs} \\
 		Equation    & \cref{eq:simple} \\
+		Reaction    & \cref{rxn:combustion} \\
 		Algorithm   & \cref{alg:binarysearch} \\
 		Section     & \cref{sec:lists} \\
 		Theorem     & \cref{thm:pythagorean} \\
@@ -1104,9 +1190,7 @@ After adding new references to your \texttt{.bib} file, you need to run Biber on
 
 An example citation: \cite{example}.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% REFERENCES
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% REFERENCES ----------------------------------------------
 \newpage
 \phantomsection % Allows TOC to link to references
 \printbibliography[heading=bibintoc] % Need square bracket content for TOC
@@ -1114,50 +1198,11 @@ An example citation: \cite{example}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % APPENDICES
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\appendix % Insert this and all below to create appendix
-\titleformat{\section}
-{\Large\bfseries\color{themecolour}}
-{Appendix~\Alph{section}}
-{1em}{}
-\renewcommand{\thesection}{\Alph{section}}
-\renewcommand{\thefigure}{\Alph{section}.\arabic{figure}}
-\renewcommand{\thetable}{\Alph{section}.\arabic{table}}
-\renewcommand{\theequation}{\Alph{section}.\arabic{equation}}
-\renewcommand{\theproblem}{\Alph{section}.\arabic{problem}}
-\renewcommand{\thetheorem}{\Alph{section}.\arabic{theorem}}
-\renewcommand{\thelemma}{\Alph{section}.\arabic{lemma}}
-\renewcommand{\theproposition}{\Alph{section}.\arabic{proposition}}
-\renewcommand{\thecorollary}{\Alph{section}.\arabic{corollary}}
-\renewcommand{\theconjecture}{\Alph{section}.\arabic{conjecture}}
-\renewcommand{\theaxiom}{\Alph{section}.\arabic{axiom}}
-\renewcommand{\thedefinition}{\Alph{section}.\arabic{definition}}
-\renewcommand{\theexample}{\Alph{section}.\arabic{example}}
-\renewcommand{\thecriterion}{\Alph{section}.\arabic{criterion}}
-\renewcommand{\theremark}{\Alph{section}.\arabic{remark}}
-\renewcommand{\thenote}{\Alph{section}.\arabic{note}}
-\renewcommand{\thealgorithm}{\Alph{section}.\arabic{algorithm}}
-\renewcommand{\thelstlisting}{\Alph{section}.\arabic{lstlisting}}
-\counterwithin{figure}{section}
-\counterwithin{table}{section}
-\counterwithin{equation}{section}
-\counterwithin{problem}{section}
-\counterwithin{theorem}{section}
-\counterwithin{lemma}{section}
-\counterwithin{proposition}{section}
-\counterwithin{corollary}{section}
-\counterwithin{conjecture}{section}
-\counterwithin{axiom}{section}
-\counterwithin{definition}{section}
-\counterwithin{example}{section}
-\counterwithin{criterion}{section}
-\counterwithin{remark}{section}
-\counterwithin{note}{section}
-\counterwithin{algorithm}{section}
-\counterwithin{lstlisting}{section}
+\appendix % Insert this to create appendix
 
 % APPENDIX A ----------------------------------------------
 \newpage
-\section{Appendix Usage}\label{sec:appendix-supp}
+\section{Appendices}\label{sec:appendix-supp}
 
 Place appendices at the end of your document after the bibliography. The \texttt{\textbackslash appendix} command switches section numbering from arabic numbers to uppercase letters, so each \texttt{\textbackslash section\{\}} after it becomes a new appendix: Appendix A, Appendix B, and so on. You do not need any extra configuration, just keep adding \texttt{\textbackslash section\{\}} commands.
 
@@ -1284,11 +1329,11 @@ These fields populate the title page and page header. Update them for every new 
 	\end{tabularx}
 \end{table}
 
-\subsection{MISC.}
+\subsection{Misc.}
 
 \begin{table}[H]
 	\centering
-	\caption{MISC. metadata fields.}
+	\caption{Misc. metadata fields.}
 	\label{tab:meta-appearance}
 	\begin{tabularx}{\linewidth}{@{}lX@{}}
 		\toprule
@@ -1332,7 +1377,7 @@ These fields control whether floats and environments are numbered by section (e.
 		\toprule
 		Field & Affected Environment \\
 		\midrule
-		\texttt{\textbackslash metaNumberEquations}  & \texttt{equation} \\
+		\texttt{\textbackslash metaNumberEquations}  & \texttt{equation}, \texttt{reaction} \\
 		\texttt{\textbackslash metaNumberFigures}    & \texttt{figure} \\
 		\texttt{\textbackslash metaNumberTables}     & \texttt{table} \\
 		\texttt{\textbackslash metaNumberTheorems}   & All theorem environments \\
