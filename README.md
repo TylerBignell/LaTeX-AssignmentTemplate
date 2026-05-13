@@ -195,7 +195,7 @@ When set to `true`, floats and environments are numbered relative to their secti
 | `\metaNumberTheorems` | All theorem environments |
 | `\metaNumberProblems` | `problem` environments |
 | `\metaNumberAlgorithms` | `algorithm` environments |
-| `\metaNumberListings` | Code listings |
+| `\metaNumberListings` | `listing` environments (Code) |
  
 ---
  
