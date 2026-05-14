@@ -29,7 +29,7 @@ Both templates use identical metadata fields, environments, and commands so your
 ## Quick Start
  
 1. Fill in the metadata block at the top of `main.tex`
-2. Replace `\input{assets/example}` with `\input{yourfile}` pointing to your content
+2. Replace `Hello, world!` with `\input{yourfile}` pointing to your content
 3. Compile with **PDFLaTeX → Biber → PDFLaTeX → PDFLaTeX**
 ---
  
@@ -41,8 +41,8 @@ Both templates use identical metadata fields, environments, and commands so your
 │   ├── titlepage_standard.tex      ← Title page layouts (don't edit)
 │   ├── titlepage_abstract.tex
 │   ├── titlepage_compact.tex
-│   ├── example.tex                 ← Example file showing all features
-│   └── example.pdf                 ← Compiled example
+│   ├── demo.tex                    ← Demo file showing all features
+│   └── demo.pdf                    ← Compiled demo
 ├── figures/                        ← Place your images here (create this folder)
 ├── main.tex                        ← Edit metadata here, compile this file
 └── references.bib                  ← Your bibliography entries (create this file)
