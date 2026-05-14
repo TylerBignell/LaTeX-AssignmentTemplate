@@ -162,29 +162,65 @@
 	\renewcommand{\thereaction}{R\arabic{reaction}}%
 }
 % REACTION ENVIRONMENTS -----------------------------------
-% Equation
 \newenvironment{requation}{%
-	\refstepcounter{reaction}\equation%
+	\refstepcounter{reaction}%
+	\let\orig@ltx@label\ltx@label%
+	\def\ltx@label##1{%
+		\cref@constructprefix{reaction}{\cref@result}%
+		\protected@edef\@currentlabel{\thereaction}%
+		\protected@edef\cref@currentlabel{[reaction][\arabic{reaction}][\cref@result]\thereaction}%
+		\orig@ltx@label{##1}}%
+	\equation%
 }{\tag{\thereaction}\endequation}
-% Align
 \newenvironment{ralign}{%
-	\refstepcounter{reaction}\align%
+	\refstepcounter{reaction}%
+	\let\orig@ltx@label\ltx@label%
+	\def\ltx@label##1{%
+		\cref@constructprefix{reaction}{\cref@result}%
+		\protected@edef\@currentlabel{\thereaction}%
+		\protected@edef\cref@currentlabel{[reaction][\arabic{reaction}][\cref@result]\thereaction}%
+		\orig@ltx@label{##1}}%
+	\align%
 }{\tag{\thereaction}\endalign}
-% Gather
 \newenvironment{rgather}{%
-	\refstepcounter{reaction}\gather%
+	\refstepcounter{reaction}%
+	\let\orig@ltx@label\ltx@label%
+	\def\ltx@label##1{%
+		\cref@constructprefix{reaction}{\cref@result}%
+		\protected@edef\@currentlabel{\thereaction}%
+		\protected@edef\cref@currentlabel{[reaction][\arabic{reaction}][\cref@result]\thereaction}%
+		\orig@ltx@label{##1}}%
+	\gather%
 }{\tag{\thereaction}\endgather}
-% Multline
 \newenvironment{rmultline}{%
-	\refstepcounter{reaction}\multline\tag{\thereaction}%
+	\refstepcounter{reaction}%
+	\let\orig@ltx@label\ltx@label%
+	\def\ltx@label##1{%
+		\cref@constructprefix{reaction}{\cref@result}%
+		\protected@edef\@currentlabel{\thereaction}%
+		\protected@edef\cref@currentlabel{[reaction][\arabic{reaction}][\cref@result]\thereaction}%
+		\orig@ltx@label{##1}}%
+	\multline\tag{\thereaction}%
 }{\endmultline}
-% Flalign
 \newenvironment{rflalign}{%
-	\refstepcounter{reaction}\flalign%
+	\refstepcounter{reaction}%
+	\let\orig@ltx@label\ltx@label%
+	\def\ltx@label##1{%
+		\cref@constructprefix{reaction}{\cref@result}%
+		\protected@edef\@currentlabel{\thereaction}%
+		\protected@edef\cref@currentlabel{[reaction][\arabic{reaction}][\cref@result]\thereaction}%
+		\orig@ltx@label{##1}}%
+	\flalign%
 }{\tag{\thereaction}\endflalign}
-% Alignat
 \newenvironment{ralignat}[1]{%
-	\refstepcounter{reaction}\alignat{#1}%
+	\refstepcounter{reaction}%
+	\let\orig@ltx@label\ltx@label%
+	\def\ltx@label##1{%
+		\cref@constructprefix{reaction}{\cref@result}%
+		\protected@edef\@currentlabel{\thereaction}%
+		\protected@edef\cref@currentlabel{[reaction][\arabic{reaction}][\cref@result]\thereaction}%
+		\orig@ltx@label{##1}}%
+	\alignat{#1}%
 }{\tag{\thereaction}\endalignat}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -352,6 +388,7 @@
 \usepackage{cleveref} % Smart cross-references that auto-insert type name (\cref)
 \crefname{equation}{Eq.}{Eqs.}
 \crefname{reaction}{Rxn.}{Rxns.}
+	\creflabelformat{reaction}{(#2#1#3)}
 \crefname{figure}{Fig.}{Figs.}
 \crefname{table}{Table}{Tables}
 \crefname{section}{Section}{Sections}
@@ -602,7 +639,6 @@ backref=\metaShowBackref]{biblatex} % Change back reference in metadata
 	\renewcommand{\thefigure}{\Alph{section}.\arabic{figure}}%
 	\renewcommand{\thetable}{\Alph{section}.\arabic{table}}%
 	\renewcommand{\theequation}{\Alph{section}.\arabic{equation}}%
-	\renewcommand{\thereaction}{\Alph{section}.R\arabic{reaction}}%
 	\renewcommand{\theproblem}{\Alph{section}.\arabic{problem}}%
 	\renewcommand{\thetheorem}{\Alph{section}.\arabic{theorem}}%
 	\renewcommand{\thelemma}{\Alph{section}.\arabic{lemma}}%
@@ -621,6 +657,7 @@ backref=\metaShowBackref]{biblatex} % Change back reference in metadata
 	\counterwithin{table}{section}%
 	\counterwithin{equation}{section}%
 	\counterwithin{reaction}{section}%
+	\renewcommand{\thereaction}{\Alph{section}.R\arabic{reaction}}%
 	\counterwithin{problem}{section}%
 	\counterwithin{theorem}{section}%
 	\counterwithin{lemma}{section}%
