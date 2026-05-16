@@ -87,7 +87,7 @@
 % LANGUAGE & FONT
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[english]{babel} % English hyphenation and language rules
-\usepackage{fontspec}		% XeLaTeX font seletion
+\usepackage{fontspec}		% XeLaTeX font selection
 % SERIF FONT ----------------------------------------------
 % \metaSerifFont: empty = IBM Plex Serif, otherwise any system font name
 \ifx\metaSerifFont\empty
@@ -609,7 +609,7 @@
 \usepackage[
 backend=biber,            			% Use Biber as the bibliography processor
 style=\metaBibStyle,      			% Change bib style in metadata
-sorting=none, 						% Sorts by order of ciations
+sorting=none, 						% Sorts by order of citations
 backref=\metaShowBackref]{biblatex} % Change back reference in metadata
 \addbibresource{\metaBibFile} 		% Change bib file in metadata
 \ifthenelse{\equal{\metaShowUnusedCitations}{true}}{%
