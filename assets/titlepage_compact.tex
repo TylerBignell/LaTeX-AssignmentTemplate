@@ -4,7 +4,7 @@
 
 { % Begins container for the titlepage
 \thispagestyle{plain}
-\centering
+\Centering
 % SCHOOL --------------------------------------------------
 \Large \seriftext{\metaUniversity}\par\vspace{0.1cm}
 \large \seriftext{\metaFaculty}\par\vspace{0.1cm}
@@ -19,7 +19,7 @@
 \normalsize \metaCourseCode : \metaCourseName\par\vspace{0.2cm}
 % STUDENT / INSTRUCTOR BLOCK ------------------------------
 \begin{minipage}[t]{0.4\textwidth}
-    \begin{flushleft}\normalsize
+    \begin{FlushLeft}\normalsize
         \ifthenelse{\equal{\metaPartners}{}}{%
             \emph{Student:}\\
             \metaStudentName\\
@@ -32,15 +32,15 @@
                 \metaPartners
             \end{tabular}
         }
-    \end{flushleft}
+    \end{FlushLeft}
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.4\textwidth}
-    \begin{flushright}\normalsize
+    \begin{FlushRight}\normalsize
         \emph{Instructor:}\\
         \metaInstructor\\\vspace{0.2cm}
         \emph{Date:}\\
         \metaDate
-    \end{flushright}
+    \end{FlushRight}
 \end{minipage}
 } % Ends container of the titlepage

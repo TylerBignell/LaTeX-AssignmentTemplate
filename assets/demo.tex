@@ -75,7 +75,7 @@ You set the theme colour by editing \texttt{\textbackslash metaThemeColour} in \
 	\centering
 	\caption{Accepted values for \texttt{\textbackslash metaThemeColour}.}
 	\label{tab:theme-colour-values}
-	\begin{tabularx}{\linewidth}{@{}llX@{}}
+	\begin{tabularx}{\linewidth}{@{}llL@{}}
 		\toprule
 		Type & Example Value & Effect \\
 		\midrule
@@ -188,7 +188,7 @@ The table below is an example of content that is too wide for portrait and benef
 	\centering
 	\caption{Wide data table spanning landscape page.}
 	\label{tab:landscape}
-	\begin{tabularx}{\linewidth}{@{}lXXXXX@{}}
+	\begin{tabularx}{\linewidth}{@{}lCCCCC@{}}
 		\toprule
 		Parameter & Trial 1 & Trial 2 & Trial 3 & Trial 4 & Trial 5 \\
 		\midrule
@@ -376,7 +376,7 @@ The \texttt{siunitx} package formats numbers and units correctly. Use \texttt{\t
 	\centering
 	\label{tab:siunitx}
 	\caption{SI unit examples using \texttt{siunitx}.}
-	\begin{tabularx}{\linewidth}{@{}lX@{}}
+	\begin{tabularx}{\linewidth}{@{}lL@{}}
 		\toprule
 		Command & Output \\
 		\midrule
@@ -601,13 +601,13 @@ The \texttt{booktabs} package gives you three horizontal line commands for clean
 \subsection{\texttt{array}}
 \noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small This package is used internally by the template and is required by \texttt{tabularx} and \texttt{multirow}. Users may use its column specifiers directly when fine-grained column control is needed.}}\vspace{0.5\baselineskip}
 
-The \texttt{array} package lets you apply formatting to an entire column at once. The \texttt{>{\ldots}} syntax goes before the column letter in your column definition and applies a command to every cell in that column. The example below uses it to centre and wrap text in two fixed-width columns:
+The \texttt{array} package lets you apply formatting to an entire column at once. The \texttt{>{\ldots}} syntax goes before the column letter in your column definition and applies a command to every cell in that column. The example below uses it to centre and wrap text in two fixed-width columns. The template defines shorthand column types \texttt{P\{\}}, \texttt{Q\{\}}, and \texttt{S\{\}} as \texttt{ragged2e}-aware equivalents of \texttt{p\{\}} for left, centre, and right alignment respectively:
 
 \begin{table}[H]
 	\centering
 	\caption{Fixed-width centred columns using \texttt{array}.}
 	\label{tab:array}
-	\begin{tabular}{>{\centering\arraybackslash}p{4cm} >{\centering\arraybackslash}p{4cm}}
+	\begin{tabular}{Q{4cm} Q{4cm}}
 		\toprule
 		Left column & Right column \\
 		\midrule
@@ -620,11 +620,13 @@ The \texttt{array} package lets you apply formatting to an entire column at once
 \subsection{\texttt{tabularx}}
 The \texttt{tabularx} package adds the \texttt{X} column type, which automatically stretches to fill the remaining width of the table. You set the total table width as the first argument (usually \texttt{\textbackslash linewidth}) and any \texttt{X} columns share the leftover space equally. This is the preferred table environment in this template.
 
+The template also defines three \texttt{ragged2e}-aware column types built on \texttt{X}: \texttt{L} (ragged right), \texttt{C} (centred), and \texttt{R} (ragged left). These should be preferred over plain \texttt{X} for columns containing wrapped text, as they allow hyphenation and produce more even line lengths.
+
 \begin{table}[H]
 	\centering
-	\caption{Auto-width table using \texttt{tabularx}.}
+	\caption{Auto-width table using \texttt{tabularx} with \texttt{ragged2e} column types.}
 	\label{tab:tabularx}
-	\begin{tabularx}{\linewidth}{@{}lccX@{}}
+	\begin{tabularx}{\linewidth}{@{}lccL@{}}
 		\toprule
 		Parameter & Value & Unit & Description \\
 		\midrule
@@ -720,7 +722,7 @@ The \texttt{pdfpages} package lets you insert pages from another PDF directly in
 	\centering
 	\caption{Common \texttt{\textbackslash includepdf} options.}
 	\label{tab:pdfpages}
-	\begin{tabularx}{\linewidth}{@{}lX@{}}
+	\begin{tabularx}{\linewidth}{@{}lL@{}}
 		\toprule
 		Option & Effect \\
 		\midrule
@@ -798,6 +800,29 @@ The \texttt{circuitikz} package extends \texttt{tikz} with circuit symbols for d
 	\label{fig:circuit}
 \end{figure}
 
+\subsection{\texttt{pgf-pie}}
+The \texttt{pgf-pie} package draws pie charts directly inside a \texttt{tikzpicture} environment. Each slice is specified as a percentage followed by a label, separated by a forward slash, and the values are listed inside the \texttt{\textbackslash pie} command. The package automatically scales the slices so that the percentages add up to a full circle.
+
+Useful options include \texttt{radius} to control the size of the chart, \texttt{text=legend} to place labels in a legend below instead of on the slices, \texttt{text=pin} to connect labels with lines, and \texttt{color} to supply a list of slice colours. Using \texttt{themecolour} with tints keeps the chart consistent with the rest of the document.
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}
+		\pie[
+		color={themecolour!75, themecolour!50, themecolour!25, themecolour!0},
+		radius=3,
+		text=legend
+		]{
+			38/Product Development,
+			27/Marketing \& Sales,
+			20/Operations,
+			15/Research \& Development
+		}
+	\end{tikzpicture}
+	\caption{Annual budget allocation across departments.}
+	\label{fig:pie-budget}
+\end{figure}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ALGORITHMS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -812,7 +837,7 @@ The \texttt{algorithmic} environment takes an optional line-numbering argument: 
 	\centering
 	\caption{Common \texttt{algpseudocode} commands.}
 	\label{tab:algpseudocode}
-	\begin{tabularx}{\linewidth}{@{}lX@{}}
+	\begin{tabularx}{\linewidth}{@{}lL@{}}
 		\toprule
 		Command & Purpose \\
 		\midrule
@@ -951,9 +976,14 @@ The \texttt{xurl} package allows long URLs to break across lines at sensible poi
 
 By default, \LaTeX{} does not indent the first paragraph of a section. The \texttt{indentfirst} package changes this so every paragraph is indented, including the first one. The paragraph below is the first in this subsection and is indented because \texttt{indentfirst} is loaded:
 
-This is the first paragraph of this subsection — it is indented because \texttt{indentfirst} is loaded.
+This is the first paragraph of this subsection, it is indented because \texttt{indentfirst} is loaded.
 
-This is the second paragraph — also indented as normal.
+This is the second paragraph, also indented as normal.
+
+\subsection{\texttt{ragged2e}}
+\noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small This package is used internally by the template to improve text alignment in captions, boxes, and tables. Users interact with it through the column types \texttt{L}, \texttt{C}, \texttt{R}, \texttt{P\{\}}, \texttt{Q\{\}}, and \texttt{S\{\}} defined in the template.}}\vspace{0.5\baselineskip}
+
+The \texttt{ragged2e} package provides improved versions of \LaTeX{}'s built-in alignment commands. The standard \texttt{\textbackslash raggedright}, \texttt{\textbackslash centering}, and \texttt{\textbackslash raggedleft} commands disable hyphenation entirely, which can produce very uneven line lengths. The \texttt{ragged2e} versions (\texttt{\textbackslash RaggedRight}, \texttt{\textbackslash Centering}, and \texttt{\textbackslash RaggedLeft}) allow hyphenation while still keeping text ragged, resulting in much more even-looking paragraphs. The template applies these automatically to captions, problem and solution boxes, and the custom table column types.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % LISTS
@@ -1157,7 +1187,7 @@ The template includes a custom \texttt{\textbackslash smartleftheader} command t
 	\centering
 	\caption{Dynamic header states based on available width.}
 	\label{tab:header_logic}
-	\begin{tabularx}{\linewidth}{@{}lX@{}}
+	\begin{tabularx}{\linewidth}{@{}LL@{}}
 		\toprule
 		Scenario & Left Header Output \\
 		\midrule
@@ -1257,7 +1287,7 @@ These fields populate the title page and page header. Update them for every new 
 	\centering
 	\caption{Submission metadata fields.}
 	\label{tab:meta-submission}
-	\begin{tabularx}{\linewidth}{@{}lX@{}}
+	\begin{tabularx}{\linewidth}{@{}lL@{}}
 		\toprule
 		Field & Description \\
 		\midrule
@@ -1284,7 +1314,7 @@ These fields populate the title page and page header. Update them for every new 
 	\centering
 	\caption{Title page metadata fields.}
 	\label{tab:meta-titlepage}
-	\begin{tabularx}{\linewidth}{@{}lX@{}}
+	\begin{tabularx}{\linewidth}{@{}lL@{}}
 		\toprule
 		Field & Description \\
 		\midrule
@@ -1300,7 +1330,7 @@ These fields populate the title page and page header. Update them for every new 
 	\centering
 	\caption{Bibliography metadata fields.}
 	\label{tab:meta-bib}
-	\begin{tabularx}{\linewidth}{@{}lX@{}}
+	\begin{tabularx}{\linewidth}{@{}lL@{}}
 		\toprule
 		Field & Description \\
 		\midrule
@@ -1318,7 +1348,7 @@ These fields populate the title page and page header. Update them for every new 
 	\centering
 	\caption{Font metadata fields.}
 	\label{tab:meta-font}
-	\begin{tabularx}{\linewidth}{@{}lX@{}}
+	\begin{tabularx}{\linewidth}{@{}lL@{}}
 		\toprule
 		Field & Description \\
 		\midrule
@@ -1335,7 +1365,7 @@ These fields populate the title page and page header. Update them for every new 
 	\centering
 	\caption{Misc. metadata fields.}
 	\label{tab:meta-appearance}
-	\begin{tabularx}{\linewidth}{@{}lX@{}}
+	\begin{tabularx}{\linewidth}{@{}lL@{}}
 		\toprule
 		Field & Description \\
 		\midrule
@@ -1354,7 +1384,7 @@ Each field accepts a hex colour code (with \texttt{\#} before it), a built-in \L
 	\centering
 	\caption{Colour metadata fields.}
 	\label{tab:meta-colours}
-	\begin{tabularx}{\linewidth}{@{}lX@{}}
+	\begin{tabularx}{\linewidth}{@{}lL@{}}
 		\toprule
 		Field & Description \\
 		\midrule
@@ -1484,7 +1514,7 @@ This appendix lists the mathematical notation used throughout this document, gro
 	\centering
 	\caption{General mathematical notation.}
 	\label{tab:notation-general}
-	\begin{tabularx}{\linewidth}{@{}lX@{}}
+	\begin{tabularx}{\linewidth}{@{}lL@{}}
 		\toprule
 		Symbol & Meaning \\
 		\midrule
@@ -1505,7 +1535,7 @@ This appendix lists the mathematical notation used throughout this document, gro
 	\centering
 	\caption{Algebra notation.}
 	\label{tab:notation-algebra}
-	\begin{tabularx}{\linewidth}{@{}lX@{}}
+	\begin{tabularx}{\linewidth}{@{}lL@{}}
 		\toprule
 		Symbol & Meaning \\
 		\midrule
@@ -1524,7 +1554,7 @@ This appendix lists the mathematical notation used throughout this document, gro
 	\centering
 	\caption{Physics notation.}
 	\label{tab:notation-physics}
-	\begin{tabularx}{\linewidth}{@{}lX@{}}
+	\begin{tabularx}{\linewidth}{@{}lL@{}}
 		\toprule
 		Symbol & Meaning \\
 		\midrule

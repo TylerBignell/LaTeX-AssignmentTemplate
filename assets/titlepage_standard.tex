@@ -4,7 +4,7 @@
 
 \pagenumbering{roman} % Titlepage is numbered in roman
 \begin{titlepage}
-    \centering
+    \Centering
     \vspace*{2cm}
     % SCHOOL ---------------------------------------------
     \LARGE \seriftext{\metaUniversity}\par\vspace{0.1cm}
@@ -20,7 +20,7 @@
     \large \metaCourseCode : \metaCourseName\par\vspace{0.2cm}
     % STUDENT / INSTRUCTOR BLOCK --------------------------
     \begin{minipage}[t]{0.4\textwidth}
-        \begin{flushleft}\large
+        \begin{FlushLeft}\large
             \ifthenelse{\equal{\metaPartners}{}}{%
                 \emph{Student:}\\
                 \metaStudentName\\
@@ -33,11 +33,11 @@
                     \metaPartners
                 \end{tabular}
             }
-        \end{flushleft}
+        \end{FlushLeft}
     \end{minipage}
     \hfill
     \begin{minipage}[t]{0.4\textwidth}
-        \begin{flushright}\large
+        \begin{FlushRight}\large
             \emph{Instructor:}\\
             \metaInstructor
             \ifthenelse{\equal{\metaPartners}{}}{}{%
@@ -45,7 +45,7 @@
                 \emph{Date:}\\
                 \metaDate
             }
-        \end{flushright}
+        \end{FlushRight}
     \end{minipage}
     % DATE (PARTNERS IS EMPTY) ----------------------------
     \vfill
@@ -58,12 +58,12 @@
         % LOGO (BOTTOM RIGHT, REMOVE FILE FOR BLANK) ------
         \ifthenelse{\equal{\metaLogoPath}{}}{}{
 			\IfFileExists{\metaLogoPath}{
-				\begin{flushright}
+				\begin{FlushRight}
 					\begin{minipage}{0.45\textwidth}
-						\raggedleft
+						\RaggedLeft
 						\includegraphics[width=\linewidth]{\metaLogoPath}
 					\end{minipage}
-				\end{flushright}
+				\end{FlushRight}
 			}{}
 		}
 	}

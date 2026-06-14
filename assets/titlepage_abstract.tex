@@ -4,7 +4,7 @@
 
 \pagenumbering{roman} % Titlepage is numbered in roman
 \begin{titlepage}
-    \centering
+    \Centering
     % SCHOOL ---------------------------------------------
     \LARGE \seriftext{\metaUniversity}\par\vspace{0.1cm}
     \Large \seriftext{\metaFaculty}\par\vspace{0.1cm}
@@ -19,7 +19,7 @@
     \large \metaCourseCode : \metaCourseName\par\vspace{0.2cm}
     % STUDENT / INSTRUCTOR BLOCK --------------------------
     \begin{minipage}[t]{0.4\textwidth}
-        \begin{flushleft}\large
+        \begin{FlushLeft}\large
             \ifthenelse{\equal{\metaPartners}{}}{%
                 \emph{Student:}\\
                 \metaStudentName\\
@@ -32,21 +32,21 @@
                     \metaPartners
                 \end{tabular}
             }
-        \end{flushleft}
+        \end{FlushLeft}
     \end{minipage}
     \hfill
     \begin{minipage}[t]{0.4\textwidth}
-        \begin{flushright}\large
+        \begin{FlushRight}\large
             \emph{Instructor:}\\
             \metaInstructor\\\vspace{0.2cm}
             \emph{Date:}\\
             \metaDate
-        \end{flushright}
+        \end{FlushRight}
     \end{minipage}
     \vspace{1cm}
     % ABSTRACT --------------------------------------------
 	{\par\begingroup
-		\raggedright
+		\RaggedRight
 		\renewenvironment{abstract}{%
 			\begin{center}\textbf{\large Abstract}\end{center}%
 		}{\par\vspace{1em}}
@@ -58,12 +58,12 @@
     \vfill
     \ifthenelse{\equal{\metaLogoPath}{}}{}{
 		\IfFileExists{\metaLogoPath}{
-			\begin{flushright}
+			\begin{FlushRight}
 				\begin{minipage}{0.45\textwidth}
-					\raggedleft
+					\RaggedLeft
 					\includegraphics[width=\linewidth]{\metaLogoPath}
 				\end{minipage}
-			\end{flushright}
+			\end{FlushRight}
 		}{}
 	}
 \end{titlepage}

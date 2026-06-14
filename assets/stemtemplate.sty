@@ -313,17 +313,24 @@
 \usepackage{booktabs}   % Horizontal rules in tables (\toprule, \midrule, \bottomrule)
 \usepackage{array}      % Extended column formatting options for tabular
 \usepackage{tabularx}   % Tables with auto-width columns (X column type)
+\newcolumntype{L}{>{\RaggedRight\arraybackslash}X}
+\newcolumntype{C}{>{\Centering\arraybackslash}X}
+\newcolumntype{R}{>{\RaggedLeft\arraybackslash}X}
+\newcolumntype{P}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\newcolumntype{Q}[1]{>{\Centering\arraybackslash}p{#1}}
+\newcolumntype{S}[1]{>{\RaggedLeft\arraybackslash}p{#1}}
 \usepackage{multirow}   % Multi-row cells in tables
 \usepackage{longtable}  % Tables that continue across page breaks
 \usepackage{float}      % Precise float placement with [H] specifier
 \usepackage{subcaption} % Sub-figures and sub-captions (subfigure environment)
 \usepackage{caption} 	% Better captions
+\DeclareCaptionJustification{ragged2e}{\RaggedRight}
 \captionsetup{
 	font={small},
 	labelfont={bf,color=themecolour},
 	textfont={color=black},
 	labelsep=colon,
-	justification=raggedright,
+	justification=ragged2e,
 	singlelinecheck=false,
 	skip=8pt}
 \captionsetup[table]{
@@ -332,8 +339,9 @@
 \captionsetup[figure]{
 	position=below,
 	skip=8pt}
+\DeclareCaptionJustification{centred}{\Centering}
 \captionsetup[subfigure]{
-	justification=centering}
+	justification=centred}
 \usepackage{pdfpages}   % Insert external PDF pages (\includepdf)
 % FIGURES AND TABLES NUMBERED BY SECTION ------------------
 \ifthenelse{\equal{\metaNumberFigures}{true}}{\numberwithin{figure}{section}}{} % Change in metadata
@@ -346,6 +354,7 @@
 \usepackage{pgfplots}     % Data plots and function graphs built on TikZ
 \pgfplotsset{compat=1.18} % Locks pgfplots behaviour to v1.18 for reproducibility
 \usepackage{circuitikz}   % Circuit schematics using TikZ nodes
+\usepackage{pgf-pie}      % Pie charts built on TikZ/pgf
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ALGORITHMS
@@ -358,7 +367,7 @@
 	labelfont={bf,color=themecolour},
 	textfont={color=black},
 	labelsep=colon,
-	justification=raggedright,
+	justification=ragged2e,
 	singlelinecheck=false,
 	skip=4pt}
 \algrenewcommand\algorithmicindent{1.5em}
@@ -420,6 +429,7 @@
 \usepackage{xurl}                  % Allow URLs to break at more points
 \setlength{\emergencystretch}{3em} % Prevent overfull hboxes in paragraphs
 \usepackage{indentfirst}    	   % Indents first paragraph
+\usepackage{ragged2e} % Improved text alignment: \RaggedRight, \RaggedLeft, \Centering, \justify
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % LISTS
@@ -458,6 +468,7 @@
 		leftrule=3pt,
 		rightrule=1pt,
 		toprule=1pt,
+		before upper={\RaggedRight},
 		bottomrule=1pt,]}{%
 \end{tcolorbox}}
 % SOLUTION BOX --------------------------------------------
@@ -470,7 +481,7 @@
 		fonttitle=\bfseries,
 		title={Solution},
 		coltitle=themecolour,
-		attach title to upper={\par\vspace{2pt}},
+		attach title to upper={\par\vspace{2pt}\RaggedRight},
 		sharp corners,
 		leftrule=3pt,
 		rightrule=1pt,
