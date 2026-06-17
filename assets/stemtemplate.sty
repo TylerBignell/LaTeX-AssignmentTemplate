@@ -306,10 +306,35 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% GRAPHICS, FIGURES & TABLES
+% FIGURES
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{graphicx}   % Include external images (\includegraphics)
 \graphicspath{{figures/}{assets/}} % Look for images in these subfolders
+\usepackage{float}      % Precise float placement with [H] specifier
+\usepackage{subcaption} % Sub-figures and sub-captions (subfigure environment)
+\usepackage{caption}    % Better captions
+\DeclareCaptionJustification{ragged2e}{\RaggedRight}
+\captionsetup{
+	font={small},
+	labelfont={bf,color=themecolour},
+	textfont={color=black},
+	labelsep=colon,
+	justification=ragged2e,
+	singlelinecheck=false,
+	skip=8pt}
+\captionsetup[figure]{
+	position=below,
+	skip=8pt}
+\DeclareCaptionJustification{centred}{\Centering}
+\captionsetup[subfigure]{
+	justification=centred}
+\usepackage{pdfpages}   % Insert external PDF pages (\includepdf)
+% FIGURES NUMBERED BY SECTION -----------------------------
+\ifthenelse{\equal{\metaNumberFigures}{true}}{\numberwithin{figure}{section}}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TABLES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{booktabs}   % Horizontal rules in tables (\toprule, \midrule, \bottomrule)
 \usepackage{array}      % Extended column formatting options for tabular
 \usepackage{tabularx}   % Tables with auto-width columns (X column type)
@@ -320,32 +345,17 @@
 \newcolumntype{Q}[1]{>{\Centering\arraybackslash}p{#1}}
 \newcolumntype{S}[1]{>{\RaggedLeft\arraybackslash}p{#1}}
 \usepackage{multirow}   % Multi-row cells in tables
-\usepackage{longtable}  % Tables that continue across page breaks
-\usepackage{float}      % Precise float placement with [H] specifier
-\usepackage{subcaption} % Sub-figures and sub-captions (subfigure environment)
-\usepackage{caption} 	% Better captions
-\DeclareCaptionJustification{ragged2e}{\RaggedRight}
-\captionsetup{
-	font={small},
-	labelfont={bf,color=themecolour},
-	textfont={color=black},
-	labelsep=colon,
-	justification=ragged2e,
-	singlelinecheck=false,
-	skip=8pt}
+\usepackage{ltablex}    % Extends tabularx with page-breaking (replaces longtable)
+\AtBeginDocument{\keepXColumns} % Always stretch X columns to fill specified width
 \captionsetup[table]{
 	position=above,
 	skip=4pt}
-\captionsetup[figure]{
-	position=below,
-	skip=8pt}
-\DeclareCaptionJustification{centred}{\Centering}
-\captionsetup[subfigure]{
-	justification=centred}
-\usepackage{pdfpages}   % Insert external PDF pages (\includepdf)
-% FIGURES AND TABLES NUMBERED BY SECTION ------------------
-\ifthenelse{\equal{\metaNumberFigures}{true}}{\numberwithin{figure}{section}}{} % Change in metadata
-\ifthenelse{\equal{\metaNumberTables}{true}}{\numberwithin{table}{section}}{} % Change in metadata
+\captionsetup[longtable]{
+	hypcap=false, 
+	justification=raggedright, 
+	singlelinecheck=false} % ltablex tables are not floats; suppress hypcap warning
+% TABLES NUMBERED BY SECTION ------------------------------
+\ifthenelse{\equal{\metaNumberTables}{true}}{\numberwithin{table}{section}}{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DIAGRAMS & PLOTS
