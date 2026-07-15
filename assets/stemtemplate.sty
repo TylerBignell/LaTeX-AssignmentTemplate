@@ -343,7 +343,7 @@
 \newcolumntype{R}{>{\RaggedLeft\arraybackslash}X}
 \newcolumntype{P}[1]{>{\RaggedRight\arraybackslash}p{#1}}
 \newcolumntype{Q}[1]{>{\Centering\arraybackslash}p{#1}}
-\newcolumntype{S}[1]{>{\RaggedLeft\arraybackslash}p{#1}}
+\newcolumntype{K}[1]{>{\RaggedLeft\arraybackslash}p{#1}}
 \usepackage{multirow}   % Multi-row cells in tables
 \usepackage{ltablex}    % Extends tabularx with page-breaking (replaces longtable)
 \AtBeginDocument{\keepXColumns} % Always stretch X columns to fill specified width
@@ -405,26 +405,50 @@
 	urlcolor=urlcolour,
 	pageanchor=true}
 \usepackage{cleveref} % Smart cross-references that auto-insert type name (\cref)
-\crefname{equation}{Eq.}{Eqs.}
-\crefname{reaction}{Rxn.}{Rxns.}
-	\creflabelformat{reaction}{(#2#1#3)}
-\crefname{figure}{Fig.}{Figs.}
-\crefname{table}{Table}{Tables}
-\crefname{section}{Section}{Sections}
-\crefname{algorithm}{Algorithm}{Algorithms}
-\crefname{theorem}{Theorem}{Theorems}
-\crefname{lemma}{Lemma}{Lemmas}
-\crefname{proposition}{Proposition}{Propositions}
-\crefname{corollary}{Corollary}{Corollaries}
-\crefname{conjecture}{Conjecture}{Conjectures}
-\crefname{axiom}{Axiom}{Axioms}
-\crefname{definition}{Definition}{Definitions}
-\crefname{example}{Example}{Examples}
-\crefname{criterion}{Criterion}{Criteria}
-\crefname{remark}{Remark}{Remarks}
-\crefname{note}{Note}{Notes}
-\crefname{problem}{Problem}{Problems}
-\crefname{lstlisting}{Listing}{Listings}
+% LOWERCASE VARIANTS (For mid-sentence use)
+\crefname{equation}{eq.}{eqs.}
+\crefname{reaction}{rxn.}{rxns.}
+\creflabelformat{reaction}{(#2#1#3)}
+\crefname{figure}{fig.}{figs.}
+\crefname{table}{table}{tables}
+\crefname{section}{section}{sections}
+\crefname{appendix}{appendix}{appendices}
+\crefname{algorithm}{algorithm}{algorithms}
+\crefname{theorem}{theorem}{theorems}
+\crefname{lemma}{lemma}{lemmas}
+\crefname{proposition}{proposition}{propositions}
+\crefname{corollary}{corollary}{corollaries}
+\crefname{conjecture}{conjecture}{conjectures}
+\crefname{axiom}{axiom}{axioms}
+\crefname{definition}{definition}{definitions}
+\crefname{example}{example}{examples}
+\crefname{criterion}{criterion}{criteria}
+\crefname{remark}{remark}{remarks}
+\crefname{note}{note}{notes}
+\crefname{problem}{problem}{problems}
+\crefname{lstlisting}{listing}{listings}
+% UPPERCASE VARIANTS (For beginning of sentences)
+\Crefname{equation}{Eq.}{Eqs.}
+\Crefname{reaction}{Rxn.}{Rxns.}
+\creflabelformat{reaction}{(#2#1#3)}
+\Crefname{figure}{Fig.}{Figs.}
+\Crefname{table}{Table}{Tables}
+\Crefname{section}{Section}{Sections}
+\Crefname{appendix}{Appendix}{Appendices}
+\Crefname{algorithm}{Algorithm}{Algorithms}
+\Crefname{theorem}{Theorem}{Theorems}
+\Crefname{lemma}{Lemma}{Lemmas}
+\Crefname{proposition}{Proposition}{Propositions}
+\Crefname{corollary}{Corollary}{Corollaries}
+\Crefname{conjecture}{Conjecture}{Conjectures}
+\Crefname{axiom}{Axiom}{Axioms}
+\Crefname{definition}{Definition}{Definitions}
+\Crefname{example}{Example}{Examples}
+\Crefname{criterion}{Criterion}{Criteria}
+\Crefname{remark}{Remark}{Remarks}
+\Crefname{note}{Note}{Notes}
+\Crefname{problem}{Problem}{Problems}
+\Crefname{lstlisting}{Listing}{Listings}
 % TOC/LOF/LOT links are always black
 \AtBeginDocument{%
 	\addtocontents{toc}{\protect\hypersetup{linkcolor=black}}%
@@ -555,8 +579,25 @@
 	commentstyle=\color{green!60!black},
 	stringstyle=\color{red!70!black},
 	morekeywords={usepackage, documentclass, begin, end, newcommand, renewcommand, newenvironment, renewenvironment, setlength, addtolength, includegraphics, caption, label, ref, cref, cite, bibliography, textbf, textit, texttt, emph, frac, sqrt, sum, int, prod}}
-
-% Usage: \begin{lstlisting}[style=matlab] ... \end{lstlisting}
+% MINTED (OPTIONAL, TOGGLED VIA METADATA) ------------------
+\providecommand{\metaUseMinted}{false}
+\newif\ifmetaUseMinted
+\ifthenelse{\equal{\metaUseMinted}{true}}{\metaUseMintedtrue}{\metaUseMintedfalse}
+\ifmetaUseMinted
+\usepackage[cache=false]{minted} % Listing environment, requires python
+\setminted{
+	style=vs,
+	fontsize=\small,
+	breaklines=true,
+	tabsize=4,
+	linenos=true,
+	numbersep=8pt,
+	bgcolor=black!5,
+	frame=none,
+	xleftmargin=14pt,
+	xrightmargin=4pt}
+\renewcommand{\theFancyVerbLine}{\ttfamily\tiny\textcolor{themecolour!60}{\arabic{FancyVerbLine}}}
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DRAFT TOOLS
@@ -652,6 +693,9 @@ backref=\metaShowBackref]{biblatex} % Change back reference in metadata
 \let\orig@appendix\appendix % Recreates \appendix, changes numbering counter
 \renewcommand{\appendix}{%
 	\orig@appendix%
+	\crefalias{section}{appendix}%
+	\crefalias{subsection}{appendix}%
+	\crefalias{subsubsection}{appendix}%
 	\titleformat{\section}%
 	{\Large\bfseries\color{themecolour}}%
 	{Appendix~\Alph{section}}%

@@ -749,7 +749,7 @@ The \texttt{booktabs} package gives you three horizontal line commands for clean
 \subsection{\texttt{array}}
 \noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small This package is used internally by the template and is required by \texttt{tabularx} and \texttt{multirow}. Users may use its column specifiers directly when fine-grained column control is needed.}}\vspace{0.5\baselineskip}
 
-The \texttt{array} package lets you apply formatting to an entire column at once. The \texttt{>{\ldots}} syntax goes before the column letter in your column definition and applies a command to every cell in that column. The example below uses it to centre and wrap text in two fixed-width columns. The template defines shorthand column types \texttt{P\{\}}, \texttt{Q\{\}}, and \texttt{S\{\}} as \texttt{ragged2e}-aware equivalents of \texttt{p\{\}} for left, centre, and right alignment respectively:
+The \texttt{array} package lets you apply formatting to an entire column at once. The \texttt{>{\ldots}} syntax goes before the column letter in your column definition and applies a command to every cell in that column. The example below uses it to centre and wrap text in two fixed-width columns. The template defines shorthand column types \texttt{P\{\}}, \texttt{Q\{\}}, and \texttt{K\{\}} as \texttt{ragged2e}-aware equivalents of \texttt{p\{\}} for left, centre, and right alignment respectively:
 
 \begin{tabularx}{\linewidth}{Q{8cm} Q{3cm}}
 	\caption{Fixed-width centred columns using \texttt{array}.}
@@ -911,16 +911,80 @@ Useful axis options include \texttt{width}, \texttt{height}, \texttt{xlabel}, \t
 			ylabel={$y$},
 			grid=major,
 			grid style={color=themecolour!20},
-			title={\textrm{Title (Exclude this, figure caption acts as a title)}},
+			title={Title (Exclude this, figure caption acts as a title)},
 			legend style={at={(1.02,0.5)}, anchor=west}]
 			\addplot[color=themecolour, thick, domain=0:360, samples=100] {sin(x)};
 			\addlegendentry{$\sin(x)$}
-			\addplot[color=themecolour!40, thick, domain=0:360, samples=100] {cos(x)};
+			\addplot[color=themecolour!50, thick, domain=0:360, samples=100] {cos(x)};
 			\addlegendentry{$\cos(x)$}
 		\end{axis}
 	\end{tikzpicture}
 	\caption{Sine and cosine waves plotted with \texttt{pgfplots}.}
 	\label{fig:pgfplots}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[
+			ybar,
+			symbolic x coords={
+				Category A,
+				Category B,
+				Category C,
+				Category D
+			},
+			xtick=data,
+			bar width=10pt,
+			width=0.75\linewidth,
+			height=5cm,
+			nodes near coords,
+			every node near coord/.append style={
+				check for zero/.code={
+					\pgfmathfloatifflags{\pgfplotspointmeta}{0}
+					{\pgfkeys{/tikz/coordinate}}
+					{}
+				},
+				check for zero
+			},
+			enlarge x limits=0.2,
+			legend style={
+				at={(1.02,0.5)},
+				anchor=west
+			},
+			ymin=0,
+			ymax=100,
+			ylabel={Y‑Axis Label},
+			xlabel={X‑Axis Label (Redundant here)},
+			ymajorgrids=true,
+			grid style={color=themecolour!20},
+			]
+			% Dataset 1
+			\addplot[fill=themecolour!75] coordinates {
+				(Category A,45)
+				(Category B,70)
+				(Category C,55)
+				(Category D,25)
+			};
+			% Dataset 2
+			\addplot[fill=themecolour!50] coordinates {
+				(Category A,60)
+				(Category B,40)
+				(Category C,80)
+				(Category D,50)
+			};
+			% Dataset 3
+			\addplot[fill=themecolour!25] coordinates {
+				(Category A,30)
+				(Category B,35)
+				(Category C,65)
+				(Category D,75)
+			};			
+			\legend{Dataset 1, Dataset 2, Dataset 3}
+		\end{axis}
+	\end{tikzpicture}
+	\caption{Bar graph plotted with \texttt{pgfplots}.}
+	\label{fig:pgfbar}
 \end{figure}
 
 \subsection{\texttt{circuitikz}}
@@ -1072,7 +1136,7 @@ The two commands you will use directly are \texttt{\textbackslash url\{\}} for a
 The \texttt{cleveref} package replaces the standard \texttt{\textbackslash ref} command with \texttt{\textbackslash cref}, which automatically adds the correct label type in front of the number. For example, \texttt{\textbackslash cref\{fig:logo\}} produces \cref{fig:logo} without you having to type the word ``Figure'' yourself. Use \texttt{\textbackslash Cref} (capital C) at the start of a sentence. You can also pass multiple labels separated by commas and \texttt{cleveref} will group them neatly.
 
 \begin{tabularx}{\linewidth}{@{}ll@{}}
-	\caption{Cross-reference examples using \texttt{\textbackslash cref}.}
+	\caption{Cross-reference examples using \texttt{\textbackslash cref} for lowercase and \texttt{\textbackslash Cref} for uppercase.}
 	\label{tab:cleveref} \\
 	\toprule
 	%%%%% HEADER ROW(S) %%%%%
@@ -1091,6 +1155,7 @@ The \texttt{cleveref} package replaces the standard \texttt{\textbackslash ref} 
 	% NOTES HERE
 	\endlastfoot
 	%%%%% START %%%%%
+	\multicolumn{2}{c}{\texttt{\textbackslash cref}} \\
 	Figure      & \cref{fig:logo} \\
 	Sub-figure  & \cref{fig:sub_a} \\
 	Table       & \cref{tab:booktabs} \\
@@ -1098,6 +1163,7 @@ The \texttt{cleveref} package replaces the standard \texttt{\textbackslash ref} 
 	Reaction    & \cref{rxn:combustion} \\
 	Algorithm   & \cref{alg:binarysearch} \\
 	Section     & \cref{sec:lists} \\
+	Appendix	& \cref{sec:appendix-supp} \\
 	Theorem     & \cref{thm:pythagorean} \\
 	Lemma       & \cref{lem:even} \\
 	Proposition & \cref{prop:rational} \\
@@ -1111,6 +1177,14 @@ The \texttt{cleveref} package replaces the standard \texttt{\textbackslash ref} 
 	Note        & \cref{note:numbering} \\
 	Problem     & \cref{prob:ohmslaw} \\
 	Listing     & \cref{lst:MATLAB} \\
+	\midrule
+	\multicolumn{2}{c}{\texttt{\textbackslash Cref}} \\
+	Figure      & \Cref{fig:logo} \\
+	Sub-figure  & \Cref{fig:sub_a} \\
+	Table       & \Cref{tab:booktabs} \\
+	Equation    & \Cref{eq:simple} \\
+	Reaction    & \Cref{rxn:combustion} \\
+	\multicolumn{2}{c}{\textit{etc...}} \\
 \end{tabularx}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1238,10 +1312,8 @@ The \texttt{listings} package displays source code with syntax highlighting and 
 For short inline code snippets, use \texttt{\textbackslash lstinline[style=name]|...|} with \texttt{|} as the delimiter on both sides.
 
 \subsubsection{MATLAB}
-\begin{lstlisting}[style=matlab,
-	caption={MATLAB Example.},
-	label={lst:MATLAB}]
-	x = 0:0.1:2*pi;
+\begin{lstlisting}[style=matlab,caption={MATLAB example.},label={lst:MATLAB}]
+	x = 0:0.1:2*pi; % This is a comment
 	y = sin(x);
 	plot(x, y);
 	xlabel('x'); ylabel('sin(x)');
@@ -1249,18 +1321,16 @@ For short inline code snippets, use \texttt{\textbackslash lstinline[style=name]
 \end{lstlisting}
 
 \subsubsection{Java}
-\begin{lstlisting}[style=java,
-	caption={Java Example.}]
+\begin{lstlisting}[style=java,caption={Java example.}]
 	public class HelloWorld {
 		public static void main(String[] args) {
 			System.out.println("Hello, World!");
-		}
+		} // This is a comment
 	}
 \end{lstlisting}
 
 \subsubsection{Python}
-\begin{lstlisting}[style=python,
-	caption={Python Example.}]
+\begin{lstlisting}[style=python,caption={Python example.}]
 	import numpy as np
 	import matplotlib.pyplot as plt
 	
@@ -1271,8 +1341,7 @@ For short inline code snippets, use \texttt{\textbackslash lstinline[style=name]
 \end{lstlisting}
 
 \subsubsection{C++}
-\begin{lstlisting}[style=cpp,
-	caption={C++ Example.}]
+\begin{lstlisting}[style=cpp,caption={C++ example.}]
 	#include <iostream>
 	using namespace std;
 	
@@ -1283,14 +1352,48 @@ For short inline code snippets, use \texttt{\textbackslash lstinline[style=name]
 \end{lstlisting}
 
 \subsubsection{LaTeX}
-\begin{lstlisting}[style=latex,
-	caption={LaTeX Example.}]
+\begin{lstlisting}[style=latex,caption={LaTeX example.}]
 	\begin{equation}
 		E = mc^2
 		\label{eq:einstein}
 	\end{equation}
 	See \cref{eq:einstein} for Einstein's mass-energy equivalence.
 \end{lstlisting}
+
+\subsection{\texttt{minted}}
+\noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small This package is optional and controlled by \texttt{\textbackslash metaUseMinted} in \texttt{main.tex}. It requires the \texttt{-8bit -shell-escape} compiler flag and a working Python/Pygments install.}}\vspace{0.5\baselineskip}
+
+\ifmetaUseMinted
+
+The \texttt{minted} package is an alternative to \texttt{listings} that uses the Python library Pygments to perform syntax highlighting instead of \LaTeX{} macros. This produces more accurate, professional-looking highlighting for a much wider range of languages, at the cost of requiring \texttt{-8bit -shell-escape} to be enabled when compiling.
+
+Use \texttt{\textbackslash mintinline\{language\}\{code\}} for a short inline snippet:
+
+\mintinline{java}{public class HelloWorld {}
+}
+
+Attach a caption and label using \texttt{\textbackslash captionof\{lstlisting\}\{...\}} and \texttt{\textbackslash label\{\}} just before the block. This steps and shares the same counter as \texttt{lstlisting}, so numbering, styling, and \texttt{\textbackslash cref} behave identically whether you use \texttt{listings} or \texttt{minted}.
+
+\begin{lstlisting}[
+	caption={Java example.}, 	% Change this as needed
+	label={lst:java},			% Change this as needed
+	belowskip=-0.5\baselineskip]
+\end{lstlisting}
+\begin{minted}{java}
+	public class HelloWorld {
+		public static void main(String[] args) {
+			System.out.println("Hello, World!");
+		} // This is a comment
+	}
+\end{minted}
+
+Unlike \texttt{\textbackslash lstinline}, the block form of \texttt{minted} cannot be placed inside a table cell or a \texttt{tcolorbox} (including this template's \texttt{problem} and \texttt{solution} environments), since both rely on verbatim reading that conflicts with those contexts. Use \texttt{\textbackslash mintinline\{\}\{\}} in those situations instead.
+
+\else
+
+\texttt{minted} is currently \textbf{disabled}. Set \texttt{\textbackslash metaUseMinted\{true\}} in \texttt{main.tex} and compile with the \texttt{-shell-escape} flag to enable Pygments-based syntax highlighting and see a live demo here.
+
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DRAFT TOOLS
@@ -1626,7 +1729,7 @@ Each field accepts a hex colour code (with \texttt{\#} before it), a built-in \L
 \end{tabularx}
 
 \subsection{Numbering}
-These fields control whether floats and environments are numbered by section (e.g.\ Figure~2.1) or continuously through the whole document (e.g.\ Figure~3). All fields accept \texttt{true} or \texttt{false}.
+These fields control whether floats and environments are numbered by section (e.g.\ Fig.~2.1) or continuously through the whole document (e.g.\ Fig.~3). All fields accept \texttt{true} or \texttt{false}.
 
 \begin{tabularx}{\linewidth}{@{}ll@{}}
 	\caption{Numbering metadata fields.}
@@ -1655,6 +1758,33 @@ These fields control whether floats and environments are numbered by section (e.
 	\texttt{\textbackslash metaNumberProblems}   & \texttt{problem} \\
 	\texttt{\textbackslash metaNumberAlgorithms} & \texttt{algorithm} \\
 	\texttt{\textbackslash metaNumberListings} 	 & \texttt{listing} \\
+\end{tabularx}
+
+\subsection{Minted Code Listings}
+This field controls whether \texttt{minted} package is active or not. It is recommended to set this macro to \texttt{false} when \texttt{minted} environments are not in use as it slows compile time.
+
+\begin{tabularx}{\linewidth}{@{}lL@{}}
+	\caption{Minted metadata field.}
+	\label{tab:meta-minted} \\
+	\toprule
+	%%%%% HEADER ROW(S) %%%%%
+	Field & Description \\
+	\midrule
+	\endfirsthead
+	\toprule
+	%%%%% HEADER ROW(S) %%%%%
+	Field & Description \\
+	\midrule
+	\endhead
+	\bottomrule
+	\endfoot
+	\bottomrule
+	%%%%% NOTES %%%%%
+	% NOTES HERE
+	\endlastfoot
+	%%%%% START %%%%%
+	\texttt{\textbackslash metaUseMinted}  
+	& Allows use of \texttt{minted} package for listing environments. Input \texttt{true} to use, \texttt{false} to remove access. \\
 \end{tabularx}
 
 % APPENDIX C ----------------------------------------------
