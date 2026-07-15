@@ -106,6 +106,9 @@ All settings are controlled from the top of `main.tex`. The full metadata block 
 \newcommand{\metaNumberProblems}{true}     % true or false
 \newcommand{\metaNumberAlgorithms}{true}   % true or false
 \newcommand{\metaNumberListings}{true}     % true or false
+
+% MINTED CODE LISTINGS
+\newcommand{\metaUseMinted}{false} % true or false (Keep false if not using minted; requires -8bit -shell-escape)
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ABSTRACT (EDIT FOR EACH SUBMISSION)
@@ -196,6 +199,14 @@ When set to `true`, floats and environments are numbered relative to their secti
 | `\metaNumberProblems` | `problem` environments |
 | `\metaNumberAlgorithms` | `algorithm` environments |
 | `\metaNumberListings` | `listing` environments (Code) |
+
+### MINTED CODE LISTINGS
+ 
+When set to `true`, allows use of `minted` package. When set to `false`, it removes access to `minted` package.
+ 
+| Field | Options | Description |
+|---|---|---|
+| `\metaUseMinted` | `true`, `false` | `minted` package use |
  
 ---
  
