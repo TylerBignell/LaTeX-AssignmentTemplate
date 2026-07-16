@@ -426,7 +426,7 @@
 \crefname{remark}{remark}{remarks}
 \crefname{note}{note}{notes}
 \crefname{problem}{problem}{problems}
-\crefname{lstlisting}{listing}{listings}
+\crefname{listing}{listing}{listings}
 % UPPERCASE VARIANTS (For beginning of sentences)
 \Crefname{equation}{Eq.}{Eqs.}
 \Crefname{reaction}{Rxn.}{Rxns.}
@@ -448,7 +448,7 @@
 \Crefname{remark}{Remark}{Remarks}
 \Crefname{note}{Note}{Notes}
 \Crefname{problem}{Problem}{Problems}
-\Crefname{lstlisting}{Listing}{Listings}
+\Crefname{listing}{Listing}{Listings}
 % TOC/LOF/LOT links are always black
 \AtBeginDocument{%
 	\addtocontents{toc}{\protect\hypersetup{linkcolor=black}}%
@@ -540,9 +540,30 @@
 	frame=none,
 	xleftmargin=14pt,
 	xrightmargin=4pt}
-% LISTINGS NUMBERED BY SECTION ---------------------------
+% UNIFIED CODE LISTING FLOAT (holds lstlisting OR minted) -
+\newcommand\fs@listingstyle{%
+	\def\@fs@cfont{\bfseries}%
+	\let\@fs@capt\floatc@plain
+	\def\@fs@pre{}%
+	\def\@fs@post{}%
+	\def\@fs@mid{\relax}%
+	\let\@fs@iftopcapt\iftrue}     % caption on top, no rules
+\floatstyle{listingstyle}
+\newfloat{listing}{tbp}{lol}
+\floatname{listing}{Listing}
+\floatplacement{listing}{H}        % pin in place like lstlisting, don't float to its own page to its own page
+\captionsetup[listing]{
+	font={small},
+	labelfont={bf,color=themecolour},
+	textfont={color=black},
+	labelsep=colon,
+	justification=ragged2e,
+	singlelinecheck=false,
+	position=above,
+	skip=4pt}
+% CODE LISTINGS NUMBERED BY SECTION ------------------------
 \ifthenelse{\equal{\metaNumberListings}{true}}{%
-	\AfterEndPreamble{\numberwithin{lstlisting}{section}}%
+	\numberwithin{listing}{section}%
 }{}
 % MATLAB --------------------------------------------------
 \lstdefinestyle{matlab}{
@@ -595,7 +616,8 @@
 	bgcolor=black!5,
 	frame=none,
 	xleftmargin=14pt,
-	xrightmargin=4pt}
+	xrightmargin=4pt,
+	listparameters={\setlength{\topsep}{\medskipamount}\setlength{\partopsep}{0pt}}}
 \renewcommand{\theFancyVerbLine}{\ttfamily\tiny\textcolor{themecolour!60}{\arabic{FancyVerbLine}}}
 \fi
 
@@ -717,7 +739,7 @@ backref=\metaShowBackref]{biblatex} % Change back reference in metadata
 	\renewcommand{\theremark}{\Alph{section}.\arabic{remark}}%
 	\renewcommand{\thenote}{\Alph{section}.\arabic{note}}%
 	\renewcommand{\thealgorithm}{\Alph{section}.\arabic{algorithm}}%
-	\renewcommand{\thelstlisting}{\Alph{section}.\arabic{lstlisting}}%
+	\renewcommand{\thelisting}{\Alph{section}.\arabic{listing}}%
 	\counterwithin{figure}{section}%
 	\counterwithin{table}{section}%
 	\counterwithin{equation}{section}%
@@ -736,5 +758,5 @@ backref=\metaShowBackref]{biblatex} % Change back reference in metadata
 	\counterwithin{remark}{section}%
 	\counterwithin{note}{section}%
 	\counterwithin{algorithm}{section}%
-	\counterwithin{lstlisting}{section}%
+	\counterwithin{listing}{section}%
 }

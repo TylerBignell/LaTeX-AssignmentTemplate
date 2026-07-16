@@ -1312,25 +1312,36 @@ The \texttt{listings} package displays source code with syntax highlighting and 
 For short inline code snippets, use \texttt{\textbackslash lstinline[style=name]|...|} with \texttt{|} as the delimiter on both sides.
 
 \subsubsection{MATLAB}
-\begin{lstlisting}[style=matlab,caption={MATLAB example.},label={lst:MATLAB}]
+\begin{listing}[H]
+	\caption{MATLAB example.}
+	\label{lst:MATLAB}
+\begin{lstlisting}[style=matlab]
 	x = 0:0.1:2*pi; % This is a comment
 	y = sin(x);
 	plot(x, y);
 	xlabel('x'); ylabel('sin(x)');
 	title('Sine Wave');
 \end{lstlisting}
+\end{listing}
 
 \subsubsection{Java}
-\begin{lstlisting}[style=java,caption={Java example.}]
+\begin{listing}[H]
+	\caption{Java example.}
+	\label{lst:java}
+\begin{lstlisting}[style=java]
 	public class HelloWorld {
 		public static void main(String[] args) {
 			System.out.println("Hello, World!");
 		} // This is a comment
 	}
 \end{lstlisting}
+\end{listing}
 
 \subsubsection{Python}
-\begin{lstlisting}[style=python,caption={Python example.}]
+\begin{listing}[H]
+	\caption{Python example.}
+	\label{lst:python}
+\begin{lstlisting}[style=python]
 	import numpy as np
 	import matplotlib.pyplot as plt
 	
@@ -1339,9 +1350,13 @@ For short inline code snippets, use \texttt{\textbackslash lstinline[style=name]
 	plt.plot(x, y)
 	plt.show()
 \end{lstlisting}
+\end{listing}
 
 \subsubsection{C++}
-\begin{lstlisting}[style=cpp,caption={C++ example.}]
+\begin{listing}[H]
+	\caption{C++ example.}
+	\label{lst:cpp}
+\begin{lstlisting}[style=cpp]
 	#include <iostream>
 	using namespace std;
 	
@@ -1350,15 +1365,20 @@ For short inline code snippets, use \texttt{\textbackslash lstinline[style=name]
 		return 0;
 	}
 \end{lstlisting}
+\end{listing}
 
 \subsubsection{LaTeX}
-\begin{lstlisting}[style=latex,caption={LaTeX example.}]
+\begin{listing}[H]
+	\caption{LaTeX example.}
+	\label{lst:latex}
+\begin{lstlisting}[style=latex]
 	\begin{equation}
 		E = mc^2
 		\label{eq:einstein}
 	\end{equation}
 	See \cref{eq:einstein} for Einstein's mass-energy equivalence.
 \end{lstlisting}
+\end{listing}
 
 \subsection{\texttt{minted}}
 \noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small This package is optional and controlled by \texttt{\textbackslash metaUseMinted} in \texttt{main.tex}. It requires the \texttt{-8bit -shell-escape} compiler flag and a working Python/Pygments install.}}\vspace{0.5\baselineskip}
@@ -1372,13 +1392,11 @@ Use \texttt{\textbackslash mintinline\{language\}\{code\}} for a short inline sn
 \mintinline{java}{public class HelloWorld {}
 }
 
-Attach a caption and label using \texttt{\textbackslash captionof\{lstlisting\}\{...\}} and \texttt{\textbackslash label\{\}} just before the block. This steps and shares the same counter as \texttt{lstlisting}, so numbering, styling, and \texttt{\textbackslash cref} behave identically whether you use \texttt{listings} or \texttt{minted}.
+Both \texttt{lstlisting} and \texttt{minted} share a single unified float, \texttt{listing}, so numbering, styling, and \texttt{\textbackslash cref} behave identically no matter which highlighting engine you use for a given block. Wrap either environment in \texttt{\textbackslash begin\{listing\}[H] ... \textbackslash end\{listing\}}, with \texttt{\textbackslash caption\{\}} and \texttt{\textbackslash label\{\}} placed \emph{first}, before the code:
 
-\begin{lstlisting}[
-	caption={Java example.}, 	% Change this as needed
-	label={lst:java},			% Change this as needed
-	belowskip=-0.5\baselineskip]
-\end{lstlisting}
+\begin{listing}[H]
+	\caption{Java example.}
+	\label{lst:minted}
 \begin{minted}{java}
 	public class HelloWorld {
 		public static void main(String[] args) {
@@ -1386,6 +1404,7 @@ Attach a caption and label using \texttt{\textbackslash captionof\{lstlisting\}\
 		} // This is a comment
 	}
 \end{minted}
+\end{listing}
 
 Unlike \texttt{\textbackslash lstinline}, the block form of \texttt{minted} cannot be placed inside a table cell or a \texttt{tcolorbox} (including this template's \texttt{problem} and \texttt{solution} environments), since both rely on verbatim reading that conflicts with those contexts. Use \texttt{\textbackslash mintinline\{\}\{\}} in those situations instead.
 
@@ -1508,14 +1527,17 @@ An example citation: \cite{example}.
 
 Place appendices at the end of your document after the bibliography. The \texttt{\textbackslash appendix} command switches section numbering from arabic numbers to uppercase letters, so each \texttt{\textbackslash section\{\}} after it becomes a new appendix: Appendix A, Appendix B, and so on. You do not need any extra configuration, just keep adding \texttt{\textbackslash section\{\}} commands.
 
-\begin{lstlisting}[style=latex,
-	caption={Appendix Section Code.}]
+\begin{listing}[H]
+\caption{Appendix Section Code.}
+%\label{lst:}
+\begin{lstlisting}[style=latex]
 	\appendix
 	\section{First Appendix}   % Appendix A
 	...
 	\section{Second Appendix}  % Appendix B
 	...
 \end{lstlisting}
+\end{listing}
 
 \subsection{Counter Resets}
 The template automatically resets the numbering of all major floats at the start of the appendix so they are labelled relative to their appendix letter. For example, the first figure in Appendix B is labelled \textbf{Figure B.1}. The following counters are reset automatically:
@@ -1535,14 +1557,17 @@ Section headings inside the appendix are automatically formatted as \textbf{Appe
 \subsection{Cross-Referencing Appendices}\label{sec:appendix-usage-crossref}
 Appendix sections, subsections, figures, and tables all support \texttt{\textbackslash label} and \texttt{\textbackslash cref} the same way as the rest of the document. For example, this subsection has the label \texttt{sec:appendix-usage-crossref} and can be referenced anywhere in the document like this:
 
-\begin{lstlisting}[style=latex,
-	caption={Appendix Section Cross-Reference.}]
+\begin{listing}[H]
+\caption{Appendix Section Cross-Reference.}
+%\label{lst:}
+\begin{lstlisting}[style=latex]
 	% In the appendix:
 	\subsection{Cross-Referencing Appendices}\label{sec:appendix-crossref}
 	
 	% Elsewhere in the document:
 	See \cref{sec:appendix-crossref} for details on cross-referencing appendices.
 \end{lstlisting}
+\end{listing}
 
 Which renders as: See \cref{sec:appendix-usage-crossref} for details on cross-referencing appendices.
 
