@@ -1306,15 +1306,18 @@ The title argument is optional. When omitted, only the problem number appears in
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Code Listings}
 
+Every code block in this template, whether highlighted by \texttt{listings} or \texttt{minted}, is captioned and numbered off the same \texttt{lstlisting} counter. Place a \texttt{\textbackslash captionof\{lstlisting\}\{...\}} and \texttt{\textbackslash label\{...\}} directly above the code, and reference it anywhere with \texttt{\textbackslash cref}/\texttt{\textbackslash Cref} as usual. Because both engines write to the same counter, listings and minted blocks number continuously through one shared sequence no matter which produced a given block.
+
 \subsection{\texttt{listings}}
 The \texttt{listings} package displays source code with syntax highlighting and line numbers. Five named styles are built into this template: \texttt{matlab}, \texttt{java}, \texttt{python}, \texttt{cpp}, and \texttt{latex}. All styles share the same base look: a monospaced font, line numbers on the left in \texttt{themecolour}, a light grey background, and automatic line wrapping. Select a style by adding \texttt{style=name} as an option on the \texttt{lstlisting} environment.
 
 For short inline code snippets, use \texttt{\textbackslash lstinline[style=name]|...|} with \texttt{|} as the delimiter on both sides.
 
 \subsubsection{MATLAB}
-\begin{listing}[H]
-	\caption{MATLAB example.}
+{\vspace{10pt}
+	\captionof{lstlisting}{MATLAB example.}
 	\label{lst:MATLAB}
+	\vspace{-4pt}}
 \begin{lstlisting}[style=matlab]
 	x = 0:0.1:2*pi; % This is a comment
 	y = sin(x);
@@ -1322,12 +1325,12 @@ For short inline code snippets, use \texttt{\textbackslash lstinline[style=name]
 	xlabel('x'); ylabel('sin(x)');
 	title('Sine Wave');
 \end{lstlisting}
-\end{listing}
 
 \subsubsection{Java}
-\begin{listing}[H]
-	\caption{Java example.}
+{\vspace{10pt}
+	\captionof{lstlisting}{Java example.}
 	\label{lst:java}
+	\vspace{-4pt}}
 \begin{lstlisting}[style=java]
 	public class HelloWorld {
 		public static void main(String[] args) {
@@ -1335,12 +1338,12 @@ For short inline code snippets, use \texttt{\textbackslash lstinline[style=name]
 		} // This is a comment
 	}
 \end{lstlisting}
-\end{listing}
 
 \subsubsection{Python}
-\begin{listing}[H]
-	\caption{Python example.}
+{\vspace{10pt}
+	\captionof{lstlisting}{Python example.}
 	\label{lst:python}
+	\vspace{-4pt}}
 \begin{lstlisting}[style=python]
 	import numpy as np
 	import matplotlib.pyplot as plt
@@ -1350,12 +1353,12 @@ For short inline code snippets, use \texttt{\textbackslash lstinline[style=name]
 	plt.plot(x, y)
 	plt.show()
 \end{lstlisting}
-\end{listing}
 
 \subsubsection{C++}
-\begin{listing}[H]
-	\caption{C++ example.}
+{\vspace{10pt}
+	\captionof{lstlisting}{C++ example.}
 	\label{lst:cpp}
+	\vspace{-4pt}}
 \begin{lstlisting}[style=cpp]
 	#include <iostream>
 	using namespace std;
@@ -1365,12 +1368,12 @@ For short inline code snippets, use \texttt{\textbackslash lstinline[style=name]
 		return 0;
 	}
 \end{lstlisting}
-\end{listing}
 
 \subsubsection{LaTeX}
-\begin{listing}[H]
-	\caption{LaTeX example.}
+{\vspace{10pt}
+	\captionof{lstlisting}{LaTeX example.}
 	\label{lst:latex}
+	\vspace{-4pt}}
 \begin{lstlisting}[style=latex]
 	\begin{equation}
 		E = mc^2
@@ -1378,7 +1381,6 @@ For short inline code snippets, use \texttt{\textbackslash lstinline[style=name]
 	\end{equation}
 	See \cref{eq:einstein} for Einstein's mass-energy equivalence.
 \end{lstlisting}
-\end{listing}
 
 \subsection{\texttt{minted}}
 \noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small This package is optional and controlled by \texttt{\textbackslash metaUseMinted} in \texttt{main.tex}. It requires the \texttt{-8bit -shell-escape} compiler flag and a working Python/Pygments install.}}\vspace{0.5\baselineskip}
@@ -1392,11 +1394,12 @@ Use \texttt{\textbackslash mintinline\{language\}\{code\}} for a short inline sn
 \mintinline{java}{public class HelloWorld {}
 }
 
-Both \texttt{lstlisting} and \texttt{minted} share a single unified float, \texttt{listing}, so numbering, styling, and \texttt{\textbackslash cref} behave identically no matter which highlighting engine you use for a given block. Wrap either environment in \texttt{\textbackslash begin\{listing\}[H] ... \textbackslash end\{listing\}}, with \texttt{\textbackslash caption\{\}} and \texttt{\textbackslash label\{\}} placed \emph{first}, before the code:
+Caption a \texttt{minted} block exactly the same way as a \texttt{lstlisting} block: no wrapping float, just the three-line \texttt{\textbackslash vspace}/\texttt{\textbackslash captionof}/\texttt{\textbackslash vspace} pattern placed directly above the code. Since both environments share the same \texttt{lstlisting} counter and caption style, a minted block numbers and looks identical to a listings block placed next to it:
 
-\begin{listing}[H]
-	\caption{Java example.}
+{\vspace{10pt}
+	\captionof{lstlisting}{Java example.}
 	\label{lst:minted}
+	\vspace{-4pt}}
 \begin{minted}{java}
 	public class HelloWorld {
 		public static void main(String[] args) {
@@ -1404,7 +1407,6 @@ Both \texttt{lstlisting} and \texttt{minted} share a single unified float, \text
 		} // This is a comment
 	}
 \end{minted}
-\end{listing}
 
 Unlike \texttt{\textbackslash lstinline}, the block form of \texttt{minted} cannot be placed inside a table cell or a \texttt{tcolorbox} (including this template's \texttt{problem} and \texttt{solution} environments), since both rely on verbatim reading that conflicts with those contexts. Use \texttt{\textbackslash mintinline\{\}\{\}} in those situations instead.
 
@@ -1527,9 +1529,10 @@ An example citation: \cite{example}.
 
 Place appendices at the end of your document after the bibliography. The \texttt{\textbackslash appendix} command switches section numbering from arabic numbers to uppercase letters, so each \texttt{\textbackslash section\{\}} after it becomes a new appendix: Appendix A, Appendix B, and so on. You do not need any extra configuration, just keep adding \texttt{\textbackslash section\{\}} commands.
 
-\begin{listing}[H]
-\caption{Appendix Section Code.}
-%\label{lst:}
+{\vspace{10pt}
+	\captionof{lstlisting}{Appendix Section Code.}
+	%\label{lst:}
+	\vspace{-4pt}}
 \begin{lstlisting}[style=latex]
 	\appendix
 	\section{First Appendix}   % Appendix A
@@ -1537,7 +1540,6 @@ Place appendices at the end of your document after the bibliography. The \texttt
 	\section{Second Appendix}  % Appendix B
 	...
 \end{lstlisting}
-\end{listing}
 
 \subsection{Counter Resets}
 The template automatically resets the numbering of all major floats at the start of the appendix so they are labelled relative to their appendix letter. For example, the first figure in Appendix B is labelled \textbf{Figure B.1}. The following counters are reset automatically:
@@ -1557,9 +1559,10 @@ Section headings inside the appendix are automatically formatted as \textbf{Appe
 \subsection{Cross-Referencing Appendices}\label{sec:appendix-usage-crossref}
 Appendix sections, subsections, figures, and tables all support \texttt{\textbackslash label} and \texttt{\textbackslash cref} the same way as the rest of the document. For example, this subsection has the label \texttt{sec:appendix-usage-crossref} and can be referenced anywhere in the document like this:
 
-\begin{listing}[H]
-\caption{Appendix Section Cross-Reference.}
-%\label{lst:}
+{\vspace{10pt}
+	\captionof{lstlisting}{Appendix Section Cross-Reference.}
+	%\label{lst:}
+	\vspace{-4pt}}
 \begin{lstlisting}[style=latex]
 	% In the appendix:
 	\subsection{Cross-Referencing Appendices}\label{sec:appendix-crossref}
@@ -1567,7 +1570,6 @@ Appendix sections, subsections, figures, and tables all support \texttt{\textbac
 	% Elsewhere in the document:
 	See \cref{sec:appendix-crossref} for details on cross-referencing appendices.
 \end{lstlisting}
-\end{listing}
 
 Which renders as: See \cref{sec:appendix-usage-crossref} for details on cross-referencing appendices.
 
