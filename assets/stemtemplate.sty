@@ -124,11 +124,13 @@
 % SPACING AROUND HEADINGS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{titlesec} % Customise heading fonts, sizes, spacing, and colors
+\titlespacing*{\part}{0pt}{0pt}{2em}
 \titlespacing*{\section}{0pt}{1em}{0.5em}
 \titlespacing*{\subsection}{0pt}{0.75em}{0.25em}
 \titlespacing*{\subsubsection}{0pt}{0.5em}{0.25em}
 \titlespacing*{\paragraph}{0pt}{0.5em}{1em}
 \titlespacing*{\subparagraph}{0pt}{0.5em}{1em}
+\titleformat{\part}{\huge\bfseries\color{themecolour}}{\color{themecolour}\thepart}{1em}{}
 \titleformat{\section}{\Large\bfseries\color{themecolour}}{\color{themecolour}\thesection}{1em}{}
 \titleformat{\subsection}{\large\bfseries\color{themecolour}}{\color{themecolour}\thesubsection}{1em}{}
 \titleformat{\subsubsection}{\normalsize\bfseries\color{themecolour}}{\color{themecolour}\thesubsubsection}{1em}{}
