@@ -41,6 +41,7 @@ Both templates use identical metadata fields, environments, and commands so your
 │   ├── titlepage_standard.tex      ← Title page layouts (don't edit)
 │   ├── titlepage_abstract.tex
 │   ├── titlepage_compact.tex
+│   ├── frontmatter.tex             ← Abstract, TOC, LOF, LOT,... (edit as needed)
 │   ├── demo.tex                    ← Demo file showing all features
 │   └── demo.pdf                    ← Compiled demo
 ├── figures/                        ← Place your images here (create this folder)
@@ -99,13 +100,13 @@ All settings are controlled from the top of `main.tex`. The full metadata block 
 \newcommand{\metaUrlColour}{}     % URLs — leave empty to use theme colour
  
 % NUMBERING BY SECTION
-\newcommand{\metaNumberEquations}{true}    % true or false
-\newcommand{\metaNumberFigures}{true}      % true or false
-\newcommand{\metaNumberTables}{true}       % true or false
-\newcommand{\metaNumberTheorems}{true}     % true or false
-\newcommand{\metaNumberProblems}{true}     % true or false
-\newcommand{\metaNumberAlgorithms}{true}   % true or false
-\newcommand{\metaNumberListings}{true}     % true or false
+\newcommand{\metaNumberEquations}{false}    % true or false
+\newcommand{\metaNumberFigures}{false}      % true or false
+\newcommand{\metaNumberTables}{false}       % true or false
+\newcommand{\metaNumberTheorems}{false}     % true or false
+\newcommand{\metaNumberProblems}{false}     % true or false
+\newcommand{\metaNumberAlgorithms}{false}   % true or false
+\newcommand{\metaNumberListings}{false}     % true or false
 
 % MINTED CODE LISTINGS
 \newcommand{\metaUseMinted}{false} % true or false (Keep false if not using minted; requires -8bit -shell-escape)
