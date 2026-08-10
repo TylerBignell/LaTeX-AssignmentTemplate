@@ -3,31 +3,6 @@
 % Licensed under the MIT License - see LICENSE file for details
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% FRONT MATTER
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{abstract} % Can use \metaAbstract from metadata or \input{} abstract optionally
-This document is a beginner-friendly guide to this template. Each section introduces one or more packages included in the template, explains what it does in plain terms, and shows a simple working example. To get the most out of this file, open the compiled PDF and the source \texttt{example.tex} file side by side. Reading the code while looking at the result it produces is the fastest way to understand how each feature works.
-\end{abstract}
-\newpage
-
-\tableofcontents
-\newpage
-
-\phantomsection % Allows TOC to link to todo list
-\ifthenelse{\equal{\metaShowTodo}{true}}{%
-	\addcontentsline{toc}{section}{Todo list}}{} % Creates TOC entry if metadata true
-\listoftodos % Can be turned off in metadata
-
-\phantomsection % Allows TOC to link to list of figures
-\addcontentsline{toc}{section}{List of Figures} % Creates TOC entry
-\listoffigures
-
-\phantomsection % Allows TOC to link to list of tables
-\addcontentsline{toc}{section}{List of Tables} % Creates TOC entry
-\listoftables
-\newpage
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CONDITIONALS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conditionals}
@@ -315,6 +290,54 @@ To use a required font such as Arial for an assignment, set \texttt{\textbacksla
 \noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small This package is used by the template to control heading formatting and spacing. Users typically do not modify it directly.}}\vspace{0.5\baselineskip}
 
 The \texttt{titlesec} package controls how headings look throughout the document. The template uses it to make all headings bold and coloured with \texttt{themecolour}. You do not need to change anything here.
+
+\subsubsection{Heading Levels}
+\LaTeX{} provides up to seven heading levels, though not every document class makes all of them available. The table below lists each level, whether it exists in \texttt{article} (used by this template), and an example of its appearance.
+
+\begin{tabularx}{\linewidth}{@{}clL@{}}
+	\caption{Heading levels and their appearance in this template.}
+	\label{tab:heading-levels} \\
+	\toprule
+	%%%%% HEADER ROW(S) %%%%%
+	Level & Command & Example \\
+	\midrule
+	\endfirsthead
+	\toprule
+	%%%%% HEADER ROW(S) %%%%%
+	Level & Command & Example \\
+	\midrule
+	\endhead
+	\bottomrule
+	\endfoot
+	\bottomrule
+	%%%%% NOTES %%%%%
+	\multicolumn{3}{l}{{\footnotesize \textsuperscript{a} Rarely used in assignment-style documents.}} \\
+	\multicolumn{3}{l}{{\footnotesize \textsuperscript{b} Not available in this template. Requires switching to \texttt{report} or \texttt{book}.}} 
+	\endlastfoot
+	%%%%% START %%%%%
+	-1 & \texttt{\textbackslash part}\textsuperscript{a} &
+	{\Large\bfseries\textcolor{themecolour}{Part I}}\vspace{16pt}\newline{\huge\bfseries\textcolor{themecolour}{Heading Example}} \\
+	\addlinespace
+	0 & \texttt{\textbackslash chapter}\textsuperscript{b} & 
+	\textit{Not available} \\
+	\addlinespace
+	1 & \texttt{\textbackslash section} &
+	{\Large\bfseries\textcolor{themecolour}{1\quad Heading Example}} \\
+	\addlinespace
+	2 & \texttt{\textbackslash subsection} &
+	{\large\bfseries\textcolor{themecolour}{1.1\quad Heading Example}} \\
+	\addlinespace
+	3 & \texttt{\textbackslash subsubsection} &
+	{\normalsize\bfseries\textcolor{themecolour}{1.1.1\quad Heading Example}} \\
+	\addlinespace
+	4 & \texttt{\textbackslash paragraph} &
+	{\normalsize\bfseries\textcolor{themecolour}{Heading Example.}} Body text follows on the same line. \\
+	\addlinespace
+	5 & \texttt{\textbackslash subparagraph} &
+	\hspace{1.5em}{\textit{\normalsize\bfseries\textcolor{themecolour}{Heading Example.}}} Indented, body text follows on the same line. \\
+\end{tabularx}
+
+Note that \texttt{\textbackslash paragraph} and \texttt{\textbackslash subparagraph} are run-in headings by default, meaning the body text begins on the same line rather than on its own line below, as shown above. Also note that only \texttt{\textbackslash section} through \texttt{\textbackslash subsubsection} are numbered by default, \texttt{\textbackslash paragraph} and \texttt{\textbackslash subparagraph} do not display numbers.
 
 \subsubsection{Abstract environment}
 \noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small The abstract environment is customised by the template to ensure consistent formatting. Users typically write their abstract normally without modifying this configuration.}}\vspace{0.5\baselineskip}
@@ -776,27 +799,11 @@ The \texttt{array} package lets you apply formatting to an entire column at once
 \end{tabularx}
 
 \subsection{\texttt{tabularx}}
-\noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small \texttt{tabularx} is used internally by \texttt{ltablex} and is not the preferred table environment in this template. Use \texttt{ltablex} for all tables. The example below is shown for reference only.}}\vspace{0.5\baselineskip}
+\noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small \texttt{tabularx} is used internally by \texttt{ltablex} and is not the preferred table environment in this template. Use \texttt{ltablex} for all tables.}}\vspace{0.5\baselineskip}
 
 The \texttt{tabularx} package adds the \texttt{X} column type, which automatically stretches to fill the remaining width of the table. You set the total table width as the first argument (usually \texttt{\textbackslash linewidth}) and any \texttt{X} columns share the leftover space equally.
 
 The template defines three \texttt{ragged2e}-aware column types built on \texttt{X}: \texttt{L} (ragged right), \texttt{C} (centred), and \texttt{R} (ragged left). These should be preferred over plain \texttt{X} for columns containing wrapped text, as they allow hyphenation and produce more even line lengths.
-
-\begin{table}[H]
-	\centering
-	\caption{Auto-width table using \texttt{tabularx} with \texttt{ragged2e} column types.}
-	\label{tab:tabularx}
-	\vspace{-\bigskipamount}
-	\begin{tabularx}{\linewidth}{@{}LCCL@{}}
-		\toprule
-		Parameter & Value & Unit & Description \\
-		\midrule
-		Resistance & 10 & \si{\ohm} & Opposition to current flow in a circuit \\
-		Current    & 2  & \si{\ampere} & Flow of electric charge through a conductor \\
-		Voltage    & 20 & \si{\volt} & Electric potential difference between two points \\
-		\bottomrule
-	\end{tabularx}
-\end{table}
 
 \subsection{\texttt{multirow}}
 The \texttt{multirow} package lets a single cell span more than one row. The command is \texttt{\textbackslash multirow\{n\}\{width\}\{content\}}, where \texttt{n} is the number of rows to span and \texttt{width} is usually \texttt{*} to let \LaTeX{} set it automatically. Leave the cells below the merged cell empty. Adding a \texttt{\textbackslash midrule} between groups helps separate them visually:

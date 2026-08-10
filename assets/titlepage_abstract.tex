@@ -6,20 +6,20 @@
 \begin{titlepage}
     \Centering
     % SCHOOL ---------------------------------------------
-    \LARGE \seriftext{\metaUniversity}\par\vspace{0.1cm}
-    \Large \seriftext{\metaFaculty}\par\vspace{0.1cm}
-    \ifthenelse{\equal{\metaDepartment}{}}{}{\large \seriftext{\metaDepartment}\par\vspace{0.1cm}}
+    \large \seriftext{\metaUniversity}\par\vspace{0.1cm}
+    \normalsize \seriftext{\metaFaculty}\par\vspace{0.1cm}
+    \ifthenelse{\equal{\metaDepartment}{}}{}{\small \seriftext{\metaDepartment}\par\vspace{0.1cm}}
     % TITLE -----------------------------------------------
     \textcolor{themecolour}{\rule{\linewidth}{0.5mm}}
     \vspace{0.2cm}
-    \par{\huge \seriftext{\textbf{\metaAssignmentTitle}}}\par
+    \par{\Large \seriftext{\textbf{\metaAssignmentTitle}}}\par
     \vspace{0.2cm}
     \textcolor{themecolour}{\rule{\linewidth}{0.5mm}}\par\vspace{0.2cm}
     % COURSE CODE -----------------------------------------
-    \large \metaCourseCode : \metaCourseName\par\vspace{0.2cm}
+    \small \metaCourseCode : \metaCourseName\par\vspace{0.2cm}
     % STUDENT / INSTRUCTOR BLOCK --------------------------
     \begin{minipage}[t]{0.4\textwidth}
-        \begin{FlushLeft}\large
+        \begin{FlushLeft}\small
             \ifthenelse{\equal{\metaPartners}{}}{%
                 \emph{Student:}\\
                 \metaStudentName\\
@@ -36,7 +36,7 @@
     \end{minipage}
     \hfill
     \begin{minipage}[t]{0.4\textwidth}
-        \begin{FlushRight}\large
+        \begin{FlushRight}\small
             \emph{Instructor:}\\
             \metaInstructor\\\vspace{0.2cm}
             \emph{Date:}\\
@@ -45,25 +45,9 @@
     \end{minipage}
     \vspace{1cm}
     % ABSTRACT --------------------------------------------
-	{\par\begingroup
-		\RaggedRight
-		\renewenvironment{abstract}{%
-			\begin{center}\textbf{\large Abstract}\end{center}%
-		}{\par\vspace{1em}}
-		\begin{abstract}
-			\normalsize\metaAbstract
-	\end{abstract}
-	\endgroup}
-    % LOGO (BOTTOM RIGHT) - (MISSING FILE WONT BREAK) -----
-    \vfill
-    \ifthenelse{\equal{\metaLogoPath}{}}{}{
-		\IfFileExists{\metaLogoPath}{
-			\begin{FlushRight}
-				\begin{minipage}{0.45\textwidth}
-					\RaggedLeft
-					\includegraphics[width=\linewidth]{\metaLogoPath}
-				\end{minipage}
-			\end{FlushRight}
-		}{}
+	{\justifying
+		\begin{abstract}\small
+			\metaAbstract
+		\end{abstract}
 	}
 \end{titlepage}

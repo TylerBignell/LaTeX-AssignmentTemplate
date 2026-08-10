@@ -130,12 +130,12 @@
 \titlespacing*{\subsubsection}{0pt}{0.5em}{0.25em}
 \titlespacing*{\paragraph}{0pt}{0.5em}{1em}
 \titlespacing*{\subparagraph}{\parindent}{0.5em}{1em}
-\titleformat{\part}{\huge\bfseries\color{themecolour}}{\color{themecolour}Part~\thepart}{1em}{}
+\titleformat{\part}[display]{\Large\bfseries\color{themecolour}}{Part~\thepart}{0.5em}{\huge\bfseries\color{themecolour}}
 \titleformat{\section}{\Large\bfseries\color{themecolour}}{\color{themecolour}\thesection}{1em}{}
 \titleformat{\subsection}{\large\bfseries\color{themecolour}}{\color{themecolour}\thesubsection}{1em}{}
 \titleformat{\subsubsection}{\normalsize\bfseries\color{themecolour}}{\color{themecolour}\thesubsubsection}{1em}{}
 \titleformat{\paragraph}[runin]{\normalsize\bfseries\color{themecolour}}{\color{themecolour}\theparagraph}{1em}{}
-\titleformat{\subparagraph}[runin]{\normalsize\bfseries\color{themecolour}}{\color{themecolour}\thesubparagraph}{1em}{}
+\titleformat{\subparagraph}[runin]{\normalsize\itshape\bfseries\color{themecolour}}{\color{themecolour}\thesubparagraph}{1em}{}
 % ABSTRACT ENVIRONMENT ------------------------------------
 \renewenvironment{abstract}{%
 	\section*{Abstract}%
@@ -460,6 +460,8 @@
 	\addtocontents{toc}{\protect\hypersetup{linkcolor=black}}%
 	\addtocontents{lof}{\protect\hypersetup{linkcolor=black}}%
 	\addtocontents{lot}{\protect\hypersetup{linkcolor=black}}%
+	\addtocontents{loa}{\protect\hypersetup{linkcolor=black}}%
+	\addtocontents{lol}{\protect\hypersetup{linkcolor=black}}%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -533,6 +535,7 @@
 % CODE LISTINGS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{listings} % Syntax-highlighted source code listings
+\renewcommand{\lstlistlistingname}{List of Listings} % Overrides default heading
 % BASE STYLE ----------------------------------------------
 \lstset{
 	basicstyle=\ttfamily\small,
