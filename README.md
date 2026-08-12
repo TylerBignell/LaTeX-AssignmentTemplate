@@ -41,6 +41,7 @@ Both templates use identical metadata fields, environments, and commands so your
 │   ├── titlepage_standard.tex      ← Title page layouts (don't edit)
 │   ├── titlepage_abstract.tex
 │   ├── titlepage_compact.tex
+│   ├── placeholder_logo.png        ← Replace with your school's logo
 │   ├── frontmatter.tex             ← Abstract, TOC, LOF, LOT,... (edit as needed)
 │   ├── demo.tex                    ← Demo file showing all features
 │   └── demo.pdf                    ← Compiled demo
@@ -71,10 +72,11 @@ All settings are controlled from the top of `main.tex`. The full metadata block 
 \newcommand{\metaCourseName}{Course Name}
 \newcommand{\metaInstructor}{Dr. Professor}
 \newcommand{\metaDate}{Due date}
-\newcommand{\metaLogoPath}{assets/logo.png}    % Leave empty to omit
+\newcommand{\metaLogoPath}{assets/placeholder_logo.png} % Leave empty to omit
  
 % TITLE PAGE
 \newcommand{\metaTitlePage}{standard}          % standard, abstract, or compact
+\newcommand{\metaTitlePageLogo}{default}       % default or york
  
 % BIBLIOGRAPHY
 \newcommand{\metaBibFile}{references.bib}
@@ -146,6 +148,7 @@ All settings are controlled from the top of `main.tex`. The full metadata block 
 | `\metaTitlePage` | `standard` | Full title page with all fields |
 | | `abstract` | Same as standard but includes `\metaAbstract` below the title block |
 | | `compact` | Condensed single-page layout |
+| `\metaTitlePageLogo` | `default`, `york` | Changes the location of the logo from `\metaLogoPath` in the `standard` title page |
 | `\metaAbstract` | any text | Abstract text used when `\metaTitlePage` is set to `abstract` |
  
 ### Bibliography
