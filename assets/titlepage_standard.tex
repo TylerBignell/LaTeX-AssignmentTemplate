@@ -4,67 +4,79 @@
 
 \pagenumbering{roman} % Titlepage is numbered in roman
 \begin{titlepage}
-    \Centering
-    \vspace*{2cm}
-    % SCHOOL ---------------------------------------------
-    \LARGE \seriftext{\metaUniversity}\par\vspace{0.1cm}
-    \Large \seriftext{\metaFaculty}\par\vspace{0.1cm}
-    \ifthenelse{\equal{\metaDepartment}{}}{}{\large \seriftext{\metaDepartment}\par\vspace{0.1cm}}
-    % TITLE -----------------------------------------------
-    \textcolor{themecolour}{\rule{\linewidth}{0.5mm}}
-    \vspace{0.2cm}
-    \par{\huge \seriftext{\textbf{\metaAssignmentTitle}}}\par
-    \vspace{0.2cm}
-    \textcolor{themecolour}{\rule{\linewidth}{0.5mm}}\par\vspace{0.2cm}
-    % COURSE CODE -----------------------------------------
-    \large \metaCourseCode : \metaCourseName\par\vspace{0.2cm}
-    % STUDENT / INSTRUCTOR BLOCK --------------------------
-    \begin{minipage}[t]{0.4\textwidth}
-        \begin{FlushLeft}\large
-            \ifthenelse{\equal{\metaPartners}{}}{%
-                \emph{Student:}\\
-                \metaStudentName\\
-                \metaStudentNumber\\
-                \metaStudentEmail
-            }{%
-                \emph{Students:}\\\vspace{0.2cm}
-                \begin{tabular}{@{}l@{\quad}l@{}}
-                    \metaStudentName & \metaStudentNumber\\
-                    \metaPartners
-                \end{tabular}
-            }
-        \end{FlushLeft}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.4\textwidth}
-        \begin{FlushRight}\large
-            \emph{Instructor:}\\
-            \metaInstructor
-            \ifthenelse{\equal{\metaPartners}{}}{}{%
-                \\\vspace{0.2cm}
-                \emph{Date:}\\
-                \metaDate
-            }
-        \end{FlushRight}
-    \end{minipage}
-    % DATE (PARTNERS IS EMPTY) ----------------------------
-    \vfill
-    \vbox{
-        \ifthenelse{\equal{\metaPartners}{}}{%
-            \vspace{0.8cm}
-            {\large \metaDate}
-            \vspace{2cm}
-        }{}
-        % LOGO (BOTTOM RIGHT, REMOVE FILE FOR BLANK) ------
-        \ifthenelse{\equal{\metaLogoPath}{}}{}{
-			\IfFileExists{\metaLogoPath}{
-				\begin{FlushRight}
-					\begin{minipage}{0.45\textwidth}
-						\RaggedLeft
-						\includegraphics[width=\linewidth]{\metaLogoPath}
-					\end{minipage}
-				\end{FlushRight}
-			}{}
+	\Centering
+	\vspace*{2cm}
+	% SCHOOL ---------------------------------------------
+	\LARGE \seriftext{\metaUniversity}\par\vspace{0.1cm}
+	\Large \seriftext{\metaFaculty}\par\vspace{0.1cm}
+	\ifthenelse{\equal{\metaDepartment}{}}{}{\large \seriftext{\metaDepartment}\par\vspace{0.1cm}}
+	% TITLE -----------------------------------------------
+	\textcolor{themecolour}{\rule{\linewidth}{0.5mm}}
+	\vspace{0.2cm}
+	\par{\huge \seriftext{\textbf{\metaAssignmentTitle}}}\par
+	\vspace{0.2cm}
+	\textcolor{themecolour}{\rule{\linewidth}{0.5mm}}\par\vspace{0.2cm}
+	% COURSE CODE -----------------------------------------
+	\large \metaCourseCode : \metaCourseName\par\vspace{0.2cm}
+	% STUDENT / INSTRUCTOR BLOCK --------------------------
+	\begin{minipage}[t]{0.4\textwidth}
+		\begin{FlushLeft}\large
+			\ifthenelse{\equal{\metaPartners}{}}{%
+				\emph{Student:}\\
+				\metaStudentName\\
+				\metaStudentNumber\\
+				\metaStudentEmail
+			}{%
+				\emph{Students:}\\\vspace{0.2cm}
+				\begin{tabular}{@{}l@{\quad}l@{}}
+					\metaStudentName & \metaStudentNumber\\
+					\metaPartners
+				\end{tabular}
+			}
+		\end{FlushLeft}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.4\textwidth}
+		\begin{FlushRight}\large
+			\emph{Instructor:}\\
+			\metaInstructor
+		\end{FlushRight}
+	\end{minipage}
+	% LOGO + DATE (BOTTOM) ---------------------------------
+	\vfill
+	\ifthenelse{\equal{\metaTitlePageLogo}{york}}{%
+		\vbox{
+			\vspace{0.8cm}
+			{\large \metaDate}
+			\vspace{1cm}
+			% LOGO (BOTTOM RIGHT, REMOVE FILE FOR BLANK) ------
+			\ifthenelse{\equal{\metaLogoPath}{}}{}{
+				\IfFileExists{\metaLogoPath}{
+					\begin{FlushRight}
+						\begin{minipage}{\textwidth}
+							\RaggedLeft
+							\includegraphics[width=\linewidth, height=1.5cm, keepaspectratio]{\metaLogoPath}
+						\end{minipage}
+					\end{FlushRight}
+				}{}
+			}
+		}
+	}{%
+		\vbox{
+			% LOGO (CENTERED ABOVE DATE, REMOVE FILE FOR BLANK) ---
+			\ifthenelse{\equal{\metaLogoPath}{}}{}{
+				\IfFileExists{\metaLogoPath}{
+					\begin{center}
+						\begin{minipage}{\textwidth}
+							\centering
+							\includegraphics[width=\linewidth, height=3cm, keepaspectratio]{\metaLogoPath}
+						\end{minipage}
+					\end{center}
+				}{}
+			}
+			\vspace{0.5cm}
+			{\large \metaDate}
+			\ifthenelse{\equal{\metaLogoPath}{}}{\vspace{2cm}}{\vspace{1cm}}
 		}
 	}
 \end{titlepage}

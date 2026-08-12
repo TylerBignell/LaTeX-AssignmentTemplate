@@ -344,8 +344,6 @@ Note that \texttt{\textbackslash paragraph} and \texttt{\textbackslash subparagr
 
 By default, \LaTeX{} centres the abstract text in italic. The template overrides this so the abstract looks like a regular section heading instead, which is the bold flush-left ``Abstract'' heading you see at the start of this document. You write your abstract the same way either way, just inside \texttt{\textbackslash begin\{abstract\}} and \texttt{\textbackslash end\{abstract\}}.
 
-The title page uses a separate version of the abstract that keeps the original centred style, so both layouts are available depending on where the abstract appears.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % MATH
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -686,17 +684,19 @@ The \texttt{subcaption} package lets you place two or more related figures or ta
 	\begin{subfigure}[b]{0.45\linewidth}
 		\centering
 		\includegraphics[width=\linewidth]{\metaLogoPath}
-		\caption{First sub-figure.}
+		\caption{}
 		\label{fig:sub_a}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.45\linewidth}
 		\centering
 		\includegraphics[width=\linewidth]{\metaLogoPath}
-		\caption{Second sub-figure.}
+		\caption{}
 		\label{fig:sub_b}
 	\end{subfigure}
-	\caption{Two sub-figures using \texttt{subcaption}.}
+	\caption{Two sub-figures using \texttt{subcaption}.\\
+	\textcolor{themecolour}{\textbf{(a)}} First sub-figure.\\
+	\textcolor{themecolour}{\textbf{(b)}} Second sub-figure.}
 	\label{fig:subfigs}
 \end{figure}
 
@@ -1521,7 +1521,7 @@ After adding new references to your \texttt{.bib} file, you need to run Biber on
 An example citation: \cite{example}.
 
 % REFERENCES ----------------------------------------------
-\newpage
+\clearpage
 \phantomsection % Allows TOC to link to references
 \printbibliography[heading=bibintoc] % Need square bracket content for TOC
 
@@ -1531,7 +1531,7 @@ An example citation: \cite{example}.
 \appendix % Insert this to create appendix
 
 % APPENDIX A ----------------------------------------------
-\newpage
+\clearpage
 \section{Appendices}\label{sec:appendix-supp}
 
 Place appendices at the end of your document after the bibliography. The \texttt{\textbackslash appendix} command switches section numbering from arabic numbers to uppercase letters, so each \texttt{\textbackslash section\{\}} after it becomes a new appendix: Appendix A, Appendix B, and so on. You do not need any extra configuration, just keep adding \texttt{\textbackslash section\{\}} commands.
@@ -1581,7 +1581,7 @@ Appendix sections, subsections, figures, and tables all support \texttt{\textbac
 Which renders as: See \cref{sec:appendix-usage-crossref} for details on cross-referencing appendices.
 
 % APPENDIX B ----------------------------------------------
-\newpage
+\clearpage
 \section{Metadata Reference}
 
 All document settings are controlled through the metadata block at the top of \texttt{main.tex}. Each field is defined with \texttt{\textbackslash newcommand} and read by the template when the document compiles. This appendix lists every available field, what values it accepts, and what it changes in the document.
@@ -1647,6 +1647,7 @@ These fields populate the title page and page header. Update them for every new 
 	\endlastfoot
 	%%%%% START %%%%%
 	\texttt{\textbackslash metaTitlePage} & Controls the title page layout. Accepted values: \texttt{standard} (full title page with all fields), \texttt{abstract} (includes the \texttt{\textbackslash metaAbstract} field below the title block), \texttt{compact} (condensed single-page layout). \\
+	\texttt{\textbackslash metaTitlePageLogo} & Controls the location of the logo from the \texttt{\textbackslash metaLogoPath} in the \texttt{standard} title page. The location can either be centered (\texttt{default}), or in the bottom right-hand corner (\texttt{york}, York University configuration). \\
 	\texttt{\textbackslash metaAbstract}  & Abstract text used when \texttt{\textbackslash metaTitlePage} is set to \texttt{abstract}. Has no effect for other title page styles. \\
 \end{tabularx}
 
@@ -1822,7 +1823,7 @@ This field controls whether \texttt{minted} package is active or not. It is reco
 \end{tabularx}
 
 % APPENDIX C ----------------------------------------------
-\newpage
+\clearpage
 \section{Side-by-Side Layouts with \texttt{minipage}}
 
 The \texttt{minipage} environment is a built-in \LaTeX{} tool that creates a self-contained box of a fixed width, like a small independent column on the page. No package is required. It is the most reliable way to place two pieces of content next to each other, especially when one of them contains a display math equation, since equations are not supported inside table cells.
@@ -1907,7 +1908,7 @@ Minipages can also place two figures side by side without \texttt{subcaption}, w
 \noindent Note: \texttt{\textbackslash captionof} from the \texttt{caption} package is required to place a caption outside a \texttt{figure} float environment.
 
 % APPENDIX D ----------------------------------------------
-\newpage
+\clearpage
 \section{Notation}
 
 This appendix lists the mathematical notation used throughout this document, grouped by subject area. It is an example of how you might document your own notation in a report or assignment.
@@ -2005,7 +2006,7 @@ This appendix lists the mathematical notation used throughout this document, gro
 \end{tabularx}
 
 % APPENDIX E ----------------------------------------------
-\newpage
+\clearpage
 \section{Greek Letters Reference}
 A complete reference of Greek letters available in math mode. Greek letters are used often in science and engineering for variables, constants, and operators.
 
@@ -2068,7 +2069,7 @@ A complete reference of Greek letters available in math mode. Greek letters are 
 \end{tabularx}
 
 % APPENDIX F ----------------------------------------------
-\newpage
+\clearpage
 \section{Common Math Operators and Symbols}
 
 \subsection{Logic and Sets}
@@ -2158,7 +2159,7 @@ A complete reference of Greek letters available in math mode. Greek letters are 
 \end{tabularx}
 
 % APPENDIX G ----------------------------------------------
-\newpage
+\clearpage
 \section{Font Commands}
 
 \subsection{Text Font Shapes and Weights}
