@@ -28,7 +28,7 @@
 	\hfill
 	\begin{minipage}[t]{0.45\textwidth}
 		\begin{FlushLeft}\small
-			\metaUniversity\\
+			\ifthenelse{\equal{\metaDepartment}{}}{}{\metaDepartment,\\}\metaUniversity\\
 			\metaInstructor\\
 			\metaDate
 		\end{FlushLeft}

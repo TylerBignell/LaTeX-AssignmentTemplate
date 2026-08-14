@@ -3,13 +3,14 @@
 % Licensed under the MIT License - see LICENSE file for details
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{assets/stemtemplate}[2026/08/10 LaTeX University Assignment STEM Template]
+\ProvidesPackage{assets/stemtemplate}[2026/08/14 LaTeX University Assignment STEM Template]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% CONDITIONALS
+% CONDITIONALS & UTILITIES
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{xifthen} % Extended \ifthenelse with \isempty and other conditionals
 \usepackage{xstring} % String manipulation (\StrLen, \StrLeft, \IfSubStr)
+\usepackage{lipsum}  % \lipsum to generate dummy text
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % COLOURS
@@ -315,6 +316,9 @@
 % FIGURES
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{graphicx}   % Include external images (\includegraphics)
+\ifthenelse{\equal{\metaShowFigures}{true}}{}{%
+	\setkeys{Gin}{draft=true} % Figures render as placeholder boxes
+}
 \graphicspath{{figures/}{assets/}} % Look for images in these subfolders
 \usepackage{float}      % Precise float placement with [H] specifier
 \usepackage{subcaption} % Sub-figures and sub-captions (subfigure environment)
@@ -548,7 +552,10 @@
 	backgroundcolor=\color{black!5},
 	frame=none,
 	xleftmargin=14pt,
-	xrightmargin=4pt}
+	xrightmargin=4pt,
+	keywordstyle=\color{blue},
+	commentstyle=\color{green!45!black},
+	stringstyle=\color{red!60!black}}
 \AddToHook{begindocument/end}{%
 	\captionsetup[lstlisting]{
 		font={small},
@@ -569,36 +576,36 @@
 \lstdefinestyle{matlab}{
 	language=Matlab,
 	keywordstyle=\color{blue},
-	commentstyle=\color{green!60!black},
-	stringstyle=\color{red!70!black},
+	commentstyle=\color{green!45!black},
+	stringstyle=\color{red!60!black},
 	morekeywords={classdef, properties, methods, events, enumeration, arguments, parfor, spmd}}
 % JAVA ----------------------------------------------------
 \lstdefinestyle{java}{
 	language=Java,
 	keywordstyle=\color{blue},
-	commentstyle=\color{green!60!black},
-	stringstyle=\color{red!70!black},
+	commentstyle=\color{green!45!black},
+	stringstyle=\color{red!60!black},
 	morekeywords={var, record, sealed, permits, yield}}
 % PYTHON --------------------------------------------------
 \lstdefinestyle{python}{
 	language=Python,
 	keywordstyle=\color{blue},
-	commentstyle=\color{green!60!black},
-	stringstyle=\color{red!70!black},
+	commentstyle=\color{green!45!black},
+	stringstyle=\color{red!60!black},
 	morekeywords={match, case, type, Self, Never, async, await}}
 % C / C++ -------------------------------------------------
 \lstdefinestyle{cpp}{
 	language=C++,
 	keywordstyle=\color{blue},
-	commentstyle=\color{green!60!black},
-	stringstyle=\color{red!70!black},
+	commentstyle=\color{green!45!black},
+	stringstyle=\color{red!60!black},
 	morekeywords={constexpr, consteval, constinit, concept, requires, co_await, co_return, co_yield, nullptr, override, final, export, import, module}}
 % LATEX ---------------------------------------------------
 \lstdefinestyle{latex}{
 	language=[LaTeX]TeX,
 	keywordstyle=\color{blue},
-	commentstyle=\color{green!60!black},
-	stringstyle=\color{red!70!black},
+	commentstyle=\color{green!45!black},
+	stringstyle=\color{red!60!black},
 	morekeywords={usepackage, documentclass, begin, end, newcommand, renewcommand, newenvironment, renewenvironment, setlength, addtolength, includegraphics, caption, label, ref, cref, cite, bibliography, textbf, textit, texttt, emph, frac, sqrt, sum, int, prod}}
 % MINTED (OPTIONAL, TOGGLED VIA METADATA) ------------------
 \providecommand{\metaUseMinted}{false}
@@ -620,28 +627,12 @@
 	listparameters={\setlength{\topsep}{\medskipamount}\setlength{\partopsep}{0pt}}}
 \renewcommand{\theFancyVerbLine}{\ttfamily\tiny\textcolor{themecolour!60}{\arabic{FancyVerbLine}}}
 \fi
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% DRAFT TOOLS
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% TO DO NOTES ---------------------------------------------
-\setlength{\marginparwidth}{2cm} % Required minimum width for todonotes margin notes
-\ifthenelse{\equal{\metaShowTodo}{true}}{%
-	\usepackage[colorinlistoftodos, prependcaption, textsize=small]{todonotes}%
-	\pretocmd{\listoftodos}{\begingroup\hypersetup{linkcolor=black}}{}{}%
-	\apptocmd{\listoftodos}{\endgroup}{}{}%
-}{%
-	\usepackage[disable]{todonotes}%
-} % Usage: \todo{To do margin}  or  \todo[inline]{To do inline}
-% WATERMARK -----------------------------------------------
-\ifthenelse{\equal{\metaWatermarkText}{}}{}{%
-	\usepackage{draftwatermark} % Overlays a large diagonal watermark
-	\SetWatermarkText{\metaWatermarkText} 	 % Change in metadata
-	\SetWatermarkText{%
-		\sffamily\mdseries\upshape\fontsize{150pt}{40pt}\selectfont\metaWatermarkText} % Watermark uses consistent font
-	\SetWatermarkScale{\metaWatermarkScale}} % Change in metadata
-% DUMMY TEXT GENERATOR ------------------------------------
-\usepackage{lipsum}              % \lipsum to generate text
+% UNIFIED CODE ENVIRONMENT (SWITCHES WITH METADATA) ---------
+\ifmetaUseMinted
+\newenvironment{codelisting}[1]{\VerbatimEnvironment\begin{minted}{#1}}{\end{minted}}
+\else
+\lstnewenvironment{codelisting}[1]{\lstset{style=#1}}{}
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % HEADER & FOOTER
@@ -703,10 +694,10 @@ backref=\metaShowBackref]{biblatex} % Change back reference in metadata
 	\renewbibmacro*{pageref}{%
 		\iflistundef{pageref}{}{\setunit{\addspace}%
 			\printtext{\hypersetup{linkcolor=urlcolour}%
-				\ifnumgreater{\value{pageref}}{1}%
+				(\ifnumgreater{\value{pageref}}{1}%
 				{\bibstring{backrefpages}\ppspace}%
 				{\bibstring{backrefpage}\ppspace}%
-				\printlist[pageref][-\value{listtotal}]{pageref}}}}%
+				\printlist[pageref][-\value{listtotal}]{pageref})}}}%
 }{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

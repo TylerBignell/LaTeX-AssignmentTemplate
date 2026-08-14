@@ -22,28 +22,23 @@
 \newcommand{\metaCourseName}{Course Name}
 \newcommand{\metaInstructor}{Dr. Professor}
 \newcommand{\metaDate}{Due date}
-\newcommand{\metaLogoPath}{assets/placeholder_logo.png} % Empty to remove
 
 % TITLE PAGE ----------------------------------------------
 \newcommand{\metaTitlePage}{standard} % standard, abstract, or compact
-\newcommand{\metaTitlePageLogo}{default} % default or york
+\newcommand{\metaLogoPath}{assets/placeholder_logo.png} % Empty to remove
+\newcommand{\metaLogoLocation}{default} % default or york
 
 % BIBLIOGRAPHY --------------------------------------------
 \newcommand{\metaBibFile}{references.bib}    % Change to reference file name
-\newcommand{\metaBibStyle}{ieee}             % ieee or apa (bib style)
+\newcommand{\metaBibStyle}{ieee}    % e.g., ieee, apa, etc.
 \newcommand{\metaShowBackref}{true} % true or false (shows page back-references in bibliography)
 \newcommand{\metaShowUnusedCitations}{false} % Set to 'true' to show all entries in bib file, 'false' for only cited ones
 
-% FONT ----------------------------------------------------
+% FONT & SPACING ------------------------------------------
 \newcommand{\metaSerifFont}{}       % Empty = IBM Plex Serif, or any system font name (e.g., Georgia)
 \newcommand{\metaSansFont}{}        % Empty = IBM Plex Sans, or any system font name (e.g., Arial)
 \newcommand{\metaDefaultFont}{sans} % sans or serif (selects which font family is used for body text)
-
-% MISC (WATERMARK, SPACING, TODO) -------------------------
-\newcommand{\metaWatermarkText}{}      % Leave blank for no watermark
-\newcommand{\metaWatermarkScale}{1}    % Size of watermark
 \newcommand{\metaLineSpacing}{onehalf} % single, onehalf, or double (changes line spacing)
-\newcommand{\metaShowTodo}{true}       % true or false (shows todos)
 
 % COLOURS -------------------------------------------------
 % Input custom colour, built-in colour, or hex-code (e.g., #003366)
@@ -61,8 +56,9 @@
 \newcommand{\metaNumberAlgorithms}{false} % true or false
 \newcommand{\metaNumberListings}{false} % true or false
 
-% MINTED CODE LISTINGS ------------------------------------
+% DRAFTING (TRUE FOR FINAL COPY)---------------------------
 \newcommand{\metaUseMinted}{false} % true or false (Keep false if not using minted; requires -8bit -shell-escape)
+\newcommand{\metaShowFigures}{false} % true or false, true turns on figures
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ABSTRACT (EDIT WHEN USING titlepage_abstract)
@@ -75,14 +71,14 @@
 \usepackage{assets/stemtemplate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% TITLE PAGE (DON'T EDIT)
+% TITLE PAGE (DON'T EDIT, UNLESS USING COMPACT TITLE PAGE)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\renewcommand{\maketitle}{} % Disables default maketitle (don't edit)
+\renewcommand{\maketitle}{} % Disables default maketitle
 \begin{document}
 \IfFileExists{assets/titlepage_\metaTitlePage.tex}{
 	\input{assets/titlepage_\metaTitlePage}
 }{} % Change titlepage in metadata
-\setcounter{page}{2} % Corrects page counter reset
+\setcounter{page}{2} % Corrects page counter reset, edit while using compact
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % FRONT MATTER (UNCOMMENT AND EDIT AS NEEDED)

@@ -3,9 +3,9 @@
 % Licensed under the MIT License - see LICENSE file for details
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% CONDITIONALS
+% CONDITIONALS & UTILITIES
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Conditionals}
+\section{Conditionals \& Utilities}
 
 \subsection{\texttt{xifthen}}
 \noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small This package is used internally by the template and is not typically invoked directly by the user.}}\vspace{0.5\baselineskip}
@@ -38,10 +38,22 @@ The \texttt{xstring} package gives the template tools to read and work with text
 	\endlastfoot
 	%%%%% START %%%%%
 	Extraction   & \texttt{\textbackslash StrLeft\{Lassonde\}\{4\}}       & \StrLeft{Lassonde}{4} \\
+	
 	Substitution & \texttt{\textbackslash StrSubstitute\{12/05/26\}\{/\}\{-\}} & \StrSubstitute{12/05/26}{/}{-} \\
+	
 	Length       & \texttt{\textbackslash StrLen\{YorkU\}}                & \StrLen{YorkU} \\
+	
 	Counting     & \texttt{\textbackslash StrCount\{Engineering\}\{n\}}   & \StrCount{Engineering}{n} \\
 \end{tabularx}
+
+\subsection{\texttt{lipsum}}
+\noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small This package is used internally by the template for layout testing. It is not intended for use in final documents.}}\vspace{0.5\baselineskip}
+
+The \texttt{lipsum} package generates placeholder text for testing the layout and spacing of a page. Use \texttt{\textbackslash lipsum[n]} to generate paragraph $n$, or \texttt{\textbackslash lipsum[1-3]} to generate a range of paragraphs. The text is meaningless Latin and should be replaced with real content before submitting your document.
+
+An example of a paragraph of generated text:
+
+\lipsum[1]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % COLOURS
@@ -77,8 +89,11 @@ You set the theme colour by editing \texttt{\textbackslash metaThemeColour} in \
 	\endlastfoot
 	%%%%% START %%%%%
 	Empty         & \texttt{}        & Defaults to \texttt{DefaultBlue} \\
+	
 	Hex code      & \texttt{\#810001}  & Parsed as an HTML hex colour \\
+	
 	Named colour  & \texttt{red}     & Resolved via \texttt{\textbackslash colorlet} \\
+	
 	Custom colour & \texttt{LassondeNavy} & Any colour defined in the sty file \\
 \end{tabularx}
 
@@ -105,13 +120,16 @@ These colours are built into the template and can be typed directly into \texttt
 	\bottomrule
 	%%%%% NOTES %%%%%
 	\multicolumn{3}{l}{{\footnotesize \textsuperscript{a} Unaffiliated professional blue.}} \\
-	\multicolumn{3}{l}{{\footnotesize \textsuperscript{b} Recommended for Faculty of Science students.}} \\
-	\multicolumn{3}{l}{{\footnotesize \textsuperscript{c} Recommended for Lassonde students.}}
+	\multicolumn{3}{l}{{\footnotesize \textsuperscript{b} Recommended for York U Faculty of Science students.}} \\
+	\multicolumn{3}{l}{{\footnotesize \textsuperscript{c} Recommended for York U Lassonde students.}} \\
 	\endlastfoot
 	%%%%% START %%%%%
 	\texttt{DefaultBlue} \textsuperscript{a} & \texttt{\#1B4F8A} & \textcolor{white}{\colorbox{DefaultBlue}{\phantom{XXXXX}}}  \\
+	
 	\texttt{YorkRedDark} & \texttt{\#810001} & \textcolor{white}{\colorbox{YorkRedDark}{\phantom{XXXXX}}}     \\
+	
 	\texttt{ScienceSkyBlueDark} \textsuperscript{b} & \texttt{\#065C87} & \textcolor{white}{\colorbox{ScienceSkyBlueDark}{\phantom{XXXXX}}}  \\
+	
 	\texttt{LassondeNavy} \textsuperscript{c} & \texttt{\#003366} & \textcolor{white}{\colorbox{LassondeNavy}{\phantom{XXXXX}}} \\
 \end{tabularx}
 
@@ -139,17 +157,29 @@ You can also use any of \texttt{xcolor}'s built-in colour names. A small selecti
 	\endlastfoot
 	%%%%% START %%%%%
 	\multicolumn{5}{c}{\textit{Base colours}} \\
+	
 	\texttt{red}       	 & \colorbox{red}{\phantom{XXXXX}}       			& & \texttt{cyan}      	 & \colorbox{cyan}{\phantom{XXXXX}}      \\
+	
 	\texttt{green}     	 & \colorbox{green}{\phantom{XXXXX}}     			& & \texttt{magenta}     & \colorbox{magenta}{\phantom{XXXXX}}      \\
+	
 	\texttt{blue}   	 & \colorbox{blue}{\phantom{XXXXX}}   				& & \texttt{yellow}    	 & \colorbox{yellow}{\phantom{XXXXX}}    \\
+	
 	\texttt{black}     	 & \colorbox{black}{\phantom{XXXXX}}     			& & \texttt{white}     	 & \colorbox{white}{\phantom{XXXXX}}     \\
+	
 	\texttt{gray}  		 & \colorbox{gray}{\phantom{XXXXX}}  				& & \texttt{brown}       & \colorbox{brown}{\phantom{XXXXX}}      \\
+	
 	\midrule
+	
 	\multicolumn{5}{c}{\textit{Extended colour sets (dvipsnames, svgnames, x11names})} \\
+	
 	\texttt{NavyBlue}    & \colorbox{NavyBlue}{\phantom{XXXXX}}      		& & \texttt{ForestGreen} & \colorbox{ForestGreen}{\phantom{XXXXX}}     \\
+	
 	\texttt{Maroon}    	 & \colorbox{Maroon}{\phantom{XXXXX}}    			& & \texttt{BurntOrange} & \colorbox{BurntOrange}{\phantom{XXXXX}}      \\
+	
 	\texttt{RoyalPurple} & \colorbox{RoyalPurple}{\phantom{XXXXX}}    		& & \texttt{Sepia}       & \colorbox{Sepia}{\phantom{XXXXX}}      \\
+	
 	\texttt{SlateGray}   & \colorbox{SlateGray}{\phantom{XXXXX}}    		& & \texttt{Teal}     	 & \colorbox{Teal}{\phantom{XXXXX}}     \\
+	
 	\texttt{SteelBlue4}	 & \colorbox{SteelBlue4}{\phantom{XXXXX}} 			& & \texttt{Firebrick3}  & \colorbox{Firebrick3}{\phantom{XXXXX}}     \\
 \end{tabularx}
 
@@ -177,8 +207,11 @@ Adding \texttt{!} followed by a number after any colour name creates a lighter v
 	\endlastfoot
 	%%%%% START %%%%%
 	\texttt{themecolour}     & 100\% & \textcolor{white}{\colorbox{themecolour}{\phantom{XXXXX}}} \\
+	
 	\texttt{themecolour!70}  & 70\%  & \textcolor{white}{\colorbox{themecolour!70}{\phantom{XXXXX}}} \\
+	
 	\texttt{themecolour!40}  & 40\%  & \colorbox{themecolour!40}{\phantom{XXXXX}} \\
+	
 	\texttt{themecolour!15}  & 15\%  & \colorbox{themecolour!15}{\phantom{XXXXX}} \\
 \end{tabularx}
 
@@ -232,9 +265,13 @@ The table below is an example of content that is too wide for portrait and benef
 	\endlastfoot
 	%%%%% START %%%%%
 	Temperature (\si{\celsius})     & 23.4 & 24.1 & 22.8 & 23.9 & 24.5 \\
+	
 	Pressure (\si{\kilo\pascal})  & 101.3 & 101.1 & 101.5 & 100.9 & 101.4 \\
+	
 	Humidity (\%)               & 48.7 & 50.2 & 47.9 & 51.0 & 49.3 \\
+	
 	Voltage (\si{\volt})          & 4.98 & 5.01 & 4.97 & 5.02 & 5.00 \\
+	
 	Current (\si{\milli\ampere}) & 120.1 & 119.8 & 120.4 & 120.0 & 119.6 \\
 \end{tabularx}
 
@@ -318,21 +355,27 @@ The \texttt{titlesec} package controls how headings look throughout the document
 	-1 & \texttt{\textbackslash part}\textsuperscript{a} &
 	{\Large\bfseries\textcolor{themecolour}{Part I}}\vspace{16pt}\newline{\huge\bfseries\textcolor{themecolour}{Heading Example}} \\
 	\addlinespace
+	
 	0 & \texttt{\textbackslash chapter}\textsuperscript{b} & 
 	\textit{Not available} \\
 	\addlinespace
+	
 	1 & \texttt{\textbackslash section} &
 	{\Large\bfseries\textcolor{themecolour}{1\quad Heading Example}} \\
 	\addlinespace
+	
 	2 & \texttt{\textbackslash subsection} &
 	{\large\bfseries\textcolor{themecolour}{1.1\quad Heading Example}} \\
 	\addlinespace
+	
 	3 & \texttt{\textbackslash subsubsection} &
 	{\normalsize\bfseries\textcolor{themecolour}{1.1.1\quad Heading Example}} \\
 	\addlinespace
+	
 	4 & \texttt{\textbackslash paragraph} &
 	{\normalsize\bfseries\textcolor{themecolour}{Heading Example.}} Body text follows on the same line. \\
 	\addlinespace
+	
 	5 & \texttt{\textbackslash subparagraph} &
 	\hspace{1.5em}{\textit{\normalsize\bfseries\textcolor{themecolour}{Heading Example.}}} Indented, body text follows on the same line. \\
 \end{tabularx}
@@ -476,10 +519,15 @@ The \texttt{siunitx} package formats numbers and units correctly. Use \texttt{\t
 	\endlastfoot
 	%%%%% START %%%%%
 	\texttt{\textbackslash SI\{9.81\}\{\textbackslash metre\textbackslash per\textbackslash second\textbackslash squared\}} & \SI{9.81}{\metre\per\second\squared} \\
+	
 	\texttt{\textbackslash SI\{3e8\}\{\textbackslash metre\textbackslash per\textbackslash second\}} & \SI{3e8}{\metre\per\second} \\
+	
 	\texttt{\textbackslash SI\{100\}\{\textbackslash kilo\textbackslash gram\}} & \SI{100}{\kilo\gram} \\
+	
 	\texttt{\textbackslash SI\{1.6e-19\}\{\textbackslash coulomb\}} & \SI{1.6e-19}{\coulomb} \\
+	
 	\texttt{\textbackslash si\{\textbackslash ohm\}} & \si{\ohm} \\
+	
 	\texttt{\textbackslash si\{\textbackslash kilo\textbackslash pascal\}} & \si{\kilo\pascal} \\
 \end{tabularx}
 
@@ -729,10 +777,20 @@ The \texttt{pdfpages} package lets you insert pages from another PDF directly in
 	\endlastfoot
 	%%%%% START %%%%%
 	\texttt{pages=-}        & Include all pages \\
+	\addlinespace
+	
 	\texttt{pages=\{1,3\}}  & Include pages 1 and 3 only \\
+	\addlinespace
+	
 	\texttt{pages=\{2-5\}}  & Include a page range \\
+	\addlinespace
+	
 	\texttt{landscape}      & Rotate inserted pages to landscape \\
+	\addlinespace
+	
 	\texttt{nup=2x1}        & Place two source pages side by side on one sheet \\
+	\addlinespace
+	
 	\texttt{pagecommand=\{\textbackslash thispagestyle\{fancy\}\}} & Restore header and footer on inserted pages \\
 \end{tabularx}
 
@@ -765,7 +823,9 @@ The \texttt{booktabs} package gives you three horizontal line commands for clean
 	\endlastfoot
 	%%%%% START %%%%%
 	Resistance & 10 & \si{\ohm} \\
+	
 	Current    & 2  & \si{\ampere} \\
+	
 	Voltage    & 20 & \si{\volt} \\
 \end{tabularx}
 
@@ -791,19 +851,48 @@ The \texttt{array} package lets you apply formatting to an entire column at once
 	\endfoot
 	\bottomrule
 	%%%%% NOTES %%%%%
-	\multicolumn{2}{l}{{\footnotesize \textit{Note:} Example of a table note.}}
+	\multicolumn{2}{l}{{\footnotesize \textit{Note:} Example of a table note.}}\\
 	\endlastfoot
 	%%%%% START %%%%%
 	Centred text & Centred text \\
+	\addlinespace
+	
 	Long cell content wraps & Also wraps cleanly \\
 \end{tabularx}
 
 \subsection{\texttt{tabularx}}
-\noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small \texttt{tabularx} is used internally by \texttt{ltablex} and is not the preferred table environment in this template. Use \texttt{ltablex} for all tables.}}\vspace{0.5\baselineskip}
+\noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small \texttt{tabularx} is used internally by \texttt{ltablex} and is not the preferred table environment in this template. Use \texttt{ltablex} for most tables. \texttt{tabularx} is only recommended when required to have a table anchored to the top or bottom of a page.}}\vspace{0.5\baselineskip}
 
 The \texttt{tabularx} package adds the \texttt{X} column type, which automatically stretches to fill the remaining width of the table. You set the total table width as the first argument (usually \texttt{\textbackslash linewidth}) and any \texttt{X} columns share the leftover space equally.
 
 The template defines three \texttt{ragged2e}-aware column types built on \texttt{X}: \texttt{L} (ragged right), \texttt{C} (centred), and \texttt{R} (ragged left). These should be preferred over plain \texttt{X} for columns containing wrapped text, as they allow hyphenation and produce more even line lengths.
+
+\texttt{tabularx} is, however, the preferred environment for a table that must be anchored to the top or bottom of a page, since \texttt{ltablex} is not a true float and cannot accept a placement specifier such as \texttt{[t]} or \texttt{[b]}. For this case, wrap \texttt{tabularx} in a real \texttt{table} float. Doing so causes the shared \texttt{table} counter to silently increment twice per table; add \texttt{\textbackslash addtocounter\{table\}\{-1\}} immediately after the \texttt{tabularx} environment, inside the float, to correct it:
+
+\begin{table}[H]
+	\centering
+	\caption{Common float placement specifiers.}
+	\label{tab:placement-specifiers}
+	\vspace{-12pt}
+	\begin{tabularx}{\linewidth}{@{}cL@{}}
+		\toprule
+		%%%%% HEADER ROW(S) %%%%%
+		Specifier & Meaning \\
+		\midrule
+		%%%%% START %%%%%
+		\texttt{t} & Places the float at the top of the current or next page. \\
+		\addlinespace
+		
+		\texttt{b} & Places the float at the bottom of the current or next page. \\
+		\addlinespace
+		
+		\texttt{H} & Forces the float to appear exactly where it is written in the source, with no floating at all. Requires the \texttt{float} package. \\
+		\bottomrule
+		%%%%% NOTES %%%%%
+		\multicolumn{2}{l}{{\footnotesize \textit{Note:} Example of a table note.}}\\
+	\end{tabularx}
+	\addtocounter{table}{-1}
+\end{table}
 
 \subsection{\texttt{multirow}}
 The \texttt{multirow} package lets a single cell span more than one row. The command is \texttt{\textbackslash multirow\{n\}\{width\}\{content\}}, where \texttt{n} is the number of rows to span and \texttt{width} is usually \texttt{*} to let \LaTeX{} set it automatically. Leave the cells below the merged cell empty. Adding a \texttt{\textbackslash midrule} between groups helps separate them visually:
@@ -830,7 +919,9 @@ The \texttt{multirow} package lets a single cell span more than one row. The com
 	%%%%% START %%%%%
 	\multirow{2}{*}{Electrical} & Resistance & \SI{10}{\ohm} \\
 								& Current    & \SI{2}{\ampere} \\
+	
 	\midrule
+	
 	\multirow{2}{*}{Mechanical} & Force    & \SI{50}{\newton} \\
 								& Velocity & \SI{3}{\metre\per\second} \\
 \end{tabularx}
@@ -856,6 +947,9 @@ The \texttt{ltablex} package extends \texttt{tabularx} to support page breaks. I
 	\bottomrule
 	%%%%% NOTES %%%%%
 	\multicolumn{2}{l}{
+		\footnotesize \textit{Note:} Example of a table note.
+	} \\
+	\multicolumn{2}{l}{
 			\footnotesize \textsuperscript{a} Note on \texttt{booktabs}.
 		} \\
 	\multicolumn{2}{l}{
@@ -870,15 +964,20 @@ The \texttt{ltablex} package extends \texttt{tabularx} to support page breaks. I
 	\multicolumn{2}{l}{
 			\footnotesize \textsuperscript{e} Note on \texttt{ltablex}.
 		} \\
-	\multicolumn{2}{l}{
-			\footnotesize \textit{Note:} Example of a table note.
-		}
 	\endlastfoot
 	%%%%% START %%%%%
 	\texttt{booktabs} \textsuperscript{a} & Professional horizontal rules (\texttt{\textbackslash toprule}, \texttt{\textbackslash midrule}, \texttt{\textbackslash bottomrule}) \\
+	\addlinespace
+	
 	\texttt{array} \textsuperscript{b}    & Extended column formatting; required by \texttt{tabularx} and \texttt{multirow} \\
+	\addlinespace
+	
 	\texttt{tabularx} \textsuperscript{c} & Flexible \texttt{X} columns that stretch to fill the table width \\
+	\addlinespace
+	
 	\texttt{multirow} \textsuperscript{d} & Cells that span more than one row \\
+	\addlinespace
+	
 	\texttt{ltablex} \textsuperscript{e}  & Extends \texttt{tabularx} with page-breaking; always use \texttt{tabularx}, never \texttt{longtable} directly \\
 \end{tabularx}
 
@@ -1064,13 +1163,21 @@ The \texttt{algorithmic} environment takes an optional line-numbering argument: 
 	\endlastfoot
 	%%%%% START %%%%%
 	\texttt{\textbackslash Require} & Declares what the algorithm expects as input \\
+	
 	\texttt{\textbackslash Ensure}  & Declares what the algorithm produces as output \\
+	
 	\texttt{\textbackslash State}   & A single statement on its own line \\
+	
 	\texttt{\textbackslash Function\{name\}\{params\}} & Opens a named function block \\
+	
 	\texttt{\textbackslash If / \textbackslash ElsIf / \textbackslash Else / \textbackslash EndIf} & Conditional branch \\
+	
 	\texttt{\textbackslash For / \textbackslash EndFor} & For loop \\
+	
 	\texttt{\textbackslash While / \textbackslash EndWhile} & While loop \\
+	
 	\texttt{\textbackslash Return} & Return statement \\
+	
 	\texttt{\textbackslash Comment\{...\}} & Inline comment, right-aligned \\
 \end{tabularx}
 
@@ -1316,42 +1423,73 @@ The title argument is optional. When omitted, only the problem number appears in
 Every code block in this template, whether highlighted by \texttt{listings} or \texttt{minted}, is captioned and numbered off the same \texttt{lstlisting} counter. Place a \texttt{\textbackslash captionof\{lstlisting\}\{...\}} and \texttt{\textbackslash label\{...\}} directly above the code, and reference it anywhere with \texttt{\textbackslash cref}/\texttt{\textbackslash Cref} as usual. Because both engines write to the same counter, listings and minted blocks number continuously through one shared sequence no matter which produced a given block.
 
 \subsection{\texttt{listings}}
+\noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small \texttt{listings} is a drafting-speed fallback: it is what powers the \texttt{codelisting} environment whenever \texttt{\textbackslash metaUseMinted} is \texttt{false}. Since it compiles natively (no external calls), it is fast, but its highlighting is less accurate and covers fewer languages than \texttt{minted}. Keep it on while drafting, and switch to \texttt{minted} for a final compile.}}\vspace{0.5\baselineskip}
+
 The \texttt{listings} package displays source code with syntax highlighting and line numbers. Five named styles are built into this template: \texttt{matlab}, \texttt{java}, \texttt{python}, \texttt{cpp}, and \texttt{latex}. All styles share the same base look: a monospaced font, line numbers on the left in \texttt{themecolour}, a light grey background, and automatic line wrapping. Select a style by adding \texttt{style=name} as an option on the \texttt{lstlisting} environment.
 
 For short inline code snippets, use \texttt{\textbackslash lstinline[style=name]|...|} with \texttt{|} as the delimiter on both sides.
+
+\subsection{\texttt{minted}}\label{sec:minted}
+\noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small This package is optional and controlled by \texttt{\textbackslash metaUseMinted} in \texttt{main.tex}. It requires the \texttt{-8bit -shell-escape} compiler flag and a working Python/Pygments install.}}\vspace{0.5\baselineskip}
+
+\texttt{minted} is the \textbf{preferred} engine for code listings in this template, used automatically by the \texttt{codelisting} environment whenever \texttt{\textbackslash metaUseMinted} is \texttt{true}. It uses the Python library Pygments to perform syntax highlighting instead of \LaTeX{} macros, producing more accurate, professional-looking highlighting for a much wider range of languages than \texttt{listings} can match.
+
+This accuracy comes at a real cost: \texttt{minted} shells out to Pygments on every compile, which is noticeably \textbf{slower} than \texttt{listings}' native, in-\TeX{} highlighting. For that reason, it is recommended to leave \texttt{\textbackslash metaUseMinted} set to \texttt{false} while actively drafting, and only switch it to \texttt{true} for a final, polished compile.
+
+\ifmetaUseMinted
+
+To use \texttt{minted}, compile with the \texttt{-8bit -shell-escape} flag enabled, and ensure Python and Pygments are installed and available on your system's PATH.
+
+Use \texttt{\textbackslash mintinline\{language\}\{code\}} for a short inline snippet:
+
+\mintinline{java}{public class HelloWorld {}
+}
+
+Unlike \texttt{\textbackslash lstinline}, the block form of \texttt{minted} cannot be placed inside a table cell or a \texttt{tcolorbox} (including this template's \texttt{problem} and \texttt{solution} environments), since both rely on verbatim reading that conflicts with those contexts. Use \texttt{\textbackslash mintinline\{\}\{\}} in those situations instead.
+
+\else
+
+\texttt{minted} is currently \textbf{disabled}. Set \texttt{\textbackslash metaUseMinted\{true\}} in \texttt{main.tex} and compile with the \texttt{-8bit -shell-escape} flag to enable Pygments-based syntax highlighting and see a live demo here.
+
+\fi
+
+\subsection{\texttt{codelisting} Environments}
+\noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small \texttt{codelisting} is this template's unified code environment. It automatically renders using \texttt{minted} or \texttt{listings}, whichever is currently active per \texttt{\textbackslash metaUseMinted}, so every code block in a document uses one consistent syntax regardless of which engine produces it.}}\vspace{0.5\baselineskip}
+
+Write \texttt{\textbackslash begin\{codelisting\}\{style\}...\textbackslash end\{codelisting\}}, where \texttt{style} matches one of the named styles defined in \texttt{stemtemplate.sty} (\texttt{matlab}, \texttt{java}, \texttt{python}, \texttt{cpp}, \texttt{latex}). The same style name is used whether \texttt{minted} is on or off.
 
 \subsubsection{MATLAB}
 {\vspace{10pt}
 	\captionof{lstlisting}{MATLAB example.}
 	\label{lst:MATLAB}
 	\vspace{-4pt}}
-\begin{lstlisting}[style=matlab]
+\begin{codelisting}{matlab}
 	x = 0:0.1:2*pi; % This is a comment
 	y = sin(x);
 	plot(x, y);
 	xlabel('x'); ylabel('sin(x)');
 	title('Sine Wave');
-\end{lstlisting}
+\end{codelisting}
 
 \subsubsection{Java}
 {\vspace{10pt}
 	\captionof{lstlisting}{Java example.}
 	\label{lst:java}
 	\vspace{-4pt}}
-\begin{lstlisting}[style=java]
+\begin{codelisting}{java}
 	public class HelloWorld {
 		public static void main(String[] args) {
 			System.out.println("Hello, World!");
 		} // This is a comment
 	}
-\end{lstlisting}
+\end{codelisting}
 
 \subsubsection{Python}
 {\vspace{10pt}
 	\captionof{lstlisting}{Python example.}
 	\label{lst:python}
 	\vspace{-4pt}}
-\begin{lstlisting}[style=python]
+\begin{codelisting}{python}
 	import numpy as np
 	import matplotlib.pyplot as plt
 	
@@ -1359,14 +1497,14 @@ For short inline code snippets, use \texttt{\textbackslash lstinline[style=name]
 	y = np.sin(x)
 	plt.plot(x, y)
 	plt.show()
-\end{lstlisting}
+\end{codelisting}
 
 \subsubsection{C++}
 {\vspace{10pt}
 	\captionof{lstlisting}{C++ example.}
 	\label{lst:cpp}
 	\vspace{-4pt}}
-\begin{lstlisting}[style=cpp]
+\begin{codelisting}{cpp}
 	#include <iostream>
 	using namespace std;
 	
@@ -1374,82 +1512,20 @@ For short inline code snippets, use \texttt{\textbackslash lstinline[style=name]
 		cout << "Hello, World!" << endl;
 		return 0;
 	}
-\end{lstlisting}
+\end{codelisting}
 
 \subsubsection{LaTeX}
 {\vspace{10pt}
 	\captionof{lstlisting}{LaTeX example.}
 	\label{lst:latex}
 	\vspace{-4pt}}
-\begin{lstlisting}[style=latex]
-	\begin{equation}
+\begin{codelisting}{latex}
+	\begin{equation} % This is a comment
 		E = mc^2
 		\label{eq:einstein}
 	\end{equation}
 	See \cref{eq:einstein} for Einstein's mass-energy equivalence.
-\end{lstlisting}
-
-\subsection{\texttt{minted}}
-\noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small This package is optional and controlled by \texttt{\textbackslash metaUseMinted} in \texttt{main.tex}. It requires the \texttt{-8bit -shell-escape} compiler flag and a working Python/Pygments install.}}\vspace{0.5\baselineskip}
-
-\ifmetaUseMinted
-
-The \texttt{minted} package is an alternative to \texttt{listings} that uses the Python library Pygments to perform syntax highlighting instead of \LaTeX{} macros. This produces more accurate, professional-looking highlighting for a much wider range of languages, at the cost of requiring \texttt{-8bit -shell-escape} to be enabled when compiling.
-
-Use \texttt{\textbackslash mintinline\{language\}\{code\}} for a short inline snippet:
-
-\mintinline{java}{public class HelloWorld {}
-}
-
-Caption a \texttt{minted} block exactly the same way as a \texttt{lstlisting} block: no wrapping float, just the three-line \texttt{\textbackslash vspace}/\texttt{\textbackslash captionof}/\texttt{\textbackslash vspace} pattern placed directly above the code. Since both environments share the same \texttt{lstlisting} counter and caption style, a minted block numbers and looks identical to a listings block placed next to it:
-
-{\vspace{10pt}
-	\captionof{lstlisting}{Java example.}
-	\label{lst:minted}
-	\vspace{-4pt}}
-\begin{minted}{java}
-	public class HelloWorld {
-		public static void main(String[] args) {
-			System.out.println("Hello, World!");
-		} // This is a comment
-	}
-\end{minted}
-
-Unlike \texttt{\textbackslash lstinline}, the block form of \texttt{minted} cannot be placed inside a table cell or a \texttt{tcolorbox} (including this template's \texttt{problem} and \texttt{solution} environments), since both rely on verbatim reading that conflicts with those contexts. Use \texttt{\textbackslash mintinline\{\}\{\}} in those situations instead.
-
-\else
-
-\texttt{minted} is currently \textbf{disabled}. Set \texttt{\textbackslash metaUseMinted\{true\}} in \texttt{main.tex} and compile with the \texttt{-shell-escape} flag to enable Pygments-based syntax highlighting and see a live demo here.
-
-\fi
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% DRAFT TOOLS
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Draft Tools}
-
-\subsection{\texttt{todonotes}}
-The \texttt{todonotes} package lets you leave reminder notes in your document while you are still writing. Notes are controlled by \texttt{\textbackslash metaShowTodo} in \texttt{main.tex}. When set to \texttt{true} all notes are visible and the todo list appears in the front matter. When set to \texttt{false} all notes are hidden globally without you having to delete them from the source.
-
-The default \texttt{\textbackslash todo\{\}} command places a note in the margin with a line connecting it to the point in the text where it was inserted:
-
-\todo{This is a margin note.}
-
-The \texttt{inline} option places the note directly in the text flow instead, which is useful when the margin is already crowded:
-
-\todo[inline]{This is an inline note.}
-
-\subsection{\texttt{draftwatermark}}
-\noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small This package is controlled by \texttt{\textbackslash metaWatermarkText} in \texttt{main.tex}. Set the field to any non-empty string to enable the watermark; leave it empty to disable it.}}\vspace{0.5\baselineskip}
-
-The \texttt{draftwatermark} package overlays a large diagonal watermark across every page. You control it entirely through \texttt{\textbackslash metaWatermarkText} in \texttt{main.tex}. Set it to any text such as \texttt{DRAFT} to show the watermark, or leave it empty to hide it. The watermark is currently \ifthenelse{\equal{\metaWatermarkText}{}}{disabled. Set \texttt{\textbackslash metaWatermarkText} to a non-empty value in \texttt{main.tex} to enable it}{enabled with the text \textbf{\metaWatermarkText}}.
-
-\subsection{\texttt{lipsum}}
-\noindent\colorbox{themecolour!15}{\parbox{\linewidth}{\small This package is used internally by the template for layout testing. It is not intended for use in final documents.}}\vspace{0.5\baselineskip}
-
-The \texttt{lipsum} package generates placeholder text for testing the layout and spacing of a page. Use \texttt{\textbackslash lipsum[n]} to generate paragraph $n$, or \texttt{\textbackslash lipsum[1-3]} to generate a range of paragraphs. The text is meaningless Latin and should be replaced with real content before submitting your document.
-
-\lipsum[1]
+\end{codelisting}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % HEADER & FOOTER
@@ -1494,8 +1570,11 @@ The template includes a custom \texttt{\textbackslash smartleftheader} command t
 	\endlastfoot
 	%%%%% START %%%%%
 	Not Crowded   & \metaCourseCode: \metaCourseName \\
+	
 	A Little Crowded & \metaCourseCode: \makeAcronym{\metaCourseName} \\
+	
 	Crowded       & \metaCourseCode \\
+	
 	Overcrowded   & (Hidden) \\
 \end{tabularx}
 
@@ -1511,14 +1590,112 @@ The acronym is generated by the \texttt{\textbackslash makeAcronym} command, whi
 
 The \texttt{csquotes} package is a behind-the-scenes dependency of \texttt{biblatex} that ensures quotation marks in bibliography entries are typeset correctly for the active language. You can also use it directly in your document with \texttt{\textbackslash enquote\{\}} to wrap a phrase in the correct quotation marks for English: \enquote{This is a quoted phrase.}
 
-\subsection{\texttt{biblatex}}
-The \texttt{biblatex} package handles all citation formatting and bibliography generation. You store your references in a \texttt{.bib} file, cite them in the document with \texttt{\textbackslash cite\{key\}}, and print the full bibliography at the end with \texttt{\textbackslash printbibliography}.
+\subsection{\texttt{biblatex}}\label{sec:biblatex}
+The \texttt{biblatex} package handles all citation formatting and bibliography generation. References are stored in a \texttt{.bib} file, cited in the document with \texttt{\textbackslash autocite\{key\}} (or one of several style-specific variants), and the full bibliography is printed at the end with \texttt{\textbackslash printbibliography}.
 
-The citation style is set by \texttt{\textbackslash metaBibStyle} in \texttt{main.tex}. Examples of supported values are \texttt{ieee} and \texttt{apa}. The current active style is \texttt{\metaBibStyle}.
+\Cref{tab:biblatexcommands} summarizes the available citation commands, and \cref{tab:biblatexstyles} lists the supported citation styles. The active style is set via \texttt{\textbackslash metaBibStyle} in \texttt{main.tex}; the style currently active in this document is \texttt{\metaBibStyle}.
 
-After adding new references to your \texttt{.bib} file, you need to run Biber once between compilations for the new citations to resolve. Most editors such as Overleaf and TeXstudio handle this automatically when configured to use Biber as the bibliography backend.
+\begin{tabularx}{\linewidth}{@{}lcL@{}}
+	\caption{Standard \texttt{biblatex} citation commands and descriptions.}
+	\label{tab:biblatexcommands} \\
+	\toprule
+	%%%%% HEADER ROW(S) %%%%%
+	Command & Output Format & Description \\
+	\midrule
+	\endfirsthead
+	\toprule
+	%%%%% HEADER ROW(S) %%%%%
+	Command & Output Format & Description \\
+	\midrule
+	\endhead
+	\bottomrule
+	\endfoot
+	\bottomrule
+	%%%%% NOTES %%%%%
+	% NOTES HERE
+	\endlastfoot
+	%%%%% START %%%%%
+	\texttt{\textbackslash autocite\{key\}}     & High-level context   & \textbf{Recommended default.} Automatically adapts to the active style (parenthetical, superscript, or footnote). \\
+	\addlinespace
+	
+	\texttt{\textbackslash cite\{key\}}         & Bare citation         & Basic citation output without extra surrounding parentheses or brackets (unless defined by style). \\
+	\addlinespace
+	
+	\texttt{\textbackslash parencite\{key\}}    & Parenthetical         & Encloses the citation in brackets or parentheses, e.g., \texttt{[1]} or \texttt{(Smith, 2026)}. \\
+	\addlinespace
+	
+	\texttt{\textbackslash textcite\{key\}}     & Narrative / In-text   & Integrates author name into sentence prose, e.g., \texttt{Smith [1]} or \texttt{Smith (2026)}. \\
+	\addlinespace
+	
+	\texttt{\textbackslash supercite\{key\}}    & Superscript           & Forces citation as a superscript number, e.g., \textsuperscript{1} or \textsuperscript{1,2}. \\
+	\addlinespace
+	
+	\texttt{\textbackslash footcite\{key\}}     & Footnote              & Places full or abbreviated citation in a footnote at the bottom of the page. \\
+	\addlinespace
+	
+	\texttt{\textbackslash citeauthor\{key\}}   & Author name(s) only   & Prints only author names without year or index, e.g., \texttt{Smith et al.} \\
+	\addlinespace
+	
+	\texttt{\textbackslash citeyear\{key\}}     & Publication year only & Prints only the publication year, e.g., \texttt{2026}. \\
+	\addlinespace
+	
+	\texttt{\textbackslash citetitle\{key\}}    & Title string only     & Prints only the title of the entry, e.g., \texttt{Thermal Control Design}. \\
+	\addlinespace
+	
+	\texttt{\textbackslash citeurl\{key\}}      & URL link              & Extracts and prints only the URL field from the entry. \\
+	\addlinespace
+	
+	\texttt{\textbackslash nocite\{key\}}       & Invisible             & Includes the entry in the final bibliography without generating in-text output. Pass \texttt{*} to print all items. \\
+	
+	\midrule
+	
+	\texttt{\textbackslash cite[2]\{key\}} 		& Page 					& Passes a specific page or section number, e.g., \texttt{[1, p. 2]} or \texttt{(Smith, 2026, p. 2)}. \\
+	\addlinespace
+	
+	\texttt{\textbackslash cite[2-3]\{key\}} 	& Pages 				& Passes a specific page or section number, e.g., \texttt{[1, pp. 2-3]} or \texttt{(Smith, 2026, pp. 2-3)}. \\
+	\addlinespace
+	
+	\texttt{[\textbackslash bibstring\{paragraph\}~4]} & Paragraph & Suppresses default \texttt{p.} and inserts \texttt{par.}, e.g., \texttt{[1, par. 4]}. \\
+\end{tabularx}
 
-An example citation: \cite{example}.
+\begin{tabularx}{\linewidth}{@{}lccc@{}}
+	\caption{BibLaTeX citation styles.}
+	\label{tab:biblatexstyles} \\
+	\toprule
+	%%%%% HEADER ROW(S) %%%%%
+	Input & Name & Field & Example Output \\
+	\midrule
+	\endfirsthead
+	\toprule
+	%%%%% HEADER ROW(S) %%%%%
+	Input & Name & Field & Example Output \\
+	\midrule
+	\endhead
+	\bottomrule
+	\endfoot
+	\bottomrule
+	%%%%% NOTES %%%%%
+	% NOTES HERE
+	\endlastfoot
+	%%%%% START %%%%%
+	\texttt{chem-acs}           & ACS     & Chemistry             & \textsuperscript{1} \\
+	
+	\texttt{phys}               & AIP     & Physics / Astronomy   & \textsuperscript{1} \\
+	
+	\texttt{nature}             & Nature  & Multidisciplinary Sci.& \textsuperscript{1} \\
+	
+	\texttt{science}            & Science & Multidisciplinary Sci.& \texttt{(1)} \\
+	
+	\texttt{ieee}               & IEEE    & Engineering           & \texttt{[1]} or \texttt{[1-3]} \\
+	
+	\texttt{mla}                & MLA     & Literature / Arts     & \texttt{(Smith 42)} \\
+	
+	\texttt{apa}                & APA     & Psychology / Education & \texttt{(Smith, 2026)} \\
+\end{tabularx}
+
+After adding new references to the \texttt{.bib} file, Biber must be run once between compilations for new citations to resolve. Most editors, such as Overleaf and TeXstudio, handle this automatically when configured to use Biber as the bibliography backend.
+
+For example, \texttt{\textbackslash autocite[1-2]\{example\}} produces: \autocite[1-2]{example}
 
 % REFERENCES ----------------------------------------------
 \clearpage
@@ -1540,13 +1717,13 @@ Place appendices at the end of your document after the bibliography. The \texttt
 	\captionof{lstlisting}{Appendix Section Code.}
 	%\label{lst:}
 	\vspace{-4pt}}
-\begin{lstlisting}[style=latex]
+\begin{codelisting}{latex}
 	\appendix
 	\section{First Appendix}   % Appendix A
 	...
 	\section{Second Appendix}  % Appendix B
 	...
-\end{lstlisting}
+\end{codelisting}
 
 \subsection{Counter Resets}
 The template automatically resets the numbering of all major floats at the start of the appendix so they are labelled relative to their appendix letter. For example, the first figure in Appendix B is labelled \textbf{Figure B.1}. The following counters are reset automatically:
@@ -1570,13 +1747,13 @@ Appendix sections, subsections, figures, and tables all support \texttt{\textbac
 	\captionof{lstlisting}{Appendix Section Cross-Reference.}
 	%\label{lst:}
 	\vspace{-4pt}}
-\begin{lstlisting}[style=latex]
+\begin{codelisting}{latex}
 	% In the appendix:
 	\subsection{Cross-Referencing Appendices}\label{sec:appendix-crossref}
 	
 	% Elsewhere in the document:
 	See \cref{sec:appendix-crossref} for details on cross-referencing appendices.
-\end{lstlisting}
+\end{codelisting}
 
 Which renders as: See \cref{sec:appendix-usage-crossref} for details on cross-referencing appendices.
 
@@ -1610,18 +1787,39 @@ These fields populate the title page and page header. Update them for every new 
 	\endlastfoot
 	%%%%% START %%%%%
 	\texttt{\textbackslash metaAssignmentTitle} & The assignment or document title shown on the title page. \\
+	\addlinespace
+	
 	\texttt{\textbackslash metaStudentName}     & Your full name. Appears on the title page and in the page header when \texttt{\textbackslash metaPartners} is empty. \\
+	\addlinespace
+	
 	\texttt{\textbackslash metaStudentNumber}   & Your student number. Shown in brackets after your name in the header when \texttt{\textbackslash metaPartners} is empty. \\
+	\addlinespace
+	
 	\texttt{\textbackslash metaStudentEmail}    & Your university email address. Shown on the title page. \\
+	\addlinespace
+	
 	\texttt{\textbackslash metaPartners}        & Group partners listed as \texttt{Name \& Number\textbackslash\textbackslash Name \& Number}. When non-empty, the student name and number are removed from the header. Leave empty for solo submissions. \\
+	\addlinespace
+	
 	\texttt{\textbackslash metaUniversity}      & University name shown on the title page. \\
+	\addlinespace
+	
 	\texttt{\textbackslash metaFaculty}         & Faculty name shown on the title page. \\
+	\addlinespace
+	
 	\texttt{\textbackslash metaDepartment}      & Department name shown on the title page. Leave empty to omit. \\
+	\addlinespace
+	
 	\texttt{\textbackslash metaCourseCode}      & Course code (e.g.\ \texttt{EECS 3000}). Always shown in the left header. \\
+	\addlinespace
+	
 	\texttt{\textbackslash metaCourseName}      & Full course name. Used by the smart header logic to decide whether to show the full name, a shortened acronym, or nothing depending on available space. \\
+	\addlinespace
+	
 	\texttt{\textbackslash metaInstructor}      & Instructor name shown on the title page. \\
+	\addlinespace
+	
 	\texttt{\textbackslash metaDate}            & Submission or due date shown on the title page. \\
-	\texttt{\textbackslash metaLogoPath}        & Path to the faculty or university logo image. Leave empty to omit the logo from the title page. \\
 \end{tabularx}
 
 \subsection{Title Page}
@@ -1647,7 +1845,18 @@ These fields populate the title page and page header. Update them for every new 
 	\endlastfoot
 	%%%%% START %%%%%
 	\texttt{\textbackslash metaTitlePage} & Controls the title page layout. Accepted values: \texttt{standard} (full title page with all fields), \texttt{abstract} (includes the \texttt{\textbackslash metaAbstract} field below the title block), \texttt{compact} (condensed single-page layout). \\
-	\texttt{\textbackslash metaTitlePageLogo} & Controls the location of the logo from the \texttt{\textbackslash metaLogoPath} in the \texttt{standard} title page. The location can either be centered (\texttt{default}), or in the bottom right-hand corner (\texttt{york}, York University configuration). \\
+	\addlinespace
+	
+	\texttt{\textbackslash metaLogoPath}        & Path to the faculty or university logo image. Leave empty to omit the logo from the title page. \\
+	\addlinespace
+	
+	\texttt{\textbackslash metaLogoLocation} & Controls the location of the logo from the \texttt{\textbackslash metaLogoPath} in the \texttt{standard} title page. The location can either be centered (\texttt{default}), or in the bottom right-hand corner (\texttt{york}, York University configuration). \\
+	
+	\midrule
+	
+	\multicolumn{2}{c}{\textit{Located below} \texttt{Drafting} \textit{metadata macros}} \\
+	\addlinespace
+	
 	\texttt{\textbackslash metaAbstract}  & Abstract text used when \texttt{\textbackslash metaTitlePage} is set to \texttt{abstract}. Has no effect for other title page styles. \\
 \end{tabularx}
 
@@ -1674,15 +1883,21 @@ These fields populate the title page and page header. Update them for every new 
 	\endlastfoot
 	%%%%% START %%%%%
 	\texttt{\textbackslash metaBibFile}             & Filename of the \texttt{.bib} reference file (e.g.\ \texttt{references.bib}). \\
-	\texttt{\textbackslash metaBibStyle}            & Citation and bibliography style. Accepted values: \texttt{ieee}, \texttt{apa}. \\
+	\addlinespace
+	
+	\texttt{\textbackslash metaBibStyle}            & Citation and bibliography style. Example values: \texttt{ieee}, \texttt{apa}. See \cref{sec:biblatex} for a full list of inputs. \\
+	\addlinespace
+	
 	\texttt{\textbackslash metaShowBackref}         & When \texttt{true}, each bibliography entry shows the page numbers where it was cited. Back-references are coloured using \texttt{\textbackslash metaUrlColour}. Accepted values: \texttt{true}, \texttt{false}. \\
+	\addlinespace
+	
 	\texttt{\textbackslash metaShowUnusedCitations} & When \texttt{true}, all entries in the \texttt{.bib} file appear in the bibliography regardless of whether they were cited. When \texttt{false}, only cited entries appear. \\
 \end{tabularx}
 
-\subsection{Font}
+\subsection{Font \& Spacing}
 
 \begin{tabularx}{\linewidth}{@{}lL@{}}
-	\caption{Font metadata fields.}
+	\caption{Font and spacing metadata fields.}
 	\label{tab:meta-font} \\
 	\toprule
 	%%%%% HEADER ROW(S) %%%%%
@@ -1702,36 +1917,15 @@ These fields populate the title page and page header. Update them for every new 
 	\endlastfoot
 	%%%%% START %%%%%
 	\texttt{\textbackslash metaSerifFont}      & Serif font loaded by the template. Leave empty for IBM Plex Serif, or set to any system font name (e.g.\ \texttt{Georgia}). Used by \texttt{\textbackslash seriftext\{\}}. \\
+	\addlinespace
+	
 	\texttt{\textbackslash metaSansFont}       & Sans-serif font loaded by the template. Leave empty for IBM Plex Sans, or set to any system font name (e.g.\ \texttt{Arial}). Used by \texttt{\textbackslash sansseriftext\{\}}. \\
+	\addlinespace
+	
 	\texttt{\textbackslash metaDefaultFont}    & Document body font family. Accepted values: \texttt{sans} (uses \texttt{\textbackslash metaSansFont}), \texttt{serif} (uses \texttt{\textbackslash metaSerifFont}). \\
-\end{tabularx}
-
-\subsection{Misc.}
-
-\begin{tabularx}{\linewidth}{@{}lL@{}}
-	\caption{Misc. metadata fields.}
-	\label{tab:meta-appearance} \\
-	\toprule
-	%%%%% HEADER ROW(S) %%%%%
-	Field & Description \\
-	\midrule
-	\endfirsthead
-	\toprule
-	%%%%% HEADER ROW(S) %%%%%
-	Field & Description \\
-	\midrule
-	\endhead
-	\bottomrule
-	\endfoot
-	\bottomrule
-	%%%%% NOTES %%%%%
-	% NOTES HERE
-	\endlastfoot
-	%%%%% START %%%%%
-	\texttt{\textbackslash metaWatermarkText}  & Text overlaid as a diagonal watermark on every page. Leave empty to disable. Common values: \texttt{DRAFT}, \texttt{CONFIDENTIAL}. \\
-	\texttt{\textbackslash metaWatermarkScale} & Scale factor for the watermark text. Default is \texttt{1}. Increase for a larger watermark. Has no effect when \texttt{\textbackslash metaWatermarkText} is empty. \\
+	\addlinespace
+	
 	\texttt{\textbackslash metaLineSpacing}    & Line spacing throughout the document. Accepted values: \texttt{single}, \texttt{onehalf}, \texttt{double}. \\
-	\texttt{\textbackslash metaShowTodo}       & When \texttt{true}, \texttt{\textbackslash todo\{\}} notes are visible. When \texttt{false}, all notes are hidden globally. \\
 \end{tabularx}
 
 \subsection{Colours}
@@ -1758,8 +1952,14 @@ Each field accepts a hex colour code (with \texttt{\#} before it), a built-in \L
 	\endlastfoot
 	%%%%% START %%%%%
 	\texttt{\textbackslash metaThemeColour} & Primary accent colour. Controls headings, rules, boxes, line numbers, and figure labels. Defaults to \texttt{DefaultBlue} when empty. \\
+	\addlinespace
+	
 	\texttt{\textbackslash metaLinkColour}  & Colour for internal cross-references and hyperlinks. Leave empty to use \texttt{themecolour}. \\
+	\addlinespace
+	
 	\texttt{\textbackslash metaCiteColour}  & Colour for citation references. Leave empty to use \texttt{themecolour}. \\
+	\addlinespace
+	
 	\texttt{\textbackslash metaUrlColour}   & Colour for URLs and bibliography back-references. Leave empty to use \texttt{themecolour}. \\
 \end{tabularx}
 
@@ -1795,8 +1995,8 @@ These fields control whether floats and environments are numbered by section (e.
 	\texttt{\textbackslash metaNumberListings} 	 & \texttt{listing} \\
 \end{tabularx}
 
-\subsection{Minted Code Listings}
-This field controls whether \texttt{minted} package is active or not. It is recommended to set this macro to \texttt{false} when \texttt{minted} environments are not in use as it slows compile time.
+\subsection{Drafting}
+These fields controls aspects of the document to increase compile time during drafting. It is recommended to have these set to \texttt{false} while drafting and \texttt{true} only for a final copy.
 
 \begin{tabularx}{\linewidth}{@{}lL@{}}
 	\caption{Minted metadata field.}
@@ -1819,7 +2019,11 @@ This field controls whether \texttt{minted} package is active or not. It is reco
 	\endlastfoot
 	%%%%% START %%%%%
 	\texttt{\textbackslash metaUseMinted}  
-	& Allows use of \texttt{minted} package for listing environments. Input \texttt{true} to use, \texttt{false} to remove access. \\
+	& Allows use of \texttt{minted} package for listing environments. Input \texttt{true} to use, \texttt{false} to remove access. See \cref{sec:minted} for full instructions. \\
+	\addlinespace
+	
+	\texttt{\textbackslash metaShowFigures}  
+	& \texttt{true} will turn on the ability to see images inserted with \texttt{\textbackslash includegraphics}. \texttt{false} produces an empty frame of the image, allowing faster compile times. \\
 \end{tabularx}
 
 % APPENDIX C ----------------------------------------------
@@ -1936,11 +2140,17 @@ This appendix lists the mathematical notation used throughout this document, gro
 	\endlastfoot
 	%%%%% START %%%%%
 	$f(x)$, $g(x)$              & Functions of $x$ \\
+	
 	$f(x) \coloneqq \ldots$     & Definition of $f(x)$ (defined as equal to) \\
+	
 	$\mathbb{R}$, $\mathbb{Z}$, $\mathbb{N}$ & Real numbers, integers, natural numbers \\
+	
 	$\infty$                    & Infinity \\
+	
 	$\sum_{n=1}^{N}$            & Sum of terms from $n = 1$ to $N$ \\
+	
 	$\lfloor x \rfloor$         & Floor of $x$, the largest integer less than or equal to $x$ \\
+	
 	$|x|$                       & Absolute value of $x$ \\
 \end{tabularx}
 
@@ -1967,9 +2177,13 @@ This appendix lists the mathematical notation used throughout this document, gro
 	\endlastfoot
 	%%%%% START %%%%%
 	$a^2 + b^2 = c^2$           & Pythagorean theorem \\
+	
 	$(a + b)^2 = a^2 + 2ab + b^2$ & Binomial expansion \\
+	
 	$|x| = \begin{cases} x & x \geq 0 \\ -x & x < 0 \end{cases}$ & Absolute value as a piecewise function \\
+	
 	$\bm{v}$, $\bm{u}$          & Vectors (bold italic) \\
+	
 	$A$, $B$                    & Matrices (uppercase letters) \\
 \end{tabularx}
 
@@ -2031,14 +2245,23 @@ A complete reference of Greek letters available in math mode. Greek letters are 
 	\endlastfoot
 	%%%%% START %%%%%
 	$\alpha$      & \texttt{\textbackslash alpha}      & $\iota$      & \texttt{\textbackslash iota}       & $\rho$       & \texttt{\textbackslash rho}        \\
+	
 	$\beta$       & \texttt{\textbackslash beta}       & $\kappa$     & \texttt{\textbackslash kappa}      & $\sigma$     & \texttt{\textbackslash sigma}      \\
+	
 	$\gamma$      & \texttt{\textbackslash gamma}      & $\lambda$    & \texttt{\textbackslash lambda}     & $\tau$       & \texttt{\textbackslash tau}        \\
+	
 	$\delta$      & \texttt{\textbackslash delta}      & $\mu$        & \texttt{\textbackslash mu}         & $\upsilon$   & \texttt{\textbackslash upsilon}    \\
+	
 	$\epsilon$    & \texttt{\textbackslash epsilon}    & $\nu$        & \texttt{\textbackslash nu}         & $\phi$       & \texttt{\textbackslash phi}        \\
+	
 	$\varepsilon$ & \texttt{\textbackslash varepsilon} & $\xi$        & \texttt{\textbackslash xi}         & $\varphi$    & \texttt{\textbackslash varphi}     \\
+	
 	$\zeta$       & \texttt{\textbackslash zeta}       & $\pi$        & \texttt{\textbackslash pi}         & $\chi$       & \texttt{\textbackslash chi}        \\
+	
 	$\eta$        & \texttt{\textbackslash eta}        & $\varpi$     & \texttt{\textbackslash varpi}      & $\psi$       & \texttt{\textbackslash psi}        \\
+	
 	$\theta$      & \texttt{\textbackslash theta}      & $\varsigma$  & \texttt{\textbackslash varsigma}   & $\omega$     & \texttt{\textbackslash omega}      \\
+	
 	$\vartheta$   & \texttt{\textbackslash vartheta}   &              &                                    &              &                                    \\
 \end{tabularx}
 
@@ -2063,8 +2286,11 @@ A complete reference of Greek letters available in math mode. Greek letters are 
 	\endlastfoot
 	%%%%% START %%%%%
 	$\Gamma$  & \texttt{\textbackslash Gamma}   & $\Lambda$  & \texttt{\textbackslash Lambda}  & $\Phi$    & \texttt{\textbackslash Phi}    \\
+	
 	$\Delta$  & \texttt{\textbackslash Delta}   & $\Xi$      & \texttt{\textbackslash Xi}      & $\Psi$    & \texttt{\textbackslash Psi}    \\
+	
 	$\Theta$  & \texttt{\textbackslash Theta}   & $\Pi$      & \texttt{\textbackslash Pi}      & $\Omega$  & \texttt{\textbackslash Omega}  \\
+	
 	$\Sigma$  & \texttt{\textbackslash Sigma}   & $\Upsilon$ & \texttt{\textbackslash Upsilon} &           &                                \\
 \end{tabularx}
 
@@ -2094,12 +2320,19 @@ A complete reference of Greek letters available in math mode. Greek letters are 
 	\endlastfoot
 	%%%%% START %%%%%
 	$\implies$   & \texttt{\textbackslash implies}   & $\in$       & \texttt{\textbackslash in}       \\
+	
 	$\iff$       & \texttt{\textbackslash iff}       & $\notin$    & \texttt{\textbackslash notin}    \\
+	
 	$\forall$    & \texttt{\textbackslash forall}    & $\subset$   & \texttt{\textbackslash subset}   \\
+	
 	$\exists$    & \texttt{\textbackslash exists}    & $\subseteq$ & \texttt{\textbackslash subseteq} \\
+	
 	$\neg$       & \texttt{\textbackslash neg}       & $\cup$      & \texttt{\textbackslash cup}      \\
+	
 	$\land$      & \texttt{\textbackslash land}      & $\cap$      & \texttt{\textbackslash cap}      \\
+	
 	$\lor$       & \texttt{\textbackslash lor}       & $\emptyset$ & \texttt{\textbackslash emptyset} \\
+	
 	$\oplus$     & \texttt{\textbackslash oplus}     & $\setminus$ & \texttt{\textbackslash setminus} \\
 \end{tabularx}
 
@@ -2125,9 +2358,13 @@ A complete reference of Greek letters available in math mode. Greek letters are 
 	\endlastfoot
 	%%%%% START %%%%%
 	$\equiv$  & \texttt{\textbackslash equiv}   & $\approx$ & \texttt{\textbackslash approx} \\
+	
 	$\cong$   & \texttt{\textbackslash cong}    & $\sim$    & \texttt{\textbackslash sim}    \\
+	
 	$\propto$ & \texttt{\textbackslash propto}  & $\leq$    & \texttt{\textbackslash leq}    \\
+	
 	$\neq$    & \texttt{\textbackslash neq}     & $\geq$    & \texttt{\textbackslash geq}    \\
+	
 	$\ll$     & \texttt{\textbackslash ll}      & $\gg$     & \texttt{\textbackslash gg}     \\
 \end{tabularx}
 
@@ -2153,8 +2390,11 @@ A complete reference of Greek letters available in math mode. Greek letters are 
 	\endlastfoot
 	%%%%% START %%%%%
 	$\to$             & \texttt{\textbackslash to}             & $\leftarrow$      & \texttt{\textbackslash leftarrow}      \\
+	
 	$\Rightarrow$     & \texttt{\textbackslash Rightarrow}     & $\Leftarrow$      & \texttt{\textbackslash Leftarrow}      \\
+	
 	$\Leftrightarrow$ & \texttt{\textbackslash Leftrightarrow} & $\mapsto$         & \texttt{\textbackslash mapsto}         \\
+	
 	$\uparrow$        & \texttt{\textbackslash uparrow}        & $\downarrow$      & \texttt{\textbackslash downarrow}      \\
 \end{tabularx}
 
@@ -2184,11 +2424,17 @@ A complete reference of Greek letters available in math mode. Greek letters are 
 	\endlastfoot
 	%%%%% START %%%%%
 	\texttt{\textbackslash textbf\{...\}}    & \textbf{Bold text}          & Emphasis, key terms \\
+	
 	\texttt{\textbackslash textit\{...\}}    & \textit{Italic text}        & Titles, emphasis \\
+	
 	\texttt{\textbackslash texttt\{...\}}    & \texttt{Monospace text}     & Code, file names, commands \\
+	
 	\texttt{\textbackslash textsc\{...\}}    & \textsc{Small Caps}         & Acronyms, proper names \\
+	
 	\texttt{\textbackslash textsf\{...\}}    & \textsf{Sans-serif text}    & Labels, captions \\
+	
 	\texttt{\textbackslash emph\{...\}}      & \emph{Emphasised text}      & Context-aware italic \\
+	
 	\texttt{\textbackslash underline\{...\}} & \underline{Underlined text} & Use sparingly \\
 \end{tabularx}
 
