@@ -3,14 +3,14 @@
 % Licensed under the MIT License - see LICENSE file for details
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{assets/stemtemplate}[2026/08/14 LaTeX University Assignment STEM Template]
+\ProvidesPackage{assets/stemtemplate}[2026/08/22 LaTeX University Assignment STEM Template]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CONDITIONALS & UTILITIES
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{xifthen} % Extended \ifthenelse with \isempty and other conditionals
-\usepackage{xstring} % String manipulation (\StrLen, \StrLeft, \IfSubStr)
-\usepackage{lipsum}  % \lipsum to generate dummy text
+\usepackage{xifthen}  % Extended \ifthenelse with \isempty and other conditionals
+\usepackage{xstring}  % String manipulation (\StrLen, \StrLeft, \IfSubStr)
+\usepackage{lipsum}   % \lipsum to generate dummy text
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % COLOURS
@@ -77,7 +77,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % PAGE GEOMETRY
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage[margin=2.54cm, headheight=14.9pt]{geometry} % minimum to silence fancyhdr warning
+\usepackage[margin=2.54cm, headheight=14.9pt]{geometry} % control margins
 \usepackage{setspace}  % Line spacing control
 \ifthenelse{\equal{\metaLineSpacing}{single}}{\singlespacing}{}
 \ifthenelse{\equal{\metaLineSpacing}{onehalf}}{\onehalfspacing}{}
@@ -375,6 +375,29 @@
 \pgfplotsset{compat=1.18} % Locks pgfplots behaviour to v1.18 for reproducibility
 \usepackage{circuitikz}   % Circuit schematics using TikZ nodes
 \usepackage{pgf-pie}      % Pie charts built on TikZ/pgf
+% DRAFT MODE ----------------------------------------------
+\newif\ifmetaShowFigures
+\ifthenelse{\equal{\metaShowFigures}{true}}{\metaShowFigurestrue}{\metaShowFiguresfalse}
+\ifmetaShowFigures
+% true: tikzpicture/circuitikz render normally, no override needed
+\else
+\usepackage{environ} % Captures an environment's body without executing it
+\let\stem@realtikzpicture\tikzpicture
+\let\stem@endrealtikzpicture\endtikzpicture
+\newcommand{\stem@vectorPlaceholder}[2][6cm]{%
+	\stem@realtikzpicture
+	\draw[gray, thick] (0,0) rectangle (\linewidth,#1);
+	\draw[gray] (0,0) -- (\linewidth,#1) (0,#1) -- (\linewidth,0);
+	\node[gray, align=center] at (0.5\linewidth,0.5*#1) {\small #2};
+	\stem@endrealtikzpicture
+}
+\RenewEnviron{tikzpicture}[1][]{%
+	\stem@vectorPlaceholder[6cm]{Vector graphic suppressed, set metaShowFigures to \texttt{true}}%
+}
+\RenewEnviron{circuitikz}[1][]{%
+	\stem@vectorPlaceholder[6cm]{Circuit diagram suppressed, set metaShowFigures to \texttt{true}}%
+}
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ALGORITHMS
@@ -471,7 +494,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TYPOGRAPHY
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{microtype}             % Font improvements; XeLaTeX supports protrusion only (expansion is silently ignored)
+\ifthenelse{\equal{\metaFinalDraft}{true}}{%
+	\usepackage{microtype}
+}{%
+	\usepackage[draft]{microtype}
+} % Font improvements; XeLaTeX supports protrusion only (expansion is silently ignored)
 \usepackage{xurl}                  % Allow URLs to break at more points
 \setlength{\emergencystretch}{3em} % Prevent overfull hboxes in paragraphs
 \usepackage{indentfirst}    	   % Indents first paragraph
@@ -534,6 +561,20 @@
 		toprule=1pt,
 		bottomrule=1pt,]}{%
 \end{tcolorbox}}
+% DRAFT MODE ----------------------------------------------
+\ifthenelse{\equal{\metaShowFigures}{true}}{}{%
+	\RenewEnviron{problem}[1][]{%
+		\refstepcounter{problem}%
+		\par\noindent{\color{themecolour}\rule{3pt}{1.2em}}\hspace{6pt}%
+		\textbf{\color{themecolour}Problem~\theproblem\ifthenelse{\equal{#1}{}}{}{:~#1}}%
+		\ \textcolor{gray}{\itshape[content suppressed, set metaShowFigures to \texttt{true}]}\par\medskip
+	}
+	\RenewEnviron{solution}{%
+		\par\noindent{\color{themecolour}\rule{3pt}{1.2em}}\hspace{6pt}%
+		\textbf{\color{themecolour}Solution}%
+		\ \textcolor{gray}{\itshape[content suppressed, set metaShowFigures to \texttt{true}]}\par\medskip
+	}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CODE LISTINGS
@@ -680,15 +721,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % BIBLIOGRAPHY
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{csquotes} % Context-sensitive quotation marks; required by biblatex
+\usepackage{csquotes} % Context-sensitive quotation marks; used by biblatex
+\providecommand{\metaShowBib}{true}
+\newif\ifmetaShowBib
+\ifthenelse{\equal{\metaShowBib}{true}}{\metaShowBibtrue}{\metaShowBibfalse}
+\ifmetaShowBib
 \usepackage[
 backend=biber,            			% Use Biber as the bibliography processor
 style=\metaBibStyle,      			% Change bib style in metadata
 sorting=none, 						% Sorts by order of citations
 backref=\metaShowBackref]{biblatex} % Change back reference in metadata
 \addbibresource{\metaBibFile} 		% Change bib file in metadata
-\ifthenelse{\equal{\metaShowUnusedCitations}{true}}{%
-	\nocite{*}}{} % Include all .bib entries only if metadata is set to 'true'
 % Back-references colour matches URL colour (only when backref is enabled)
 \ifthenelse{\equal{\metaShowBackref}{true}}{%
 	\renewbibmacro*{pageref}{%
@@ -699,6 +742,21 @@ backref=\metaShowBackref]{biblatex} % Change back reference in metadata
 				{\bibstring{backrefpage}\ppspace}%
 				\printlist[pageref][-\value{listtotal}]{pageref})}}}%
 }{}
+\else
+% DRAFT MODE:
+\newcommand{\autocite}[2][]{\textcolor{red}{[#2]}}
+\renewcommand{\cite}[2][]{\textcolor{red}{[#2]}}
+\newcommand{\parencite}[2][]{\textcolor{red}{[#2]}}
+\newcommand{\textcite}[2][]{\textcolor{red}{[#2]}}
+\newcommand{\footcite}[2][]{\textcolor{red}{[#2]}}
+\newcommand{\fullcite}[2][]{\textcolor{red}{[#2]}}
+\newcommand{\citeauthor}[2][]{\textcolor{red}{[#2]}}
+\newcommand{\citeyear}[2][]{\textcolor{red}{[#2]}}
+\newcommand{\citetitle}[2][]{\textcolor{red}{[#2]}}
+\renewcommand{\nocite}[1]{}
+\newcommand{\printbibliography}[1][]{%
+	\textcolor{red}{\textit{[Bibliography suppressed in draft mode --- set \textbackslash metaShowBib to true for final compile]}}}
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % APPENDICES

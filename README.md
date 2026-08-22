@@ -1,28 +1,6 @@
 # LaTeX Assignment Template
  
-A LaTeX assignment template originally created for York University STEM students but is usable by anyone looking for an assignment template. All configuration is done through a single metadata block at the top of `main.tex`, no need to edit any other file for standard use.
- 
----
- 
-## Two Versions
- 
-This template comes in two versions:
- 
-| Version | File | Best for |
-|---|---|---|
-| **Full** | `stemtemplate.sty` | Local compilation in TeXstudio or similar |
-| **Overleaf** | `stemtemplate-overleaf.sty` | Collaborating on Overleaf |
- 
-The Overleaf version is a leaner variant of the full template. It loads fewer packages by default and strips non-essential formatting to keep Overleaf compile times short. Heavy packages like `tikz`, `pgfplots`, and `circuitikz` are commented out and can be uncommented when needed for a specific project.
- 
-> **Overleaf template:** https://github.com/TylerBignell/LaTeX-AssignmentTemplate-Overleaf
- 
-### Recommended Workflow
- 
-1. Start a new project using the Overleaf template
-2. Collaborate and write your content on Overleaf
-3. When the document is ready for final submission, transfer your content files to this full template and compile locally for the polished final output.
-Both templates use identical metadata fields, environments, and commands so your content files transfer without any changes.
+A LaTeX assignment template originally created for York University STEM students but is usable by anyone looking for an assignment template.
  
 ---
  
@@ -36,18 +14,23 @@ Both templates use identical metadata fields, environments, and commands so your
 ## File Structure
  
 ```
-├── assets/
-│   ├── stemtemplate.sty            ← Full template (don't edit)
-│   ├── titlepage_standard.tex      ← Title page layouts (don't edit)
-│   ├── titlepage_abstract.tex
-│   ├── titlepage_compact.tex
-│   ├── placeholder_logo.png        ← Replace with your school's logo
-│   ├── frontmatter.tex             ← Abstract, TOC, LOF, LOT,... (edit as needed)
+├── assets/                         ← Support files
+│   ├── demo.pdf                    ← Compiled demo
 │   ├── demo.tex                    ← Demo file showing all features
-│   └── demo.pdf                    ← Compiled demo
-├── figures/                        ← Place your images here (create this folder)
+│   ├── frontmatter.tex             ← Abstract, TOC, LOF, LOT,... (edit as needed)
+│   ├── placeholder_logo.png        ← Replace with your school's logo
+│   ├── stemtemplate.sty            ← Packages (don't edit)
+│   ├── titlepage_abstract.tex      ← Title page layouts (don't edit)
+│   ├── titlepage_compact.tex
+│   └── titlepage_standard.tex
+├── figures/                        ← Place your images here
+│   └── .gitkeep                    ← Placeholder file
+├── sections/                       ← Place your content files here
+│   └── .gitkeep                    ← Placeholder file
+├── .gitignore                      ← Used by GitHub
+├── LICENCSE                        ← MIT license
 ├── main.tex                        ← Edit metadata here, compile this file
-└── references.bib                  ← Your bibliography entries (create this file)
+└── README.md                       ← Read this for instructions
 ```
  
 ---
@@ -64,54 +47,52 @@ All settings are controlled from the top of `main.tex`. The full metadata block 
 \newcommand{\metaStudentName}{Your Name}
 \newcommand{\metaStudentNumber}{123456789}
 \newcommand{\metaStudentEmail}{email@my.yorku.ca}
-\newcommand{\metaPartners}{}   % "Jane Doe & 123456789\\John Doe & 123456789"
-\newcommand{\metaUniversity}{York University}
-\newcommand{\metaFaculty}{Lassonde School of Engineering}
-\newcommand{\metaDepartment}{Department Name}  % Leave empty to omit
+\newcommand{\metaPartners}{}                                              % "Jane Doe & 123456789\\John Doe & 123456789..."
+\newcommand{\metaUniversity}{e.g., York University}
+\newcommand{\metaFaculty}{e.g., Lassonde School of Engineering}
+\newcommand{\metaDepartment}{e.g., Earth \& Space Science \& Engineering} % Empty to remove
 \newcommand{\metaCourseCode}{Course Code}
 \newcommand{\metaCourseName}{Course Name}
 \newcommand{\metaInstructor}{Dr. Professor}
 \newcommand{\metaDate}{Due date}
-\newcommand{\metaLogoPath}{assets/placeholder_logo.png} % Leave empty to omit
- 
-% TITLE PAGE
-\newcommand{\metaTitlePage}{standard}          % standard, abstract, or compact
-\newcommand{\metaTitlePageLogo}{default}       % default or york
- 
-% BIBLIOGRAPHY
-\newcommand{\metaBibFile}{references.bib}
-\newcommand{\metaBibStyle}{ieee}               % ieee or apa
-\newcommand{\metaShowBackref}{true}            % true or false
-\newcommand{\metaShowUnusedCitations}{false}   % true or false
 
-% FONT
-\newcommand{\metaSerifFont}{}         % Empty = IBM Plex Serif, or any system font name (e.g., Georgia)
-\newcommand{\metaSansFont}{}          % Empty = IBM Plex Sans, or any system font name (e.g., Arial)
-\newcommand{\metaDefaultFont}{sans}   % sans or serif (selects which font family is used for body text)
- 
-% MISC
-\newcommand{\metaLineSpacing}{onehalf}         % single, onehalf, or double
-\newcommand{\metaShowTodo}{true}               % true or false
-\newcommand{\metaWatermarkText}{}              % Leave empty for no watermark
-\newcommand{\metaWatermarkScale}{1}            % Scale of watermark text
- 
-% COLOURS (hex code e.g. #003366, colour name e.g. red, or leave empty for default)
-\newcommand{\metaThemeColour}{}   % Headings, rules, boxes — defaults to DefaultBlue
-\newcommand{\metaLinkColour}{}    % Internal links — leave empty to use theme colour
-\newcommand{\metaCiteColour}{}    % Citations — leave empty to use theme colour
-\newcommand{\metaUrlColour}{}     % URLs — leave empty to use theme colour
- 
-% NUMBERING BY SECTION
-\newcommand{\metaNumberEquations}{false}    % true or false
-\newcommand{\metaNumberFigures}{false}      % true or false
-\newcommand{\metaNumberTables}{false}       % true or false
-\newcommand{\metaNumberTheorems}{false}     % true or false
-\newcommand{\metaNumberProblems}{false}     % true or false
-\newcommand{\metaNumberAlgorithms}{false}   % true or false
-\newcommand{\metaNumberListings}{false}     % true or false
+% TITLE PAGE ----------------------------------------------
+\newcommand{\metaTitlePage}{standard}                   % standard, abstract, or compact
+\newcommand{\metaLogoPath}{assets/placeholder_logo.png} % Empty to remove
+\newcommand{\metaLogoLocation}{default}                 % default or york
 
-% MINTED CODE LISTINGS
-\newcommand{\metaUseMinted}{false} % true or false (Keep false if not using minted; requires -8bit -shell-escape)
+% BIBLIOGRAPHY --------------------------------------------
+\newcommand{\metaBibFile}{references.bib} % Change to reference file name
+\newcommand{\metaBibStyle}{ieee}          % e.g., ieee, apa, etc.
+\newcommand{\metaShowBackref}{true}       % true or false (shows page back-references in bibliography)
+
+% FONT & SPACING ------------------------------------------
+\newcommand{\metaSerifFont}{}          % Empty = IBM Plex Serif, or any system font name (e.g., Georgia)
+\newcommand{\metaSansFont}{}           % Empty = IBM Plex Sans, or any system font name (e.g., Arial)
+\newcommand{\metaDefaultFont}{sans}    % sans or serif (selects which font family is used for body text)
+\newcommand{\metaLineSpacing}{onehalf} % single, onehalf, or double (changes line spacing)
+
+% COLOURS -------------------------------------------------
+% Input custom colour, built-in colour, or hex-code (e.g., #003366)
+\newcommand{\metaThemeColour}{} % Theme colour, controls: headings, rules, boxes
+\newcommand{\metaLinkColour}{}  % Internal links colour, leave empty to use theme colour
+\newcommand{\metaCiteColour}{}  % Citations colour, leave empty to use theme colour
+\newcommand{\metaUrlColour}{}   % URL colour, leave empty to use theme colour
+
+% EQUATIONS, FIGURES, TABLES NUMBERED BY SECTION ----------
+\newcommand{\metaNumberEquations}{false}  % true or false
+\newcommand{\metaNumberFigures}{false}    % true or false
+\newcommand{\metaNumberTables}{false}     % true or false
+\newcommand{\metaNumberTheorems}{false}   % true or false
+\newcommand{\metaNumberProblems}{false}   % true or false
+\newcommand{\metaNumberAlgorithms}{false} % true or false
+\newcommand{\metaNumberListings}{false}   % true or false
+
+% DRAFTING (TRUE FOR FINAL COPY)---------------------------
+\newcommand{\metaFinalDraft}{false}  % true or false, general document quality
+\newcommand{\metaShowFigures}{false} % true or false, true turns on figures
+\newcommand{\metaShowBib}{false}     % true or false, false skips biblatex
+\newcommand{\metaUseMinted}{false}   % true or false (Keep false if not using minted; requires -8bit -shell-escape)
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ABSTRACT (EDIT FOR EACH SUBMISSION)
@@ -139,7 +120,6 @@ All settings are controlled from the top of `main.tex`. The full metadata block 
 | `\metaCourseName` | Full course name, used by the smart header collision logic |
 | `\metaInstructor` | Instructor name |
 | `\metaDate` | Submission or due date |
-| `\metaLogoPath` | Path to logo image. Leave empty to omit |
  
 ### Title Page
  
@@ -148,7 +128,9 @@ All settings are controlled from the top of `main.tex`. The full metadata block 
 | `\metaTitlePage` | `standard` | Full title page with all fields |
 | | `abstract` | Same as standard but includes `\metaAbstract` below the title block |
 | | `compact` | Condensed single-page layout |
-| `\metaTitlePageLogo` | `default`, `york` | Changes the location of the logo from `\metaLogoPath` in the `standard` title page |
+| `\metaLogoPath` | Path to logo image. Leave empty to omit |
+| `\metaLogoLocation` | `default`, `york` | Changes the location of the logo from `\metaLogoPath` in the `standard` title page |
+|---|---|---|
 | `\metaAbstract` | any text | Abstract text used when `\metaTitlePage` is set to `abstract` |
  
 ### Bibliography
@@ -158,24 +140,15 @@ All settings are controlled from the top of `main.tex`. The full metadata block 
 | `\metaBibFile` | filename | Name of your `.bib` reference file |
 | `\metaBibStyle` | `ieee`, `apa` | Citation and bibliography style |
 | `\metaShowBackref` | `true`, `false` | Show page numbers where each entry was cited |
-| `\metaShowUnusedCitations` | `true`, `false` | Show all bib entries regardless of whether they were cited |
 
-### Font
+### Font & Spacing
  
 | Field | Options | Description |
 |---|---|---|
 | `\metaSerifFont` | empty (default serif font), `Georgia`, etc. | Serif font selection |
 | `\metaSansFont` | empty (default sans-serif font), `Arial`, etc. | Sans-serif font selection |
 | `\metaDefaultFont` | `sans`, `serif` | Document body font based on `\metaSerifFont` or `\metaSansFont` |
- 
-### Misc.
- 
-| Field | Options | Description |
-|---|---|---|
 | `\metaLineSpacing` | `single`, `onehalf`, `double` | Line spacing throughout the document |
-| `\metaShowTodo` | `true`, `false` | Show or hide all `\todo{}` notes globally |
-| `\metaWatermarkText` | any text or empty | Diagonal watermark on every page. Leave empty to disable |
-| `\metaWatermarkScale` | number | Scale factor for the watermark. Default is `1` |
  
 ### Colours
  
@@ -204,12 +177,15 @@ When set to `true`, floats and environments are numbered relative to their secti
 | `\metaNumberAlgorithms` | `algorithm` environments |
 | `\metaNumberListings` | `listing` environments (Code) |
 
-### MINTED CODE LISTINGS
+### Drafting
  
-When set to `true`, allows use of `minted` package. When set to `false`, it removes access to `minted` package.
+Set to `true` before a final draft. Only set `minted` to `true` if properly set up.
  
 | Field | Options | Description |
 |---|---|---|
+| `\metaFinalDraft` | `true`, `false` | Optimal settings |
+| `\metaShowFigures` | `true`, `false` | Displays images and problem environments |
+| `\metaShowBib` | `true`, `false` | Shows citations and bibliography |
 | `\metaUseMinted` | `true`, `false` | `minted` package use |
  
 ---
@@ -219,7 +195,7 @@ When set to `true`, allows use of `minted` package. When set to `false`, it remo
 The faculty logo is not included in this repository. Download the official logo from the [York University Brand Assets page](https://www.yorku.ca/brand/assets-downloads/faculty-assets/) and place it in `assets/`. Then update `\metaLogoPath` in the metadata:
  
 ```latex
-\newcommand{\metaLogoPath}{assets/LASS_yu_PRIMARY_hor_RGB.png}
+\newcommand{\metaLogoPath}{assets/placeholder_logo.png}
 ```
  
 Leave it empty to display no logo.
