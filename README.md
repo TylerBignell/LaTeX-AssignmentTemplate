@@ -130,7 +130,6 @@ All settings are controlled from the top of `main.tex`. The full metadata block 
 | | `compact` | Condensed single-page layout |
 | `\metaLogoPath` | Path to logo image. Leave empty to omit |
 | `\metaLogoLocation` | `default`, `york` | Changes the location of the logo from `\metaLogoPath` in the `standard` title page |
-|---|---|---|
 | `\metaAbstract` | any text | Abstract text used when `\metaTitlePage` is set to `abstract` |
  
 ### Bibliography
